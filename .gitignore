@@ -9,3 +9,7 @@ out/
 TestResources/
 _site
 .DS_Store
+
+# Need to ignore vscode folders
+.vs/
+.vscode/
