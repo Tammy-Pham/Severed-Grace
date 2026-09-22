@@ -41,6 +41,8 @@ public abstract class Player extends GameObject {
 
     protected boolean isLocked = false;
 
+    protected int health = 100;
+
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
         facingDirection = Direction.RIGHT;
@@ -199,7 +201,15 @@ public abstract class Player extends GameObject {
                 getBounds().getWidth() + (interactionRange * 2),
                 getBounds().getHeight() + (interactionRange * 2));
     }
-
+    public int getHealth() {
+        return health;
+    }
+    public void takeDamage(int amount){
+        health = health - amount;
+        if (health < 0) {
+            health = 0;
+        }
+    }
     public Key getInteractKey() { return INTERACT_KEY; }
     public Direction getCurrentWalkingXDirection() { return currentWalkingXDirection; }
     public Direction getCurrentWalkingYDirection() { return currentWalkingYDirection; }

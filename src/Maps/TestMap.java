@@ -10,6 +10,8 @@ import Scripts.TestMap.*;
 import Tilesets.CommonTileset;
 
 import java.util.ArrayList;
+import EnhancedMapTiles.DamageTile;
+
 
 // Represents a test map to be used in a level
 public class TestMap extends Map {
@@ -25,6 +27,9 @@ public class TestMap extends Map {
 
         PushableRock pushableRock = new PushableRock(getMapTile(2, 7).getLocation());
         enhancedMapTiles.add(pushableRock);
+
+        DamageTile damageTile = new DamageTile(getMapTile(22,22).getLocation());
+        enhancedMapTiles.add(damageTile);
 
         return enhancedMapTiles;
     }
