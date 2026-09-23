@@ -8,14 +8,13 @@ import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.NPC;
 import Utils.Point;
-
 import java.util.HashMap;
 
 // This class is for the walrus NPC
 public class jeard extends NPC {
 
     public jeard(int id, Point location) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("jeard.png"), 24, 24), "STAND_LEFT");
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("jeard.png"), 124, 80), "STAND_LEFT");
     }
 
     @Override
@@ -23,15 +22,15 @@ public class jeard extends NPC {
         return new HashMap<String, Frame[]>() {{
             put("STAND_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
-                            .withScale(3)
-                            .withBounds(7, 13, 11, 7)
+                            .withScale(1)
+                            //.withBounds(7, 13, 11, 7)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .build()
             });
             put("STAND_RIGHT", new Frame[] {
                    new FrameBuilder(spriteSheet.getSprite(0, 0))
-                           .withScale(3)
-                           .withBounds(7, 13, 11, 7)
+                           .withScale(1)
+                           //.withBounds(7, 13, 11, 7)
                            .build()
            });
         }};
