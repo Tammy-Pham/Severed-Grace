@@ -5,7 +5,6 @@ import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
 import SpriteFont.SpriteFont;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -28,19 +27,19 @@ public class Textbox {
     protected final int fontBottomY = 472;
     protected final int fontTopY = 34;
     protected final int width = 750;
-    protected final int height = 100;
+    protected final int height = 100; 
 
     // options textbox constants
-    protected final int optionX = 680;
+    protected final int optionX = 100;
     protected final int optionBottomY = 350;
     protected final int optionTopY = 130;
-    protected final int optionWidth = 92;
+    protected final int optionWidth = 500;
     protected final int optionHeight = 100;
-    protected final int fontOptionX = 706;
+    protected final int fontOptionX = 150;
     protected final int fontOptionBottomYStart = 365;
     protected final int fontOptionTopYStart = 145;
     protected final int fontOptionSpacing = 35;
-    protected final int optionPointerX = 690;
+    protected final int optionPointerX = 120;
     protected final int optionPointerYBottomStart = 378;
     protected final int optionPointerYTopStart = 158;
 
