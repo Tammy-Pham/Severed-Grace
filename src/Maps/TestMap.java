@@ -1,6 +1,7 @@
 package Maps;
 
-import EnhancedMapTiles.PushableRock;
+import EnhancedMapTiles.BadWeaponPickup;
+import EnhancedMapTiles.GoodWeaponPickup;
 import Level.*;
 import NPCs.Bug;
 import NPCs.Dinosaur;
@@ -8,7 +9,6 @@ import NPCs.Walrus;
 import Scripts.SimpleTextScript;
 import Scripts.TestMap.*;
 import Tilesets.CommonTileset;
-
 import java.util.ArrayList;
 
 // Represents a test map to be used in a level
@@ -23,8 +23,10 @@ public class TestMap extends Map {
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
 
-        PushableRock pushableRock = new PushableRock(getMapTile(2, 7).getLocation());
-        enhancedMapTiles.add(pushableRock);
+        GoodWeaponPickup goodWeaponPickup = new GoodWeaponPickup(getMapTile(2, 7).getLocation());
+        enhancedMapTiles.add(goodWeaponPickup);
+        BadWeaponPickup badWeaponPickup = new BadWeaponPickup(getMapTile(5,10).getLocation());
+        enhancedMapTiles.add(badWeaponPickup);
 
         return enhancedMapTiles;
     }
