@@ -43,48 +43,12 @@ public class HealthBar {
         if (health <= 0) {
             return;
         }
-
-        int frameNumber = 1;
-        if (health <= 5) {
-            frameNumber = 1;
-        } else if (health <= 10) {
-            frameNumber = 2;
-        } else if (health <= 15) {
-            frameNumber = 3;
-        } else if (health <= 20) {
-            frameNumber = 4;
-        } else if (health <= 25) {
-            frameNumber = 5;
-        } else if (health <= 30) {
-            frameNumber = 6;
-        } else if (health <= 35) {
-            frameNumber = 7;
-        } else if (health <= 40) {
-            frameNumber = 8;
-        } else if (health <= 45) {
-            frameNumber = 9;
-        } else if (health <= 50) {
-            frameNumber = 10;
-        } else if (health <= 55) {
-            frameNumber = 11;
-        } else if (health <= 60) {
-            frameNumber = 12;
-        } else if (health <= 65) {
-            frameNumber = 13;
-        } else if (health <= 70) {
-            frameNumber = 14;
-        } else if (health <= 75) {
-            frameNumber = 15;
-        } else if (health <= 80) {
-            frameNumber = 16;
-        } else if (health <= 85) {
-            frameNumber = 17;
-        } else if (health <= 90) {
-            frameNumber = 18;
-        } else if (health <= 95) {
-            frameNumber = 19;
-        } else {
-            frameNumber = 20;
+        int frameNumber = 20;
+        for (int i = 1; i <= 20; i++) {
+            if (health <= i * 5) {
+                frameNumber = i;
+                break;
+            }
         }
 
         BufferedImage frame = frames[frameNumber - 1];
