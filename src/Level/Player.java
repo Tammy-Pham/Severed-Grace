@@ -55,7 +55,7 @@ public abstract class Player extends GameObject {
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
         facingDirection = Direction.RIGHT;
-        playerState = PlayerState.STANDING;
+        playerState = PlayerState.STATIC;
         previousPlayerState = playerState;
         this.affectedByTriggers = true;
     }
@@ -88,10 +88,10 @@ public abstract class Player extends GameObject {
     // based on player's current state, call appropriate player state handling method
     protected void handlePlayerState() {
         switch (playerState) {
-            case STANDING:
+            case STATIC:
                 playerStanding();
                 break;
-            case WALKING:
+            case MOVE:
                 playerWalking();
                 break;
         }
@@ -105,9 +105,14 @@ public abstract class Player extends GameObject {
         }
 
         // if a walk key is pressed, player enters WALKING state
-        if (Keyboard.isKeyDown(MOVE_LEFT_KEY) || Keyboard.isKeyDown(MOVE_RIGHT_KEY) || Keyboard.isKeyDown(MOVE_UP_KEY) || Keyboard.isKeyDown(MOVE_DOWN_KEY)) {
-            playerState = PlayerState.WALKING;
+        if ((Keyboard.isKeyDown(MOVE_LEFT_KEY) != Keyboard.isKeyDown(MOVE_RIGHT_KEY)) || (Keyboard.isKeyDown(MOVE_UP_KEY) != Keyboard.isKeyDown(MOVE_DOWN_KEY))) {
+            playerState = PlayerState.MOVE;
         }
+        /*
+        if (Keyboard.isKeyDown(MOVE_LEFT_KEY) || Keyboard.isKeyDown(MOVE_RIGHT_KEY) || Keyboard.isKeyDown(MOVE_UP_KEY) || Keyboard.isKeyDown(MOVE_DOWN_KEY)) {
+            playerState = PlayerState.MOVE;
+        }
+        */
     }
 
     // player WALKING state logic
@@ -116,17 +121,34 @@ public abstract class Player extends GameObject {
             keyLocker.lockKey(INTERACT_KEY);
             map.entityInteract(this);
         }
+        
+        // if walk up key is pressed *but not down*, move player up
+        if (Keyboard.isKeyDown(MOVE_UP_KEY) && !Keyboard.isKeyDown(MOVE_DOWN_KEY)) {
+            moveAmountY -= walkSpeed;
+            facingDirection = Direction.UP;
+            currentWalkingYDirection = Direction.UP;
+            lastWalkingYDirection = Direction.UP;
+        }
+        // if walk down key is pressed *but not up*, move player down
+        else if (Keyboard.isKeyDown(MOVE_DOWN_KEY) && !Keyboard.isKeyDown(MOVE_UP_KEY)) {
+            moveAmountY += walkSpeed;
+            facingDirection = Direction.DOWN;
+            currentWalkingYDirection = Direction.DOWN;
+            lastWalkingYDirection = Direction.DOWN;
+        }
+        else {
+            currentWalkingYDirection = Direction.NONE;
+        }
 
-        // if walk left key is pressed, move player to the left
-        if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
+        // if walk left key is pressed *but not right*, move player to the left
+        if (Keyboard.isKeyDown(MOVE_LEFT_KEY) && !Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
             moveAmountX -= walkSpeed;
             facingDirection = Direction.LEFT;
             currentWalkingXDirection = Direction.LEFT;
             lastWalkingXDirection = Direction.LEFT;
         }
-
-        // if walk right key is pressed, move player to the right
-        else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
+        // if walk right key is pressed *but not left*, move player to the right
+        else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY) && !Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
             moveAmountX += walkSpeed;
             facingDirection = Direction.RIGHT;
             currentWalkingXDirection = Direction.RIGHT;
@@ -134,20 +156,6 @@ public abstract class Player extends GameObject {
         }
         else {
             currentWalkingXDirection = Direction.NONE;
-        }
-
-        if (Keyboard.isKeyDown(MOVE_UP_KEY)) {
-            moveAmountY -= walkSpeed;
-            currentWalkingYDirection = Direction.UP;
-            lastWalkingYDirection = Direction.UP;
-        }
-        else if (Keyboard.isKeyDown(MOVE_DOWN_KEY)) {
-            moveAmountY += walkSpeed;
-            currentWalkingYDirection = Direction.DOWN;
-            lastWalkingYDirection = Direction.DOWN;
-        }
-        else {
-            currentWalkingYDirection = Direction.NONE;
         }
 
         if ((currentWalkingXDirection == Direction.RIGHT || currentWalkingXDirection == Direction.LEFT) && currentWalkingYDirection == Direction.NONE) {
@@ -158,9 +166,21 @@ public abstract class Player extends GameObject {
             lastWalkingXDirection = Direction.NONE;
         }
 
-        if (Keyboard.isKeyUp(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY) && Keyboard.isKeyUp(MOVE_UP_KEY) && Keyboard.isKeyUp(MOVE_DOWN_KEY)) {
-            playerState = PlayerState.STANDING;
+        if ((Keyboard.isKeyUp(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY) && Keyboard.isKeyUp(MOVE_UP_KEY) && Keyboard.isKeyUp(MOVE_DOWN_KEY))
+        || Keyboard.isKeyDown(MOVE_LEFT_KEY) && Keyboard.isKeyDown(MOVE_RIGHT_KEY) && Keyboard.isKeyDown(MOVE_UP_KEY) && Keyboard.isKeyDown(MOVE_DOWN_KEY)
+        || (Keyboard.isKeyDown(MOVE_LEFT_KEY) && Keyboard.isKeyDown(MOVE_RIGHT_KEY)) && (Keyboard.isKeyDown(MOVE_UP_KEY) == Keyboard.isKeyDown(MOVE_DOWN_KEY))
+        || (Keyboard.isKeyDown(MOVE_LEFT_KEY) == Keyboard.isKeyDown(MOVE_RIGHT_KEY)) && (Keyboard.isKeyDown(MOVE_UP_KEY) && Keyboard.isKeyDown(MOVE_DOWN_KEY))
+        ) {
+            playerState = PlayerState.STATIC;
         }
+
+        // For some reason, doing *this* breaks the game by teleporting the player outside the map
+        // I'd like to implement something like this later when I get a chance to handle the player animation
+        /* 
+        if ((Keyboard.isKeyDown(MOVE_LEFT_KEY) == Keyboard.isKeyDown(MOVE_RIGHT_KEY)) && (Keyboard.isKeyDown(MOVE_UP_KEY) == Keyboard.isKeyDown(MOVE_DOWN_KEY))) {
+            playerState = PlayerState.STATIC;
+        }
+        */
     }
 
     protected void updateLockedKeys() {
@@ -171,13 +191,29 @@ public abstract class Player extends GameObject {
 
     // anything extra the player should do based on interactions can be handled here
     protected void handlePlayerAnimation() {
-        if (playerState == PlayerState.STANDING) {
+        if (playerState == PlayerState.STATIC) {
             // sets animation to a STAND animation based on which way player is facing
-            this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
+            //this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
+            this.currentAnimationName = "STATIC";
         }
-        else if (playerState == PlayerState.WALKING) {
+        else if (playerState == PlayerState.MOVE) {
             // sets animation to a WALK animation based on which way player is facing
-            this.currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT" : "WALK_LEFT";
+            //this.currentAnimationName = facingDirection == Direction.RIGHT ? "MOVE_RIGHT" : "MOVE_LEFT";
+            if (facingDirection == Direction.LEFT) {
+                this.currentAnimationName = "MOVE_LEFT";
+            }
+            else if (facingDirection == Direction.RIGHT) {
+                this.currentAnimationName = "MOVE_RIGHT";
+            }
+            else if (facingDirection == Direction.UP) {
+                this.currentAnimationName = "MOVE_UP";
+            }
+            else if (facingDirection == Direction.DOWN) {
+                this.currentAnimationName = "MOVE_DOWN";
+            }
+            else {
+                this.currentAnimationName = "STATIC";
+            }
         }
     }
 
@@ -220,38 +256,50 @@ public abstract class Player extends GameObject {
     
     public void lock() {
         isLocked = true;
-        playerState = PlayerState.STANDING;
-        this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
+        playerState = PlayerState.STATIC;
+        //this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
+        this.currentAnimationName = "STATIC";
     }
 
     public void unlock() {
         isLocked = false;
-        playerState = PlayerState.STANDING;
-        this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
+        playerState = PlayerState.STATIC;
+        //this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
+        this.currentAnimationName = "STATIC";
     }
 
     // used by other files or scripts to force player to stand
     public void stand(Direction direction) {
-        playerState = PlayerState.STANDING;
+        playerState = PlayerState.STATIC;
         facingDirection = direction;
+        this.currentAnimationName = "STATIC";
+        /* 
         if (direction == Direction.RIGHT) {
             this.currentAnimationName = "STAND_RIGHT";
         }
         else if (direction == Direction.LEFT) {
             this.currentAnimationName = "STAND_LEFT";
         }
+        */
     }
 
     // used by other files or scripts to force player to walk
     public void walk(Direction direction, float speed) {
-        playerState = PlayerState.WALKING;
+        playerState = PlayerState.MOVE;
         facingDirection = direction;
         if (direction == Direction.RIGHT) {
-            this.currentAnimationName = "WALK_RIGHT";
+            this.currentAnimationName = "MOVE_RIGHT";
         }
         else if (direction == Direction.LEFT) {
-            this.currentAnimationName = "WALK_LEFT";
+            this.currentAnimationName = "MOVE_LEFT";
         }
+        else if (direction == Direction.UP) {
+            this.currentAnimationName = "MOVE_UP";
+        }
+        else if (direction == Direction.DOWN) {
+            this.currentAnimationName = "MOVE_DOWN";
+        }
+
         if (direction == Direction.UP) {
             moveY(-speed);
         }

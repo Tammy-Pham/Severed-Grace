@@ -126,6 +126,7 @@ public class AnimatedSprite implements IntersectableRectangle {
 
 	// gets the frame from current animation that the animated sprite class is currently using
 	protected Frame getCurrentFrame() {
+		//System.out.println("Current Animation Name: " + currentAnimationName);
 		return animations.get(currentAnimationName)[currentFrameIndex];
 	}
 
