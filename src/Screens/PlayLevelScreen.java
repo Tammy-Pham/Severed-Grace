@@ -1,5 +1,7 @@
 package Screens;
 
+import java.awt.Color;
+
 import Engine.GraphicsHandler;
 import Engine.Screen;
 import Game.GameState;
@@ -17,6 +19,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
     protected PlayLevelScreenState playLevelScreenState;
     protected WinScreen winScreen;
     protected FlagManager flagManager;
+    protected HealthBar healthBar;
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -41,6 +44,8 @@ public class PlayLevelScreen extends Screen implements GameListener {
         player.setFacingDirection(Direction.LEFT);
 
         map.setPlayer(player);
+
+        healthBar = new HealthBar(10,0, 2);
 
         // let pieces of map know which button to listen for as the "interact" button
         map.getTextbox().setInteractKey(player.getInteractKey());
@@ -82,6 +87,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
         switch (playLevelScreenState) {
             case RUNNING:
                 map.draw(player, graphicsHandler);
+                healthBar.draw(graphicsHandler, player.getHealth());
                 break;
             case LEVEL_COMPLETED:
                 winScreen.draw(graphicsHandler);

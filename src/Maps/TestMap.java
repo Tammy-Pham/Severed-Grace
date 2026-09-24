@@ -1,16 +1,19 @@
 package Maps;
 
 import EnhancedMapTiles.BadWeaponPickup;
+import EnhancedMapTiles.DamageTile;
 import EnhancedMapTiles.GoodWeaponPickup;
 import Level.*;
 import NPCs.Bug;
 import NPCs.Dinosaur;
+import NPCs.Enemy;
 import NPCs.Walrus;
 import NPCs.jeard;
 import Scripts.SimpleTextScript;
 import Scripts.TestMap.*;
 import Tilesets.CommonTileset;
 import java.util.ArrayList;
+
 
 // Represents a test map to be used in a level
 public class TestMap extends Map {
@@ -29,6 +32,9 @@ public class TestMap extends Map {
         BadWeaponPickup badWeaponPickup = new BadWeaponPickup(getMapTile(5,10).getLocation());
         enhancedMapTiles.add(badWeaponPickup);
 
+        DamageTile damageTile = new DamageTile(getMapTile(22,22).getLocation());
+        enhancedMapTiles.add(damageTile);
+
         return enhancedMapTiles;
     }
 
@@ -44,10 +50,15 @@ public class TestMap extends Map {
         dinosaur.setExistenceFlag("hasTalkedToDinosaur");
         dinosaur.setInteractScript(new DinoScript());
         npcs.add(dinosaur);
+
+        Enemy enemy = new Enemy(4, getMapTile(10, 12).getLocation().subtractX(20));
+        enemy.setInteractScript(new BugScript());
+        npcs.add(enemy);
         
         Bug bug = new Bug(3, getMapTile(7, 12).getLocation().subtractX(20));
         bug.setInteractScript(new BugScript());
         npcs.add(bug);
+
 
         jeard jeard = new jeard(4, getMapTile(20, 25).getLocation());
         jeard.setInteractScript(new jeardScript());

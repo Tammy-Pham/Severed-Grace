@@ -21,7 +21,7 @@ public class ImageUtils {
 					g.setComposite(AlphaComposite.getInstance(AlphaComposite.CLEAR));
 				}
 				else {
-					g.setColor(new Color(rgb, false));
+					g.setColor(new Color(rgb, true));
 					g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
 				}
 				g.drawRect(i, j, 1, 1);
