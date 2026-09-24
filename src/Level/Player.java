@@ -1,8 +1,5 @@
 package Level;
 
-import java.awt.Color;
-
-import Engine.GraphicsHandler;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
@@ -40,6 +37,22 @@ public abstract class Player extends GameObject {
     protected Key INTERACT_KEY = Key.SPACE;
 
     protected boolean isLocked = false;
+
+    protected int karma = 0;
+
+    public void addKarma(int amount){
+        karma += amount;
+    }
+
+    public void subtractKarma(int amount){
+        karma -= amount;
+    }
+
+    public int getKarma(){
+        return karma;
+    }
+
+    protected int health = 100;
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
@@ -199,7 +212,15 @@ public abstract class Player extends GameObject {
                 getBounds().getWidth() + (interactionRange * 2),
                 getBounds().getHeight() + (interactionRange * 2));
     }
-
+    public int getHealth() {
+        return health;
+    }
+    public void takeDamage(int amount){
+        health = health - amount;
+        if (health < 0) {
+            health = 0;
+        }
+    }
     public Key getInteractKey() { return INTERACT_KEY; }
     public Direction getCurrentWalkingXDirection() { return currentWalkingXDirection; }
     public Direction getCurrentWalkingYDirection() { return currentWalkingYDirection; }
