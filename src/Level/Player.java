@@ -1,8 +1,5 @@
 package Level;
 
-import java.awt.Color;
-
-import Engine.GraphicsHandler;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
@@ -40,6 +37,20 @@ public abstract class Player extends GameObject {
     protected Key INTERACT_KEY = Key.SPACE;
 
     protected boolean isLocked = false;
+
+    protected int karma = 0;
+
+    public void addKarma(int amount){
+        karma += amount;
+    }
+
+    public void subtractKarma(int amount){
+        karma -= amount;
+    }
+
+    public int getKarma(){
+        return karma;
+    }
 
     protected int health = 100;
 
