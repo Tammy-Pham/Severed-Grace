@@ -4,11 +4,11 @@ import EnhancedMapTiles.PushableRock;
 import Level.*;
 import NPCs.Bug;
 import NPCs.Dinosaur;
+import NPCs.Enemy;
 import NPCs.Walrus;
 import Scripts.SimpleTextScript;
 import Scripts.TestMap.*;
 import Tilesets.CommonTileset;
-
 import java.util.ArrayList;
 
 // Represents a test map to be used in a level
@@ -45,6 +45,10 @@ public class TestMap extends Map {
         Bug bug = new Bug(3, getMapTile(7, 12).getLocation().subtractX(20));
         bug.setInteractScript(new BugScript());
         npcs.add(bug);
+
+        Enemy enemy = new Enemy(4, getMapTile(10, 12).getLocation().subtractX(20));
+        enemy.setInteractScript(new BugScript());
+        npcs.add(enemy);
 
         return npcs;
     }
