@@ -5,9 +5,15 @@ import Engine.GraphicsHandler;
 //import GameObject.ImageEffect;
 //import GameObject.Sprite;
 import Level.Map;
-import Tilesets.CommonTileset;
+//<<<<<<< HEAD
+//import Tilesets.CommonTileset;
 //import Utils.Colors;
 //import Utils.Point;
+//=======
+import Tilesets.FallenTileset;
+import Utils.Colors;
+import Utils.Point;
+//>>>>>>> 50875cad49815e870d8065cccd7030e0344da08e
 
 // Represents the map that is used as a background for the main menu and credits menu screen
 public class TitleScreenMap extends Map {
@@ -15,14 +21,9 @@ public class TitleScreenMap extends Map {
     //private Sprite cat;
 
     public TitleScreenMap() {
-        super("title_screen_map.txt", new CommonTileset());
-        /*
-        Point catLocation = getMapTile(8, 5).getLocation().subtractX(6).subtractY(7);
-        cat = new Sprite(ImageLoader.loadSubImage("Cat.png", Colors.MAGENTA, 0, 0, 24, 24));
-        cat.setScale(3);
-        cat.setImageEffect(ImageEffect.FLIP_HORIZONTAL);
-        cat.setLocation(catLocation.x, catLocation.y);
-        */
+//<<<<<<< HEAD
+        //super("title_screen_map.txt", new CommonTileset());
+        super("title_screen_map.txt", new FallenTileset());
     }
 
     @Override
