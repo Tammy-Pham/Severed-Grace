@@ -7,6 +7,8 @@ import GameObject.GameObject;
 import GameObject.Rectangle;
 import GameObject.SpriteSheet;
 import Utils.Direction;
+import Engine.Mouse;
+import java.awt.event.MouseEvent;
 
 public abstract class Player extends GameObject {
     // values that affect player movement
@@ -37,6 +39,7 @@ public abstract class Player extends GameObject {
     protected Key INTERACT_KEY = Key.SPACE;
 
     protected boolean isLocked = false;
+    protected boolean leftClickLocked = false;
 
     protected int karma = 0;
 
@@ -79,10 +82,13 @@ public abstract class Player extends GameObject {
             lastAmountMovedX = super.moveXHandleCollision(moveAmountX);
         }
 
+        faceMouse();
+        
+        handleMouseAttack();
+
         handlePlayerAnimation();
 
         updateLockedKeys();
-
         // update player's animation
         super.update();
     }
@@ -183,6 +189,50 @@ public abstract class Player extends GameObject {
             playerState = PlayerState.STATIC;
         }
         */
+    }
+    protected void faceMouse() {
+        int mouseX = Mouse.getMouseX();
+        int playerScreenX = Math.round(getCalibratedXLocation());
+
+        if (mouseX > playerScreenX) {
+            facingDirection = Direction.RIGHT;
+        } else if (mouseX < playerScreenX){
+             facingDirection = Direction.LEFT;
+        }
+    }
+    protected int getMouseOffsetX(){
+        int mouseX = Mouse.getMouseX();
+        int playerScreenX = Math.round(getCalibratedXLocation());
+        return mouseX - playerScreenX;
+    }
+
+    protected int getMouseOffsetY(){
+        int mouseY = Mouse.getMouseY();
+        int playerScreenY = Math.round(getCalibratedYLocation());
+        return mouseY - playerScreenY;
+    }
+    protected double getAngleToMouse() {
+        int offsetX = Mouse.getMouseX();
+        int offsetY = Mouse.getMouseY();
+        double angleInRadians= Math.atan2(offsetY, offsetX);
+        double angleInDegrees = Math.toDegrees(angleInRadians);
+        return angleInDegrees;
+    }
+    protected void handleMouseAttack(){
+        boolean leftButtonDown = Mouse.isButtonDown(MouseEvent.BUTTON1);
+
+        if (leftButtonDown== true && leftClickLocked == false){
+            leftClickLocked = true;
+            performAttack();
+        }
+        if (leftButtonDown == false) {
+            leftClickLocked = false;
+        }
+    }
+
+    protected void performAttack() {
+        // Implement the attack here
+        System.out.println("Player has performed an attack.");
     }
 
     protected void updateLockedKeys() {
