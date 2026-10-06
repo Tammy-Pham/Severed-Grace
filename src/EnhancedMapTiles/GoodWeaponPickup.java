@@ -21,7 +21,9 @@ public class GoodWeaponPickup extends EnhancedMapTile {
         super.update(player);
        if(player.intersects (this)){
         player.addKarma(5);
+        //the code line below deals with removing the weapon
        this.setMapEntityStatus(MapEntityStatus.REMOVED);
+       
        }
 
     }

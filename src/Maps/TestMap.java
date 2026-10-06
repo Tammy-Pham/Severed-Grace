@@ -3,6 +3,8 @@ package Maps;
 import EnhancedMapTiles.BadWeaponPickup;
 import EnhancedMapTiles.DamageTile;
 import EnhancedMapTiles.GoodWeaponPickup;
+import EnhancedMapTiles.RNGWeaponDrop;
+import EnhancedMapTiles.bossSpawntile;
 import Level.*;
 import NPCs.Bug;
 import NPCs.Dinosaur;
@@ -32,8 +34,14 @@ public class TestMap extends Map {
         BadWeaponPickup badWeaponPickup = new BadWeaponPickup(getMapTile(5,10).getLocation());
         enhancedMapTiles.add(badWeaponPickup);
 
-        DamageTile damageTile = new DamageTile(getMapTile(22,22).getLocation());
+        DamageTile damageTile = new DamageTile(getMapTile(6,7).getLocation());
         enhancedMapTiles.add(damageTile);
+
+        RNGWeaponDrop rngWeaponTile = new RNGWeaponDrop(getMapTile(5, 8).getLocation());
+        enhancedMapTiles.add(rngWeaponTile);
+
+        bossSpawntile bossSpawnTile = new bossSpawntile(getMapTile(3, 6).getLocation());
+        enhancedMapTiles.add(bossSpawnTile);
 
         return enhancedMapTiles;
     }
@@ -65,7 +73,7 @@ public class TestMap extends Map {
         npcs.add(jeard);
 
         return npcs;
-    }
+    } 
 
     @Override
     public ArrayList<Trigger> loadTriggers() {
