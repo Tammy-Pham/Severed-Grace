@@ -35,7 +35,7 @@ public class GoodWeaponPickup extends EnhancedMapTile {
                 .withScale(3)
                 .build();
         GameObject obj = new GameObject(x, y, frame);
-        obj.setScale(1f);  
+        obj.setScale(1.5f);  
 
     return obj;
     }
