@@ -15,7 +15,7 @@ public class DamageTile extends EnhancedMapTile {
     private boolean hasTakenDamage = false;
 
     public DamageTile(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("DamageTile.png"), 16, 16), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("DamageTile.png"), 16, 16,0), TileType.PASSABLE);
     }
 
     @Override

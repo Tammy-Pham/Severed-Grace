@@ -16,7 +16,7 @@ public class RNGWeaponDrop extends EnhancedMapTile{
     private boolean hasDropped = false;
     private final Random random = new Random();
     public RNGWeaponDrop(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("RNGWeaponDropTile.png"), 16, 16), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("RNGWeaponDropTile.png"), 16, 16,0), TileType.PASSABLE);
 
     }
 

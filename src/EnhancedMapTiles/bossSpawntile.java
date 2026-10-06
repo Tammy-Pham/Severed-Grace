@@ -11,8 +11,6 @@ import Level.NPC;
 import Level.Player;
 import Level.TileType;
 import NPCs.Boss;
-import NPCs.Bug;
-import NPCs.Dinosaur;
 import NPCs.jeard;
 import Utils.Point;
 import java.util.ArrayList;
@@ -22,7 +20,7 @@ public class bossSpawntile extends EnhancedMapTile {
     private boolean bossSpawned = false;
     public bossSpawntile(Point location){
         //need to make another temp pixel art as the boss
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("BossSpawnTile.png"), 16, 16), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("BossSpawnTile.png"), 16, 16,0), TileType.PASSABLE);
     }
 
     @Override 
@@ -36,7 +34,7 @@ public class bossSpawntile extends EnhancedMapTile {
                 //once all eliminated you spawn the boss
                     //eliminate enemies
             for(NPC npc: map.getNPCs()){
-                if (!(npc instanceof Boss) && !(npc instanceof Bug) && !(npc instanceof Dinosaur) && !(npc instanceof jeard)) {
+                if (!(npc instanceof Boss) && !(npc instanceof jeard)) {
                     enemies.add(npc);
                 }
             }
