@@ -61,7 +61,7 @@ It is also a good idea to set the `playerStartLocation` in the map subclass's co
 
 ```java
 public TestMap() {
-    super("test_map.txt", new CommonTileset());
+    super("test_map.txt", new FallenTileset());
     this.playerStartPosition = getMapTile(17, 20).getLocation();
 }
 ```

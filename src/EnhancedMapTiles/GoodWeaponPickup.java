@@ -13,7 +13,7 @@ import Utils.Point;
 
 public class GoodWeaponPickup extends EnhancedMapTile {
     public GoodWeaponPickup(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Sword.png"), 64, 64), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Sword.png"), 64, 64,0), TileType.PASSABLE);
     }
 
     @Override
@@ -21,6 +21,9 @@ public class GoodWeaponPickup extends EnhancedMapTile {
         super.update(player);
        if(player.intersects (this)){
         player.addKarma(5);
+        if(player instanceof Players.FallenAngel){
+            ((Players.FallenAngel) player).equipSword();
+        }
        this.setMapEntityStatus(MapEntityStatus.REMOVED);
        }
 

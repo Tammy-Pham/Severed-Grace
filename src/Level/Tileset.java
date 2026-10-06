@@ -4,7 +4,6 @@ import Builders.FrameBuilder;
 import Builders.MapTileBuilder;
 import GameObject.SpriteSheet;
 import Utils.ImageUtils;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -13,18 +12,18 @@ import java.util.HashMap;
 // This class represents a tileset, which defines a set of tiles based on a sprite sheet image
 public abstract class Tileset extends SpriteSheet {
     // global scale of all tiles in the tileset
-    protected float tileScale = 1f;
+    protected float tileScale = 3f;
 
     // stores tiles mapped to an index
     protected HashMap<Integer, MapTileBuilder> tiles;
 
-    public Tileset(BufferedImage image, int tileWidth, int tileHeight) {
-        super(image, tileWidth, tileHeight);
+    public Tileset(BufferedImage image, int tileWidth, int tileHeight, int spacing) {
+        super(image, tileWidth, tileHeight, spacing);
         this.tiles = mapDefinedTilesToIndex();
     }
 
-    public Tileset(BufferedImage image, int tileWidth, int tileHeight, int tileScale) {
-        super(image, tileWidth, tileHeight);
+    public Tileset(BufferedImage image, int tileWidth, int tileHeight, int tileScale, int spacing) {
+        super(image, tileWidth, tileHeight, spacing);
         this.tileScale = tileScale;
         this.tiles = mapDefinedTilesToIndex();
     }
