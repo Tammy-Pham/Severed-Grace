@@ -82,7 +82,7 @@ Then for now, all that's needed is a constructor to define the map file name, ti
 ```java
 public class MyMap extends Map {
     public MyMap() {
-        super("my_map.txt", new CommonTileset());
+        super("my_map.txt", new FallenTileset());
         this.playerStartPosition = new Point(1, 11);
     }
 }

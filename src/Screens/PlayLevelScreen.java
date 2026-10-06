@@ -8,7 +8,7 @@ import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.*;
 import Maps.TestMap;
-import Players.Cat;
+import Players.FallenAngel;
 import Utils.Direction;
 
 // This class is for when the RPG game is actually being played
@@ -38,7 +38,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
         map.setFlagManager(flagManager);
 
         // setup player
-        player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        player = new FallenAngel(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         player.setMap(map);
         playLevelScreenState = PlayLevelScreenState.RUNNING;
         player.setFacingDirection(Direction.LEFT);

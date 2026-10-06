@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class jeard extends NPC {
 
     public jeard(int id, Point location) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("jeard.png"), 124, 80), "STAND_LEFT");
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("jeard.png"), 124, 80,0), "STAND_LEFT");
     }
 
     @Override
