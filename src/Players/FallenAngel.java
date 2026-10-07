@@ -41,97 +41,97 @@ public class FallenAngel extends Player {
             put("STATIC", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0))
                             .withScale(2)
-                            .withBounds(0, 0, 64, 64)
+                            .withBounds(0, 0, 32, 32)
                             .build()
             });
 
             put("STAND_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0))
                             .withScale(2)
-                            .withBounds(0, 0, 64, 64)
+                            .withBounds(0, 0, 32, 32)
                             .build()
             });
 
             put("STAND_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0))
                             .withScale(2)
-                            .withBounds(0, 0, 64, 64)
+                            .withBounds(0, 0, 32, 32)
                             .build()
             });
 
             put("MOVE_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(1, 0), 14)
                             .withScale(2)
-                            .withBounds(0, 0, 64, 64)
+                            .withBounds(0, 0, 32, 32)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(1, 1), 14)
                             .withScale(2)
-                            .withBounds(0, 0, 64, 64)
+                            .withBounds(0, 0, 32, 32)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(1, 2), 14)
                             .withScale(2)
-                            .withBounds(0, 0, 64, 64)
+                            .withBounds(0, 0, 32, 32)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(1, 3), 14)
                             .withScale(2)
-                            .withBounds(0, 0, 64, 64)
+                            .withBounds(0, 0, 32, 32)
                             .build()
             });
 
             put("MOVE_DOWN", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(2, 0), 14)
                             .withScale(2)
-                            .withBounds(0, 0, 64, 64)
+                            .withBounds(0, 0, 32, 32)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(2, 1), 14)
                             .withScale(2)
-                            .withBounds(0, 0, 64, 64)
+                            .withBounds(0, 0, 32, 32)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(2, 2), 14)
                             .withScale(2)
-                            .withBounds(0, 0, 64, 64)
+                            .withBounds(0, 0, 32, 32)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(2, 3), 14)
                             .withScale(2)
-                            .withBounds(0, 0, 64, 64)
+                            .withBounds(0, 0, 32, 32)
                             .build()
             });
 
             put("MOVE_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(3, 0), 14)
                             .withScale(2)
-                            .withBounds(0, 0, 64, 64)
+                            .withBounds(0, 0, 32, 32)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(3, 1), 14)
                             .withScale(2)
-                            .withBounds(0, 0, 64, 64)
+                            .withBounds(0, 0, 32, 32)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(3, 2), 14)
                             .withScale(2)
-                            .withBounds(0, 0, 64, 64)
+                            .withBounds(0, 0, 32, 32)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(3, 3), 14)
                             .withScale(2)
-                            .withBounds(0, 0, 64, 64)
+                            .withBounds(0, 0, 32, 32)
                             .build()
             });
 
             put("MOVE_UP", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(4, 0), 14)
                             .withScale(2)
-                            .withBounds(0, 0, 64, 64)
+                            .withBounds(0, 0, 32, 32)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(4, 1), 14)
                             .withScale(2)
-                            .withBounds(0, 0, 64, 64)
+                            .withBounds(0, 0, 32, 32)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(4, 2), 14)
                             .withScale(2)
-                            .withBounds(0, 0, 64, 64)
+                            .withBounds(0, 0, 32, 32)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(4, 3), 14)
                             .withScale(2)
-                            .withBounds(0, 0, 64, 64)
+                            .withBounds(0, 0, 32, 32)
                             .build()
             });
 

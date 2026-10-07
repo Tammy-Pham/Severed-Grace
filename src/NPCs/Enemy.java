@@ -66,7 +66,7 @@ public class Enemy extends NPC {
             put("DEFAULT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0))
                     .withScale(2)
-                    .withBounds(3, 5, 58, 55)
+                    .withBounds(3, 5, 32, 32)
                     .build()
             });
         }};

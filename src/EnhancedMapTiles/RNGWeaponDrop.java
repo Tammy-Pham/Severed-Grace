@@ -16,7 +16,7 @@ public class RNGWeaponDrop extends EnhancedMapTile{
     private boolean hasDropped = false;
     private final Random random = new Random();
     public RNGWeaponDrop(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("RNGWeaponDropTile.png"), 16, 16,0), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Closed_Chest.png"), 64, 64,0), TileType.PASSABLE);
 
     }
 
@@ -42,7 +42,8 @@ public class RNGWeaponDrop extends EnhancedMapTile{
     @Override 
   protected GameObject loadBottomLayer(SpriteSheet spriteSheet) {
         Frame frame = new FrameBuilder(spriteSheet.getSubImage(0, 0))
-            .withScale(3)
+            .withScale(2)
+            .withBounds(16,16,32,32)
             .build();
     return new GameObject(x, y, frame);
     }

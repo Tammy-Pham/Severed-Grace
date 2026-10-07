@@ -35,6 +35,7 @@ public class GoodWeaponPickup extends EnhancedMapTile {
     protected GameObject loadBottomLayer(SpriteSheet spriteSheet) {
         Frame frame = new FrameBuilder(spriteSheet.getSubImage(0, 0))
                 .withScale(3)
+                .withBounds(16,16,16,16)
                 .build();
         GameObject obj = new GameObject(x, y, frame);
         obj.setScale(1.5f);  
