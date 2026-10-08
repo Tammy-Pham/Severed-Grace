@@ -16,7 +16,7 @@ import Projectiles.Fireball;
 
 // This class is for the walrus NPC
 public class RangedEnemy extends NPC {
-    private long attackDelay = 2000; // 2 seconds
+    private long attackDelay = 2400; // Wait time between sending fireballs
     private long lastAttackTime = 0; // timestamp of the last attack
 
     private long fireballMoveDelay = 100; // 0.1 seconds
@@ -63,19 +63,29 @@ public class RangedEnemy extends NPC {
         float deltaY = player.getY() - this.y;
         float angle = (float) Math.atan2(deltaY, deltaX);
 
-        Fireball f = new Fireball(x, y, angle, 5.0f);
+        Fireball f = new Fireball(this.x - map.getCamera().getX(), this.y - map.getCamera().getY(), angle, 4.0f);
         fireballs.add(f);
     }
       
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
+        Player player = map.getPlayer();
+
         super.draw(graphicsHandler);
+
+        // Fireball drawing and collision detection
         for (int i = 0; i < fireballs.size(); i++) {
             fireballs.get(i).draw(graphicsHandler);
             
             // Remove fireball if it goes off-screen
             if (fireballs.get(i).getX() < 0 || fireballs.get(i).getX() > Config.GAME_WINDOW_WIDTH ||
                 fireballs.get(i).getY() < 0 || fireballs.get(i).getY() > Config.GAME_WINDOW_HEIGHT) {
+                fireballs.remove(i);
+                i--; // Adjust index after removal
+            }
+            // Remove fireball if it collides with the player (and also take damage)
+            else if (fireballs.get(i).touching(player)) {
+                player.takeDamage(1); // Assuming 1 is the damage amount
                 fireballs.remove(i);
                 i--; // Adjust index after removal
             }
