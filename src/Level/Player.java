@@ -133,14 +133,14 @@ public abstract class Player extends GameObject {
         // if walk up key is pressed *but not down*, move player up
         if (Keyboard.isKeyDown(MOVE_UP_KEY) && !Keyboard.isKeyDown(MOVE_DOWN_KEY)) {
             moveAmountY -= walkSpeed;
-            facingDirection = Direction.UP;
+            //facingDirection = Direction.UP;
             currentWalkingYDirection = Direction.UP;
             lastWalkingYDirection = Direction.UP;
         }
         // if walk down key is pressed *but not up*, move player down
         else if (Keyboard.isKeyDown(MOVE_DOWN_KEY) && !Keyboard.isKeyDown(MOVE_UP_KEY)) {
             moveAmountY += walkSpeed;
-            facingDirection = Direction.DOWN;
+            //facingDirection = Direction.DOWN;
             currentWalkingYDirection = Direction.DOWN;
             lastWalkingYDirection = Direction.DOWN;
         }
@@ -151,14 +151,14 @@ public abstract class Player extends GameObject {
         // if walk left key is pressed *but not right*, move player to the left
         if (Keyboard.isKeyDown(MOVE_LEFT_KEY) && !Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
             moveAmountX -= walkSpeed;
-            facingDirection = Direction.LEFT;
+            //facingDirection = Direction.LEFT;
             currentWalkingXDirection = Direction.LEFT;
             lastWalkingXDirection = Direction.LEFT;
         }
         // if walk right key is pressed *but not left*, move player to the right
         else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY) && !Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
             moveAmountX += walkSpeed;
-            facingDirection = Direction.RIGHT;
+            //facingDirection = Direction.RIGHT;
             currentWalkingXDirection = Direction.RIGHT;
             lastWalkingXDirection = Direction.RIGHT;
         }
@@ -191,21 +191,33 @@ public abstract class Player extends GameObject {
         */
     }
     protected void faceMouse() {
-        int mouseX = Mouse.getMouseX();
-        int playerScreenX = Math.round(getCalibratedXLocation());
+        int offsetX = getMouseOffsetX();
+        int offsetY = getMouseOffsetY();
 
-        if (mouseX > playerScreenX) {
-            facingDirection = Direction.RIGHT;
-        } else if (mouseX < playerScreenX){
-             facingDirection = Direction.LEFT;
-        }
-    }
+        int absOffsetX = Math.abs(offsetX);
+        int absOffsetY = Math.abs(offsetY);
+
+        if (absOffsetX > absOffsetY) {
+            if (offsetX > 0) {
+                facingDirection = Direction.RIGHT;
+            } else {
+                facingDirection = Direction.LEFT;
+            }
+        } else {
+            if (offsetY > 0) {
+                facingDirection = Direction.DOWN;
+            } else {
+                facingDirection = Direction.UP;
+            }
+         }
+     }
+    
+
     protected int getMouseOffsetX(){
-        int mouseX = Mouse.getMouseX();
-        int playerScreenX = Math.round(getCalibratedXLocation());
-        return mouseX - playerScreenX;
+    int mouseX = Mouse.getMouseX();
+    int playerScreenX = Math.round(getCalibratedXLocation());
+    return mouseX - playerScreenX;
     }
-
     protected int getMouseOffsetY(){
         int mouseY = Mouse.getMouseY();
         int playerScreenY = Math.round(getCalibratedYLocation());
@@ -242,16 +254,21 @@ public abstract class Player extends GameObject {
     }
 
     // anything extra the player should do based on interactions can be handled here
+ 
     protected void handlePlayerAnimation() {
         if (playerState == PlayerState.STATIC) {
-            // sets animation to a STAND animation based on which way player is facing
-            //this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
+            if (facingDirection == Direction.RIGHT) {
+                this.currentAnimationName = "STAND_RIGHT";
+            }
+            else if (facingDirection == Direction.LEFT) {
+                this.currentAnimationName = "STAND_LEFT";
+            }
+            else {
             this.currentAnimationName = "STATIC";
+            }
         }
         else if (playerState == PlayerState.MOVE) {
-            // sets animation to a WALK animation based on which way player is facing
-            //this.currentAnimationName = facingDirection == Direction.RIGHT ? "MOVE_RIGHT" : "MOVE_LEFT";
-            if (facingDirection == Direction.LEFT) {
+             if (facingDirection == Direction.LEFT) {
                 this.currentAnimationName = "MOVE_LEFT";
             }
             else if (facingDirection == Direction.RIGHT) {
@@ -268,6 +285,7 @@ public abstract class Player extends GameObject {
             }
         }
     }
+
 
     @Override
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction, GameObject entityCollidedWith) { }

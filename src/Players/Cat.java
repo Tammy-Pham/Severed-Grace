@@ -20,6 +20,16 @@ public class Cat extends Player {
     }
 
     public void update() {
+        faceMouse();
+
+        if (facingDirection == Direction.RIGHT) {
+                currentAnimationName = "STAND_RIGHT";
+    }   else if (facingDirection == Direction.LEFT) {
+        currentAnimationName = "STAND_LEFT";
+    }
+
+    super.update();
+}
         super.update();
     }
 

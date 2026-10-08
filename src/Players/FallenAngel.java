@@ -4,6 +4,7 @@ import Builders.FrameBuilder;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
+import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Player;
 import java.util.HashMap;
@@ -26,7 +27,7 @@ public class FallenAngel extends Player {
         super(new SpriteSheet(ImageLoader.load("FallenAngel_Default.png"), 64, 64,0), x, y, "STATIC");
         walkSpeed = 2.3f;
     }
-
+    @Override 
     public void update() {
         super.update();
     }
@@ -48,6 +49,7 @@ public class FallenAngel extends Player {
             put("STAND_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0))
                             .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(0, 0, 32, 32)
                             .build()
             });

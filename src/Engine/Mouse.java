@@ -28,8 +28,8 @@ public class Mouse {
         
         public void mouseReleased(MouseEvent e) {
             int button = e.getButton();
-            buttonUp.put(button, false);
-            buttonDown.put(button, true);
+            buttonUp.put(button, true);
+            buttonDown.put(button, false);
         }
 
         
