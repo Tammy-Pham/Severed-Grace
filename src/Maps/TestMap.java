@@ -7,6 +7,7 @@ import EnhancedMapTiles.RNGWeaponDrop;
 import EnhancedMapTiles.bossSpawntile;
 import Level.*;
 import NPCs.Enemy;
+import NPCs.RangedEnemy;
 import NPCs.jeard;
 import Scripts.TestMap.*;
 import Tilesets.FallenTileset;
@@ -53,6 +54,10 @@ public class TestMap extends Map {
         jeard jeard = new jeard(4, getMapTile(9, 9).getLocation());
         jeard.setInteractScript(new jeardScript());
         npcs.add(jeard);
+
+        RangedEnemy turret = new RangedEnemy(4, getMapTile(10, 10).getLocation());
+        turret.setInteractScript(new RangedEnemyScript());
+        npcs.add(turret);
 
         return npcs;
     } 
