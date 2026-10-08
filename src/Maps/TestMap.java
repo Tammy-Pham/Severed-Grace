@@ -55,7 +55,7 @@ public class TestMap extends Map {
         jeard.setInteractScript(new jeardScript());
         npcs.add(jeard);
 
-        RangedEnemy turret = new RangedEnemy(4, getMapTile(10, 10).getLocation());
+        RangedEnemy turret = new RangedEnemy(5, getMapTile(7, 7).getLocation());
         turret.setInteractScript(new RangedEnemyScript());
         npcs.add(turret);
 

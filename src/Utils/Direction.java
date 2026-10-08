@@ -14,6 +14,4 @@ public enum Direction {
 	public int getVelocity() {
 		return velocity;
 	}
-
-
 }
