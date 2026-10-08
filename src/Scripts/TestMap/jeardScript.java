@@ -15,7 +15,7 @@ public class jeardScript extends Script {
 
         scriptActions.add(new TextboxScriptAction() {{
                         addText("Hello you see new, what bring you here?", new String[] { 
-                            "I was kicked out \n of heaven","that is \n non of your concern"});
+                            "I was kicked out \n of heaven","That is \n none of your concern"});
         }});       
 
         scriptActions.add(new ConditionalScriptAction() {{
@@ -29,7 +29,7 @@ public class jeardScript extends Script {
                 });
 
                 addScriptAction(new TextboxScriptAction() {{
-                    addText("out of heaven you say, you seem to be an \n interesting one, so ill help you out.");
+                    addText("Out of heaven you say, you seem to be an \n interesting one, so I'll help you out.");
                 }});
             }});
 
@@ -43,7 +43,7 @@ public class jeardScript extends Script {
                 });
 
                 addScriptAction(new TextboxScriptAction() {{
-                    addText("well aren't you rude,\n but everyone has their own secrets.");
+                    addText("Well... aren't you rude,\n but everyone has their own secrets.");
                 }});
             }});
         }});
