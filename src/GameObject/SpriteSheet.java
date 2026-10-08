@@ -10,25 +10,29 @@ public class SpriteSheet {
 	protected int spriteHeight;
 	protected int rowLength;
 	protected int columnLength;
+	protected int spacing;
 
-	public SpriteSheet(BufferedImage image, int spriteWidth, int spriteHeight) {
-		this.image = image;
-		this.spriteWidth = spriteWidth;
-		this.spriteHeight = spriteHeight;
-		this.rowLength = image.getHeight() / spriteHeight;
-		this.columnLength = image.getWidth() / spriteWidth;
-	}
+	public SpriteSheet(BufferedImage image, int spriteWidth, int spriteHeight, int spacing) {
+    this.image = image;
+    this.spriteWidth = spriteWidth;
+    this.spriteHeight = spriteHeight;
+    this.spacing = spacing;
+    this.rowLength = (image.getHeight() + spacing) / (spriteHeight + spacing);
+    this.columnLength = (image.getWidth() + spacing) / (spriteWidth + spacing);
+}
+
+public BufferedImage getSubImage(int row, int column) {
+    return image.getSubimage(
+        column * (spriteWidth + spacing),
+        row * (spriteHeight + spacing),
+        spriteWidth, spriteHeight);
+}
 
 	// returns a subimage from the sprite sheet image based on the row and column
 	public BufferedImage getSprite(int spriteNumber, int animationNumber) {
 		return image.getSubimage((animationNumber * spriteWidth) + animationNumber, (spriteNumber * spriteHeight) + spriteNumber, spriteWidth, spriteHeight);
 	}
 
-	// returns a subimage from the sprite sheet image based on the row and column
-	// this does the same as "getSprite", I added two methods that do the same thing for some reason
-	public BufferedImage getSubImage(int row, int column) {
-		return image.getSubimage((column * spriteWidth) + column, (row * spriteHeight) + row, spriteWidth, spriteHeight);
-	}
 
 	public BufferedImage getImage() {
 		return image;

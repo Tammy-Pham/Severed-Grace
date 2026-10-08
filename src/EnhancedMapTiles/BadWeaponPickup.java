@@ -13,7 +13,7 @@ import Utils.Point;
 
 public class BadWeaponPickup extends EnhancedMapTile {
     public BadWeaponPickup(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Battle_Axe.png"), 64, 64), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Battle_Axe.png"), 64, 64,0), TileType.PASSABLE);
     }
 
     @Override
@@ -30,8 +30,12 @@ public class BadWeaponPickup extends EnhancedMapTile {
     protected GameObject loadBottomLayer(SpriteSheet spriteSheet) {
         Frame frame = new FrameBuilder(spriteSheet.getSubImage(0, 0))
                 .withScale(3)
+                .withBounds(16,16,16,16)
                 .build();
-        return new GameObject(x, y, frame);
+        GameObject obj = new GameObject(x, y, frame);
+        obj.setScale(1.5f);  
+
+    return obj;
     }
 }
  
