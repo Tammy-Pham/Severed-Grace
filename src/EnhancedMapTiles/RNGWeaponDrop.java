@@ -25,6 +25,7 @@ public class RNGWeaponDrop extends EnhancedMapTile{
     public void update(Player player){
         super.update(player);
             //where the player is dealing with update
+            //instead of player intersecting the treasure chest, should have where you
         if(!hasDropped && player.intersects(this)){
             hasDropped = true;
             String chosen = WeaponNames[random.nextInt(WeaponNames.length)];

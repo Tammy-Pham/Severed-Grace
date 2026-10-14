@@ -14,7 +14,7 @@ public class jeardScript extends Script {
         scriptActions.add(new NPCFacePlayerScriptAction());
 
         scriptActions.add(new TextboxScriptAction() {{
-                        addText("Hello you see new, what bring you here?", new String[] { 
+                        addText("Hello you seem new, what bring you here?", new String[] { 
                             "I was kicked out \n of heaven","That is \n none of your concern"});
         }});       
 
