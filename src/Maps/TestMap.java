@@ -60,7 +60,7 @@ public class TestMap extends Map {
         turret.setInteractScript(new RangedEnemyScript());
         npcs.add(turret);
 
-        ArrayList<NPC> spawnedNPCs = EnemySpawner.spawnEnemies();
+        ArrayList<NPC> spawnedNPCs = EnemySpawner.spawnEnemies(3, 2);
         npcs.addAll(spawnedNPCs);
 
         return npcs;
