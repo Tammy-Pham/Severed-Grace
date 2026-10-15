@@ -10,6 +10,7 @@ import NPCs.Enemy;
 import NPCs.RangedEnemy;
 import NPCs.jeard;
 import Scripts.TestMap.*;
+import Scripts.EnemySpawner;
 import Tilesets.FallenTileset;
 import java.util.ArrayList;
 
@@ -58,6 +59,9 @@ public class TestMap extends Map {
         RangedEnemy turret = new RangedEnemy(5, getMapTile(7, 7).getLocation());
         turret.setInteractScript(new RangedEnemyScript());
         npcs.add(turret);
+
+        ArrayList<NPC> spawnedNPCs = EnemySpawner.spawnEnemies();
+        npcs.addAll(spawnedNPCs);
 
         return npcs;
     } 
