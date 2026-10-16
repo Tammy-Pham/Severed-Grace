@@ -48,7 +48,7 @@ public class TestMap extends Map {
         ArrayList<NPC> npcs = new ArrayList<>();
 
         Enemy enemy = new Enemy(4, getMapTile(9, 9).getLocation().subtractX(20));
-        enemy.setInteractScript(new BugScript());
+       // enemy.setInteractScript(new BugScript());
         npcs.add(enemy);
 
         jeard jeard = new jeard(4, getMapTile(9, 9).getLocation());
@@ -56,7 +56,7 @@ public class TestMap extends Map {
         npcs.add(jeard);
 
         RangedEnemy turret = new RangedEnemy(5, getMapTile(7, 7).getLocation());
-        turret.setInteractScript(new RangedEnemyScript());
+      //  turret.setInteractScript(new RangedEnemyScript());
         npcs.add(turret);
 
         return npcs;
