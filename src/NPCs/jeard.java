@@ -18,6 +18,11 @@ public class jeard extends NPC {
     }
 
     @Override
+    public void takeDamage(int amount) {
+    // intentionally empty -- jeard cannot be damaged
+    }
+
+    @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
             put("STAND_LEFT", new Frame[] {

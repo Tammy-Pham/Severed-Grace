@@ -1,9 +1,10 @@
 package Maps;
 
 import EnhancedMapTiles.BadWeaponPickup;
-import EnhancedMapTiles.DamageTile;
+import Engine.ScreenManager;
 import EnhancedMapTiles.GoodWeaponPickup;
-import EnhancedMapTiles.bossSpawntile;
+import Utils.Point;
+import NPCs.Boss;
 import Level.*;
 import NPCs.Enemy;
 import NPCs.RangedEnemy;
@@ -17,9 +18,38 @@ import java.util.ArrayList;
 // Represents a test map to be used in a level
 public class TestMap extends Map {
 
+    private boolean bossHasSpawned = false;
+
     public TestMap() {
         super("test_map.txt", new FallenTileset());
         this.playerStartPosition = getMapTile(10, 10).getLocation();
+    }
+    
+    @Override
+    public void update(Player player) {
+    super.update(player);
+
+    // once every hostile enemy has been cleared off the map, spawn the boss
+    if (!bossHasSpawned && allEnemiesDefeated()) {
+        bossHasSpawned = true;
+        Boss boss = new Boss(5, new Point(0, 0));
+
+        int screenCenterX = Math.round(getCamera().getX()) + (ScreenManager.getScreenWidth() / 2);
+        int screenCenterY = Math.round(getCamera().getY()) + (ScreenManager.getScreenHeight() / 2);
+
+        boss.setX(screenCenterX - (boss.getWidth() / 2));
+        boss.setY(screenCenterY - (boss.getHeight() / 2));
+
+        addNPC(boss);
+    }
+    }
+    private boolean allEnemiesDefeated() {
+    for (NPC npc : getNPCs()) {
+        if (!(npc instanceof jeard)) {
+            return false;
+        }
+    }
+    return true;
     }
 
     @Override
@@ -31,11 +61,11 @@ public class TestMap extends Map {
         BadWeaponPickup badWeaponPickup = new BadWeaponPickup(getMapTile(3,6).getLocation());
         enhancedMapTiles.add(badWeaponPickup);
 
-        DamageTile damageTile = new DamageTile(getMapTile(6,7).getLocation());
-        enhancedMapTiles.add(damageTile);
+        //DamageTile damageTile = new DamageTile(getMapTile(6,7).getLocation());
+        //enhancedMapTiles.add(damageTile);
 
-        bossSpawntile bossSpawnTile = new bossSpawntile(getMapTile(1, 1).getLocation());
-        enhancedMapTiles.add(bossSpawnTile);
+        //bossSpawntile bossSpawnTile = new bossSpawntile(getMapTile(1, 1).getLocation());
+        //enhancedMapTiles.add(bossSpawnTile);
 
         return enhancedMapTiles;
     }
