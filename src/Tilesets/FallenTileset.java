@@ -83,6 +83,15 @@ public class FallenTileset extends Tileset {
         MapTileBuilder floorOneRockTile = new MapTileBuilder(floorOneRockFrame).withTileType(TileType.PASSABLE);
 
         mapTiles.add(floorOneRockTile);
+
+        // DORE
+        Frame DoreFrame = new FrameBuilder(getSubImage(7,0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder DoreTile = new MapTileBuilder(DoreFrame).withTileType(TileType.PASSABLE);
+
+        mapTiles.add(DoreTile);
         return mapTiles;
     }
 }

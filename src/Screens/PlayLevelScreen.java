@@ -60,12 +60,14 @@ public class PlayLevelScreen extends Screen implements GameListener {
 
         winScreen = new WinScreen(this);
     }
-
     public void update() {
         // based on screen state, perform specific actions
         switch (playLevelScreenState) {
             // if level is "running" update player and map to keep game logic for the platformer level going
             case RUNNING:
+                if (LevelSwitch.isRequested()) {
+                    changeMap(LevelSwitch.consume());
+                }
                 player.update();
                 map.update(player);
                 break;
@@ -111,4 +113,17 @@ public class PlayLevelScreen extends Screen implements GameListener {
     private enum PlayLevelScreenState {
         RUNNING, LEVEL_COMPLETED
     }
+
+    private void changeMap(Map newMap) {
+    map = newMap;
+    map.setFlagManager(flagManager);
+
+    player.setMap(map);
+    player.setLocation(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+    map.setPlayer(player);
+
+    map.getTextbox().setInteractKey(player.getInteractKey());
+    map.addListener(this);
+    map.preloadScripts();
+}
 }

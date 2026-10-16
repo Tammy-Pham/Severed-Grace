@@ -9,8 +9,8 @@ import Level.*;
 import NPCs.Enemy;
 import NPCs.RangedEnemy;
 import NPCs.jeard;
-import Scripts.TestMap.*;
 import Scripts.EnemySpawner;
+import Scripts.TestMap.*;
 import Tilesets.FallenTileset;
 import java.util.ArrayList;
 
@@ -66,11 +66,25 @@ public class TestMap extends Map {
         return npcs;
     } 
 
-    @Override
-    public ArrayList<Trigger> loadTriggers() {
-        ArrayList<Trigger> triggers = new ArrayList<>();
-        return triggers;
+  private static final int DOOR_TILE_INDEX = 7; // change to your door tile's index
+
+@Override
+public ArrayList<Trigger> loadTriggers() {
+    ArrayList<Trigger> triggers = new ArrayList<>();
+
+    for (int y = 0; y < getHeight(); y++) {
+        for (int x = 0; x < getWidth(); x++) {
+            MapTile tile = getMapTile(x, y);
+            if (tile.getTileIndex() == DOOR_TILE_INDEX) {   
+                triggers.add(new Trigger(
+                    tile.getX(), tile.getY(),
+                    tile.getWidth(), tile.getHeight(),
+                    new NextLevelScript()));
+            }
+        }
     }
+    return triggers;
+}
 
     @Override
     public void loadScripts() {
