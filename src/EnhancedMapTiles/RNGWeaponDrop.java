@@ -2,6 +2,7 @@ package EnhancedMapTiles;
 
 import Builders.FrameBuilder;
 import Engine.ImageLoader;
+import Engine.Mouse;
 import GameObject.Frame;
 import GameObject.GameObject;
 import GameObject.SpriteSheet;
@@ -25,7 +26,9 @@ public class RNGWeaponDrop extends EnhancedMapTile{
     public void update(Player player){
         super.update(player);
             //where the player is dealing with update
-        if(!hasDropped && player.intersects(this)){
+            //instead of player intersecting the treasure chest, should have where you are not intersecting the treasure chest, and click on it instead 
+            //to get the treasure chest to open and drop a wepaon
+        if(!hasDropped && Mouse.isButtonDown(1) && player.touching(this)){
             hasDropped = true;
             String chosen = WeaponNames[random.nextInt(WeaponNames.length)];
 
@@ -43,7 +46,7 @@ public class RNGWeaponDrop extends EnhancedMapTile{
   protected GameObject loadBottomLayer(SpriteSheet spriteSheet) {
         Frame frame = new FrameBuilder(spriteSheet.getSubImage(0, 0))
             .withScale(2)
-            .withBounds(0,0,32,32)
+            .withBounds(9,-10,10,11)
             .build();
     return new GameObject(x, y, frame);
     }
