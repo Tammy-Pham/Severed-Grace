@@ -3,7 +3,6 @@ package Maps;
 import EnhancedMapTiles.BadWeaponPickup;
 import EnhancedMapTiles.DamageTile;
 import EnhancedMapTiles.GoodWeaponPickup;
-import EnhancedMapTiles.RNGWeaponDrop;
 import EnhancedMapTiles.bossSpawntile;
 import Level.*;
 import NPCs.Enemy;
@@ -33,9 +32,6 @@ public class TestMap extends Map {
 
         DamageTile damageTile = new DamageTile(getMapTile(6,7).getLocation());
         enhancedMapTiles.add(damageTile);
-
-        RNGWeaponDrop rngWeaponTile = new RNGWeaponDrop(getMapTile(5, 5).getLocation());
-        enhancedMapTiles.add(rngWeaponTile);
 
         bossSpawntile bossSpawnTile = new bossSpawntile(getMapTile(1, 1).getLocation());
         enhancedMapTiles.add(bossSpawnTile);

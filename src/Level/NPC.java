@@ -11,7 +11,8 @@ import java.util.HashMap;
 public class NPC extends MapEntity {
     protected int id = 0;
     protected boolean isLocked = false;
-
+    protected int health = 100;
+    
     public NPC(int id, float x, float y, SpriteSheet spriteSheet, String startingAnimation) {
         super(x, y, spriteSheet, startingAnimation);
         this.id = id;
@@ -38,6 +39,24 @@ public class NPC extends MapEntity {
     }
 
     public int getId() { return id; }
+ 
+    public int getHealth() {
+        return health; 
+    }
+    public void setHealth(int health) {
+        this.health = health;
+    }
+    
+    public void takeDamage(int amount) {
+        health = health - amount;
+        if (health < 0) {
+            health = 0;
+        }
+        if (health == 0) {
+        setMapEntityStatus(MapEntityStatus.REMOVED);
+        }
+    }
+
 
     public void facePlayer(Player player) {
         // if npc's center point is to the right of the player's center point, npc needs to face left

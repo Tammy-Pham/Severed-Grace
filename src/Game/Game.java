@@ -20,4 +20,4 @@ public class Game {
         screenManager.setCurrentScreen(new ScreenCoordinator());  
         gameWindow.startGame();
     }
-}
+} 

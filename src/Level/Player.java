@@ -40,7 +40,11 @@ public abstract class Player extends GameObject {
 
     protected boolean isLocked = false;
     protected boolean leftClickLocked = false;
-
+    
+    protected int attackCooldownCounter = 0;
+    protected static final int cooldownTime = 30;
+    protected int attackDamage = 25;
+    
     protected int karma = 0;
 
     public void addKarma(int amount){
@@ -82,12 +86,14 @@ public abstract class Player extends GameObject {
             lastAmountMovedX = super.moveXHandleCollision(moveAmountX);
         }
 
+    }
+    public void updateFacingAndAnimation() {
         faceMouse();
-        
+ 
         handleMouseAttack();
-
+ 
         handlePlayerAnimation();
-
+ 
         updateLockedKeys();
         // update player's animation
         super.update();
@@ -233,19 +239,36 @@ public abstract class Player extends GameObject {
     protected void handleMouseAttack(){
         boolean leftButtonDown = Mouse.isButtonDown(MouseEvent.BUTTON1);
 
-        if (leftButtonDown== true && leftClickLocked == false){
+        if (leftButtonDown== true && leftClickLocked == false && attackCooldownCounter <= 0) {
             leftClickLocked = true;
             performAttack();
+            attackCooldownCounter = cooldownTime;
         }
         if (leftButtonDown == false) {
             leftClickLocked = false;
         }
+        if (attackCooldownCounter > 0) {
+            attackCooldownCounter--;
+        }
     }
 
     protected void performAttack() {
-        // Implement the attack here
-        System.out.println("Player has performed an attack.");
+        int mouseX = Mouse.getMouseX();
+        int mouseY = Mouse.getMouseY();
+
+    for (NPC npc : map.getActiveNPCs()) {
+        Rectangle npcBounds = npc.getCalibratedBounds();
+
+        boolean mouseInsideNpc = mouseX >= npcBounds.getX1() && mouseX <= npcBounds.getX2()
+                && mouseY >= npcBounds.getY1() && mouseY <= npcBounds.getY2();
+
+        if (mouseInsideNpc == true) {
+            npc.takeDamage(attackDamage);
+            System.out.println("Hit! NPC health is now " + npc.getHealth());
+            break;
+        }
     }
+}
 
     protected void updateLockedKeys() {
         if (Keyboard.isKeyUp(INTERACT_KEY) && !isLocked) {
@@ -325,6 +348,7 @@ public abstract class Player extends GameObject {
             health = 0;
         }
     }
+
     public Key getInteractKey() { return INTERACT_KEY; }
     public Direction getCurrentWalkingXDirection() { return currentWalkingXDirection; }
     public Direction getCurrentWalkingYDirection() { return currentWalkingYDirection; }
