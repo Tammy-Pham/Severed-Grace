@@ -45,6 +45,8 @@ public abstract class Player extends GameObject {
     protected static final int cooldownTime = 30;
     protected int attackDamage = 25;
     
+    protected static final int HIT_RANGE = 130;
+
     protected int karma = 0;
 
     public void addKarma(int amount){
@@ -263,12 +265,30 @@ public abstract class Player extends GameObject {
                 && mouseY >= npcBounds.getY1() && mouseY <= npcBounds.getY2();
 
         if (mouseInsideNpc == true) {
-            npc.takeDamage(attackDamage);
-            System.out.println("Hit! NPC health is now " + npc.getHealth());
+            boolean isCloseEnough = isWithinHitRange(npc);
+            
+            if (isCloseEnough == true) {
+                npc.takeDamage(attackDamage);
+                System.out.println("Hit! NPC health is now " + npc.getHealth());
+            }
             break;
         }
     }
 }
+
+    protected boolean isWithinHitRange(NPC npc) {
+        int distanceX = Math.abs(Math.round(getX()) - Math.round(npc.getX()));
+        int distanceY = Math.abs(Math.round(getY()) - Math.round(npc.getY()));
+        System.out.println("distanceX=" + distanceX + " distanceY=" + distanceY + " HIT_RANGE=" + HIT_RANGE);
+        if (distanceX > HIT_RANGE) {
+            return false;
+        }
+        if (distanceY > HIT_RANGE) {
+            return false;
+        }
+            return true;
+    }
+
 
     protected void updateLockedKeys() {
         if (Keyboard.isKeyUp(INTERACT_KEY) && !isLocked) {
