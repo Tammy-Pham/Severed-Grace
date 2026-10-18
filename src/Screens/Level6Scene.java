@@ -52,9 +52,9 @@ public class Level6Scene extends Screen{
 
     @Override
 	public void initialize() {
-        String imagePath = "Level1Scene.png";
+        String imagePath = "background.png";
         try{
-            titleScreen = ImageIO.read(new File(Config.RESOURCES_PATH + "Level1Scene.png"));
+            titleScreen = ImageIO.read(new File(Config.RESOURCES_PATH + "background.png"));
             npcImage    = ImageIO.read(new File(Config.RESOURCES_PATH + "NPC.png"));
             playerImage = ImageIO.read(new File(Config.RESOURCES_PATH + "player.png"));
         }

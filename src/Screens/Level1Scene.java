@@ -20,6 +20,7 @@ public class Level1Scene extends Screen{
     protected BufferedImage npcImage;
     protected BufferedImage playerImage;
     private SpriteFont dialogue;
+    private TransitionScreen transitionScreen;
 
     private static final int SPRITE_W = 508;
     private static final int SPRITE_H = 448;
@@ -61,9 +62,9 @@ public class Level1Scene extends Screen{
     //this initalize all of the images that are needed and if could not be found will throw an expection
     @Override
 	public void initialize() {
-        String imagePath = "Level1Scene.png";
+        String imagePath = "background.png";
         try{
-            titleScreen = ImageIO.read(new File(Config.RESOURCES_PATH + "Level1Scene.png"));
+            titleScreen = ImageIO.read(new File(Config.RESOURCES_PATH + "background.png"));
             npcImage    = ImageIO.read(new File(Config.RESOURCES_PATH + "NPC.png"));
             playerImage = ImageIO.read(new File(Config.RESOURCES_PATH + "player.png"));
         }
@@ -76,6 +77,7 @@ public class Level1Scene extends Screen{
         stage = 0;
         spaceHeld = true;
         setDialogue(getDialogueForStage(0));
+        transitionScreen = new TransitionScreen(1);
 	}
 
     private int groundY = Config.GAME_WINDOW_HEIGHT - SPRITE_H - 100;
@@ -90,25 +92,35 @@ public class Level1Scene extends Screen{
     //it should go to the next level
 	@Override
 	public void update() {
-        boolean spacePressed = Keyboard.isKeyDown(Key.SPACE);
-        if (spacePressed && !spaceHeld) {
-            stage++;
-            String text = getDialogueForStage(stage);
-            if (text != null) {
-                setDialogue(text);
-            } else {
-                screenCoordinator.setGameState(GameState.LEVEL);
-            }
+        if(!transitionScreen.isComplete()){
+                spaceHeld = true;
+                return;
         }
-        spaceHeld = spacePressed;
+        boolean spacePressed = Keyboard.isKeyDown(Key.SPACE);
+            if (spacePressed && !spaceHeld) {
+                stage++;
+                String text = getDialogueForStage(stage);
+                    if (text != null) {
+                        setDialogue(text);
+                    } else {
+                        screenCoordinator.setGameState(GameState.LEVEL);
+                    }
+            }
+            spaceHeld = spacePressed;
 	}
 
-    //draw the images of everything
-	@Override
-	public void draw(GraphicsHandler graphicsHandler) {
-        graphicsHandler.drawImage(titleScreen, 0, 0, Config.GAME_WINDOW_WIDTH, Config.GAME_WINDOW_HEIGHT);
-        graphicsHandler.drawImage(npcImage, npcX, npcY, SPRITE_W, SPRITE_H);
-        graphicsHandler.drawImage(playerImage, playerX, playerY, SPRITE_W, SPRITE_H);
-        dialogue.draw(graphicsHandler);
-	}
+//draw the images of everything
+@Override
+public void draw(GraphicsHandler graphicsHandler) {
+    // show the black "Level 1" card until it finishes
+    if (!transitionScreen.isComplete()) {
+        transitionScreen.draw(graphicsHandler);
+        return;
+    }
+
+    graphicsHandler.drawImage(titleScreen, 0, 0, Config.GAME_WINDOW_WIDTH, Config.GAME_WINDOW_HEIGHT);
+    graphicsHandler.drawImage(npcImage, npcX, npcY, SPRITE_W, SPRITE_H);
+    graphicsHandler.drawImage(playerImage, playerX, playerY, SPRITE_W, SPRITE_H);
+    dialogue.draw(graphicsHandler);
+}
 }
