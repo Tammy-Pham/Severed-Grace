@@ -60,6 +60,7 @@ public class Level1Scene extends Screen{
     }
     
     //this initalize all of the images that are needed and if could not be found will throw an expection
+
     @Override
 	public void initialize() {
         String imagePath = "background.png";
