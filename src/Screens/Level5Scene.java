@@ -3,17 +3,14 @@ package Screens;
 import Engine.*;
 import Game.GameState;
 import Game.ScreenCoordinator;
-//import Level.Map;
-//import Maps.TitleScreenMap;
 import SpriteFont.SpriteFont;
-
-import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.awt.image.BufferedImage;
-import java.awt.*;
+import javax.imageio.ImageIO;
 
-public class Level1Scene extends Screen{
+public class Level5Scene extends Screen{
     protected ScreenCoordinator screenCoordinator;
     protected BufferedImage titleScreen;
     protected BufferedImage npcImage;
@@ -26,7 +23,7 @@ public class Level1Scene extends Screen{
     private int stage = 0;
     private boolean spaceHeld = true;
 
-    public Level1Scene(ScreenCoordinator screenCoordinator) {
+    public Level5Scene(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
     }
 

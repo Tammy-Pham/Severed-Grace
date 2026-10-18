@@ -9,6 +9,8 @@ import Level.Tileset;
 import java.util.ArrayList;
 
 public class FallenTileset extends Tileset {
+    public static final int OPEN_EXIT_DOOR_TILE_INDEX = 7;
+    public static final int CLOSED_EXIT_DOOR_TILE_INDEX = 8;
 
     public FallenTileset() {
         super(ImageLoader.load("Fallen_Tileset.png"), 64, 64, 0);
@@ -84,14 +86,19 @@ public class FallenTileset extends Tileset {
 
         mapTiles.add(floorOneRockTile);
 
-        // DORE
-        Frame DoreFrame = new FrameBuilder(getSubImage(7,0))
+        // Open exit door
+        Frame openDoorFrame = new FrameBuilder(getSubImage(7,0))
                 .withScale(tileScale)
                 .build();
 
-        MapTileBuilder DoreTile = new MapTileBuilder(DoreFrame).withTileType(TileType.PASSABLE);
+        MapTileBuilder openDoorTile = new MapTileBuilder(openDoorFrame)
+                .withTileType(TileType.PASSABLE);
+        mapTiles.add(openDoorTile);
 
-        mapTiles.add(DoreTile);
+        // Replace this frame with the closed-door art when it is added to the tileset.
+        MapTileBuilder closedDoorTile = new MapTileBuilder(openDoorFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+        mapTiles.add(closedDoorTile);
         return mapTiles;
     }
 }

@@ -1,15 +1,14 @@
 package Maps;
 
 import Level.*;
-import Tilesets.FallenTileset;
 import java.util.ArrayList;
 
 
 // Represents a test map to be used in a level
-public class LevelFourMap extends Map {
+public class LevelFourMap extends LevelMap {
 
     public LevelFourMap() {
-        super("level_four_map.txt", new FallenTileset());
+        super("level_four_map.txt");
         this.playerStartPosition = getMapTile(10, 10).getLocation();
     }
 
@@ -64,4 +63,3 @@ public class LevelFourMap extends Map {
 
     }
 }
-

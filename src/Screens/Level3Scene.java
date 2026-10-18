@@ -1,19 +1,14 @@
 package Screens;
 
-package Screens;
-
 import Engine.*;
 import Game.GameState;
 import Game.ScreenCoordinator;
-//import Level.Map;
-//import Maps.TitleScreenMap;
 import SpriteFont.SpriteFont;
-
-import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.awt.image.BufferedImage;
-import java.awt.*;
+import javax.imageio.ImageIO;
 
 public class Level3Scene extends Screen{
     protected ScreenCoordinator screenCoordinator;

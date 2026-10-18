@@ -1,13 +1,11 @@
 package Screens;
 
-//import java.awt.Color;
-
 import Engine.GraphicsHandler;
 import Engine.Screen;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.*;
-import Maps.TestMap;
+import Maps.*;
 import Players.FallenAngel;
 import Utils.Direction;
 
@@ -20,59 +18,69 @@ public class PlayLevelScreen extends Screen implements GameListener {
     protected WinScreen winScreen;
     protected FlagManager flagManager;
     protected HealthBar healthBar;
+    protected int currentLevel = 0;
+
+    private static final int TOTAL_LEVELS = 7;
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
     }
 
     public void initialize() {
-        // setup state
         flagManager = new FlagManager();
         flagManager.addFlag("hasLostBall", false);
         flagManager.addFlag("hasTalkedToWalrus", false);
         flagManager.addFlag("hasTalkedToDinosaur", false);
         flagManager.addFlag("hasFoundBall", false);
 
-        // define/setup map
-        map = new TestMap();
-        map.setFlagManager(flagManager);
-
-        // setup player
-        player = new FallenAngel(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-        player.setMap(map);
-        playLevelScreenState = PlayLevelScreenState.RUNNING;
-        player.setFacingDirection(Direction.LEFT);
-
-        map.setPlayer(player);
-
-        healthBar = new HealthBar(10,0, 2);
-
-        // let pieces of map know which button to listen for as the "interact" button
-        map.getTextbox().setInteractKey(player.getInteractKey());
-
-        // add this screen as a "game listener" so other areas of the game that don't normally have direct access to it (such as scripts) can "signal" to have it do something
-        // this is used in the "onWin" method -- a script signals to this class that the game has been won by calling its "onWin" method
-        map.addListener(this);
-
-        // preloads all scripts ahead of time rather than loading them dynamically
-        // both are supported, however preloading is recommended
-        map.preloadScripts();
-
+        player = null;
+        loadLevel(createLevelMap(currentLevel));
+        healthBar = new HealthBar(10, 0, 2);
         winScreen = new WinScreen(this);
     }
+
+    private Map createLevelMap(int level) {
+        switch (level) {
+            case 0: return new LevelOneMap();
+            case 1: return new LevelTwoMap();
+            case 2: return new LevelThreeMap();
+            case 3: return new LevelFourMap();
+            case 4: return new LevelFiveMap();
+            case 5: return new LevelSixMap();
+            case 6: return new LevelSevenMap();
+            default: throw new IllegalArgumentException("Invalid level: " + level);
+        }
+    }
+
+    private void loadLevel(Map newMap) {
+        map = newMap;
+        map.setFlagManager(flagManager);
+
+        if (player == null) {
+            player = new FallenAngel(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+            player.setFacingDirection(Direction.LEFT);
+        } else {
+            player.setLocation(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        }
+        player.setMap(map);
+        map.setPlayer(player);
+
+        map.getTextbox().setInteractKey(player.getInteractKey());
+        map.addListener(this);
+        map.preloadScripts();
+        playLevelScreenState = PlayLevelScreenState.RUNNING;
+    }
+
     public void update() {
-        // based on screen state, perform specific actions
         switch (playLevelScreenState) {
-            // if level is "running" update player and map to keep game logic for the platformer level going
             case RUNNING:
                 if (LevelSwitch.isRequested()) {
-                    changeMap(LevelSwitch.consume());
+                    loadLevel(LevelSwitch.consume());
                 }
                 player.update();
                 map.update(player);
                 player.updateFacingAndAnimation();
                 break;
-            // if level has been completed, bring up level cleared screen
             case LEVEL_COMPLETED:
                 winScreen.update();
                 break;
@@ -81,12 +89,15 @@ public class PlayLevelScreen extends Screen implements GameListener {
 
     @Override
     public void onWin() {
-        // when this method is called within the game, it signals the game has been "won"
-        playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
+        if (currentLevel < TOTAL_LEVELS - 1) {
+            currentLevel++;
+            loadLevel(createLevelMap(currentLevel));
+        } else {
+            playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
+        }
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
-        // based on screen state, draw appropriate graphics
         switch (playLevelScreenState) {
             case RUNNING:
                 map.draw(player, graphicsHandler);
@@ -103,6 +114,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
     }
 
     public void resetLevel() {
+        currentLevel = 0;
         initialize();
     }
 
@@ -110,21 +122,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
         screenCoordinator.setGameState(GameState.MENU);
     }
 
-    // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
         RUNNING, LEVEL_COMPLETED
     }
-
-    private void changeMap(Map newMap) {
-    map = newMap;
-    map.setFlagManager(flagManager);
-
-    player.setMap(map);
-    player.setLocation(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-    map.setPlayer(player);
-
-    map.getTextbox().setInteractKey(player.getInteractKey());
-    map.addListener(this);
-    map.preloadScripts();
-}
 }
