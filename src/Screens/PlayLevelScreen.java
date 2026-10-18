@@ -16,6 +16,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
     protected Player player;
     protected PlayLevelScreenState playLevelScreenState;
     protected WinScreen winScreen;
+    protected TransitionScreen transitionScreen;
     protected FlagManager flagManager;
     protected HealthBar healthBar;
     protected int currentLevel = 0;
@@ -34,7 +35,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
         flagManager.addFlag("hasFoundBall", false);
 
         player = null;
-        loadLevel(createLevelMap(currentLevel));
+        loadLevel(createLevelMap(currentLevel), false);
         healthBar = new HealthBar(10, 0, 2);
         winScreen = new WinScreen(this);
     }
@@ -52,7 +53,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
         }
     }
 
-    private void loadLevel(Map newMap) {
+    private void loadLevel(Map newMap, boolean showTransition) {
         map = newMap;
         map.setFlagManager(flagManager);
 
@@ -68,18 +69,30 @@ public class PlayLevelScreen extends Screen implements GameListener {
         map.getTextbox().setInteractKey(player.getInteractKey());
         map.addListener(this);
         map.preloadScripts();
-        playLevelScreenState = PlayLevelScreenState.RUNNING;
+        if (showTransition) {
+            transitionScreen = new TransitionScreen(currentLevel + 1);
+            playLevelScreenState = PlayLevelScreenState.TRANSITION;
+        } else {
+            playLevelScreenState = PlayLevelScreenState.RUNNING;
+        }
     }
 
     public void update() {
         switch (playLevelScreenState) {
             case RUNNING:
                 if (LevelSwitch.isRequested()) {
-                    loadLevel(LevelSwitch.consume());
+                    loadLevel(LevelSwitch.consume(), true);
+                    return;
                 }
                 player.update();
                 map.update(player);
                 player.updateFacingAndAnimation();
+                break;
+            case TRANSITION:
+                transitionScreen.update();
+                if (transitionScreen.isComplete()) {
+                    playLevelScreenState = PlayLevelScreenState.RUNNING;
+                }
                 break;
             case LEVEL_COMPLETED:
                 winScreen.update();
@@ -91,7 +104,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
     public void onWin() {
         if (currentLevel < TOTAL_LEVELS - 1) {
             currentLevel++;
-            loadLevel(createLevelMap(currentLevel));
+            loadLevel(createLevelMap(currentLevel), true);
         } else {
             playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
         }
@@ -102,6 +115,9 @@ public class PlayLevelScreen extends Screen implements GameListener {
             case RUNNING:
                 map.draw(player, graphicsHandler);
                 healthBar.draw(graphicsHandler, player.getHealth());
+                break;
+            case TRANSITION:
+                transitionScreen.draw(graphicsHandler);
                 break;
             case LEVEL_COMPLETED:
                 winScreen.draw(graphicsHandler);
@@ -123,6 +139,6 @@ public class PlayLevelScreen extends Screen implements GameListener {
     }
 
     private enum PlayLevelScreenState {
-        RUNNING, LEVEL_COMPLETED
+        RUNNING, TRANSITION, LEVEL_COMPLETED
     }
 }
