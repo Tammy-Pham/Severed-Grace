@@ -70,6 +70,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
                 }
                 player.update();
                 map.update(player);
+                player.updateFacingAndAnimation();
                 break;
             // if level has been completed, bring up level cleared screen
             case LEVEL_COMPLETED:
