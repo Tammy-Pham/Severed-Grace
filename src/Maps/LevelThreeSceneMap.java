@@ -1,6 +1,8 @@
 package Maps;
 
 import Level.*;
+import NPCs.Demon3;
+
 import java.util.ArrayList;
 
 
@@ -37,6 +39,8 @@ public class LevelThreeSceneMap extends LevelMap {
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
+        Demon3 demon3 = new Demon3(4, getMapTile(9, 9).getLocation().subtractX(20));
+        npcs.add(demon3);
         /*Enemy enemy = new Enemy(4, getMapTile(9, 9).getLocation().subtractX(20));
         enemy.setInteractScript(new BugScript());
         npcs.add(enemy);

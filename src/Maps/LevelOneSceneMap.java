@@ -1,6 +1,11 @@
 package Maps;
 
 import Level.*;
+import NPCs.jeard;
+import NPCs.Demon1;
+import Scripts.TestMap.BugScript;
+import Scripts.TestMap.Level1CutSceneScript;
+
 import java.util.ArrayList;
 
 
@@ -16,20 +21,6 @@ public class LevelOneSceneMap extends LevelMap {
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
 
-        /*GoodWeaponPickup goodWeaponPickup = new GoodWeaponPickup(getMapTile(2, 7).getLocation());
-        enhancedMapTiles.add(goodWeaponPickup);
-        BadWeaponPickup badWeaponPickup = new BadWeaponPickup(getMapTile(3,6).getLocation());
-        enhancedMapTiles.add(badWeaponPickup);
-
-        DamageTile damageTile = new DamageTile(getMapTile(6,7).getLocation());
-        enhancedMapTiles.add(damageTile);
-
-        RNGWeaponDrop rngWeaponTile = new RNGWeaponDrop(getMapTile(5, 5).getLocation());
-        enhancedMapTiles.add(rngWeaponTile);
-
-        bossSpawntile bossSpawnTile = new bossSpawntile(getMapTile(1, 1).getLocation());
-        enhancedMapTiles.add(bossSpawnTile);*/
-
         return enhancedMapTiles;
     }
 
@@ -37,24 +28,16 @@ public class LevelOneSceneMap extends LevelMap {
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-    /*    Enemy enemy = new Enemy(4, getMapTile(9, 9).getLocation().subtractX(20));
-        enemy.setInteractScript(new BugScript());
-        npcs.add(enemy);
+        Demon1 demon1 = new Demon1(4, getMapTile(9, 9).getLocation().subtractX(20));
+        npcs.add(demon1);
 
-        jeard jeard = new jeard(4, getMapTile(9, 9).getLocation());
-        jeard.setInteractScript(new jeardScript());
-        npcs.add(jeard);
-
-        RangedEnemy turret = new RangedEnemy(5, getMapTile(7, 7).getLocation());
-        turret.setInteractScript(new RangedEnemyScript());
-        npcs.add(turret);
-*/
         return npcs;
     } 
 
     @Override
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
+        triggers.add(new Trigger(getMapTile(10,10).getLocation().x,getMapTile(10,10).getLocation().y,48, 48, new Level1CutSceneScript(), "cutscene1done"));
         return triggers;
     }
 

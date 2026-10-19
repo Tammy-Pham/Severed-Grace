@@ -1,6 +1,8 @@
 package Maps;
 
 import Level.*;
+import NPCs.Demon4;
+
 import java.util.ArrayList;
 
 
@@ -15,6 +17,8 @@ public class LevelFourSceneMap extends LevelMap {
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
+        Demon4 demon4 = new Demon4(4, getMapTile(9, 9).getLocation().subtractX(20));
+        npcs.add(demon4);
 
         /*GoodWeaponPickup goodWeaponPickup = new GoodWeaponPickup(getMapTile(2, 7).getLocation());
         enhancedMapTiles.add(goodWeaponPickup);

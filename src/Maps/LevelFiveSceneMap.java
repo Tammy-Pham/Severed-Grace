@@ -1,6 +1,8 @@
 package Maps;
 
 import Level.*;
+import NPCs.Demon5;
+
 import java.util.ArrayList;
 
 
@@ -36,7 +38,8 @@ public class LevelFiveSceneMap extends LevelMap {
     @Override
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
-
+        Demon5 demon5 = new Demon5(4, getMapTile(9, 9).getLocation().subtractX(20));
+        npcs.add(demon5);
         /*Enemy enemy = new Enemy(4, getMapTile(9, 9).getLocation().subtractX(20));
         enemy.setInteractScript(new BugScript());
         npcs.add(enemy);
