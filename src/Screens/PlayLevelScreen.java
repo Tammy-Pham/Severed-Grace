@@ -20,6 +20,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
     protected FlagManager flagManager;
     protected HealthBar healthBar;
     protected int currentLevel = 0;
+    protected EndingScreen endingScreen;
 
     private static final int TOTAL_LEVELS = 7;
 
@@ -97,6 +98,9 @@ public class PlayLevelScreen extends Screen implements GameListener {
             case LEVEL_COMPLETED:
                 winScreen.update();
                 break;
+            case ENDING:
+                endingScreen.update();
+                break;
         }
     }
 
@@ -106,7 +110,9 @@ public class PlayLevelScreen extends Screen implements GameListener {
             currentLevel++;
             loadLevel(createLevelMap(currentLevel), true);
         } else {
-            playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
+            endingScreen = new EndingScreen(player, this);
+            endingScreen.initialize();
+            playLevelScreenState = PlayLevelScreenState.ENDING;
         }
     }
 
@@ -122,6 +128,8 @@ public class PlayLevelScreen extends Screen implements GameListener {
             case LEVEL_COMPLETED:
                 winScreen.draw(graphicsHandler);
                 break;
+            case ENDING:
+                endingScreen.draw(graphicsHandler);
         }
     }
 
@@ -139,6 +147,6 @@ public class PlayLevelScreen extends Screen implements GameListener {
     }
 
     private enum PlayLevelScreenState {
-        RUNNING, TRANSITION, LEVEL_COMPLETED
+        RUNNING, TRANSITION, LEVEL_COMPLETED, ENDING 
     }
 }
