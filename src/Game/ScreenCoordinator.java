@@ -4,6 +4,13 @@ import Engine.DefaultScreen;
 import Engine.GraphicsHandler;
 import Engine.Screen;
 import Screens.CreditsScreen;
+import Screens.Level1Scene;
+import Screens.Level2Scene;
+import Screens.Level3Scene;
+import Screens.Level4Scene;
+import Screens.Level5Scene;
+import Screens.Level6Scene;
+import Screens.Level7Scene;
 import Screens.MenuScreen;
 import Screens.PlayLevelScreen;
 
@@ -49,6 +56,27 @@ public class ScreenCoordinator extends Screen {
 						break;
 					case CREDITS:
 						currentScreen = new CreditsScreen(this);
+						break;
+					case LEVEL1SCENE:
+						currentScreen = new Level1Scene(this);
+						break;
+					case LEVEL2SCENE:
+						currentScreen = new Level2Scene(this);
+						break;
+					case LEVEL3SCENE:
+						currentScreen = new Level3Scene(this);
+						break;
+					case LEVEL4SCENE:
+						currentScreen = new Level4Scene(this);
+						break;
+					case LEVEL5SCENE:
+						currentScreen = new Level5Scene(this);
+						break;
+					case LEVEL6SCENE:
+						currentScreen = new Level6Scene(this);
+						break;
+					case LEVEL7SCENE:
+						currentScreen = new Level7Scene(this);
 						break;
 				}
 				currentScreen.initialize();

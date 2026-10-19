@@ -13,12 +13,14 @@ import java.io.IOException;
 import java.awt.image.BufferedImage;
 import java.awt.*;
 
+//expends to the screen class
 public class Level1Scene extends Screen{
     protected ScreenCoordinator screenCoordinator;
     protected BufferedImage titleScreen;
     protected BufferedImage npcImage;
     protected BufferedImage playerImage;
     private SpriteFont dialogue;
+    private TransitionScreen transitionScreen;
 
     private static final int SPRITE_W = 508;
     private static final int SPRITE_H = 448;
@@ -30,6 +32,7 @@ public class Level1Scene extends Screen{
         this.screenCoordinator = screenCoordinator;
     }
 
+    //sets how the dialogue is going to look like on screen
     private void setDialogue(String text){
         dialogue = new SpriteFont(text,50, Config.GAME_WINDOW_HEIGHT - 70,"Arial",24,Color.WHITE);
         dialogue.setOutlineColor(Color.BLACK);
@@ -37,6 +40,7 @@ public class Level1Scene extends Screen{
 
     }
 
+    //sets the dialogue of what is going to be written on the screen
     private String getDialogueForStage(int stage){
      switch(stage){
         case 0:
@@ -54,14 +58,14 @@ public class Level1Scene extends Screen{
         default: return null;
         }
     }
+    
+    //this initalize all of the images that are needed and if could not be found will throw an expection
 
     @Override
 	public void initialize() {
-        String imagePath = "Level1Scene.png";
-        String npcPath ="NPC.png";
-        String playerPath = "player.png";
+        String imagePath = "background.png";
         try{
-            titleScreen = ImageIO.read(new File(Config.RESOURCES_PATH + "Level1Scene.png"));
+            titleScreen = ImageIO.read(new File(Config.RESOURCES_PATH + "background.png"));
             npcImage    = ImageIO.read(new File(Config.RESOURCES_PATH + "NPC.png"));
             playerImage = ImageIO.read(new File(Config.RESOURCES_PATH + "player.png"));
         }
@@ -69,9 +73,12 @@ public class Level1Scene extends Screen{
             throw new RuntimeException("Unable to find file " + imagePath, e);
         }
 
+        //sets the stage to 0 and you hold the space it continutes and get the dialogue for what stage
+        //you want it to start on
         stage = 0;
         spaceHeld = true;
         setDialogue(getDialogueForStage(0));
+        transitionScreen = new TransitionScreen(1);
 	}
 
     private int groundY = Config.GAME_WINDOW_HEIGHT - SPRITE_H - 100;
@@ -82,27 +89,39 @@ public class Level1Scene extends Screen{
     private int playerX = Config.GAME_WINDOW_WIDTH - 150 - SPRITE_W;
     private int playerY = groundY;
 
-
+    //when you press space the dialgoue changes and if there is no text left then 
+    //it should go to the next level
 	@Override
 	public void update() {
-        boolean spacePressed = Keyboard.isKeyDown(Key.SPACE);
-        if (spacePressed && !spaceHeld) {
-            stage++;
-            String text = getDialogueForStage(stage);
-            if (text != null) {
-                setDialogue(text);
-            } else {
-                screenCoordinator.setGameState(GameState.LEVEL);
-            }
+        if(!transitionScreen.isComplete()){
+                spaceHeld = true;
+                return;
         }
-        spaceHeld = spacePressed;
+        boolean spacePressed = Keyboard.isKeyDown(Key.SPACE);
+            if (spacePressed && !spaceHeld) {
+                stage++;
+                String text = getDialogueForStage(stage);
+                    if (text != null) {
+                        setDialogue(text);
+                    } else {
+                        screenCoordinator.setGameState(GameState.LEVEL);
+                    }
+            }
+            spaceHeld = spacePressed;
 	}
 
-	@Override
-	public void draw(GraphicsHandler graphicsHandler) {
-        graphicsHandler.drawImage(titleScreen, 0, 0, Config.GAME_WINDOW_WIDTH, Config.GAME_WINDOW_HEIGHT);
-        graphicsHandler.drawImage(npcImage, npcX, npcY, SPRITE_W, SPRITE_H);
-        graphicsHandler.drawImage(playerImage, playerX, playerY, SPRITE_W, SPRITE_H);
-        dialogue.draw(graphicsHandler);
-	}
+//draw the images of everything
+@Override
+public void draw(GraphicsHandler graphicsHandler) {
+    // show the black "Level 1" card until it finishes
+    if (!transitionScreen.isComplete()) {
+        transitionScreen.draw(graphicsHandler);
+        return;
+    }
+
+    graphicsHandler.drawImage(titleScreen, 0, 0, Config.GAME_WINDOW_WIDTH, Config.GAME_WINDOW_HEIGHT);
+    graphicsHandler.drawImage(npcImage, npcX, npcY, SPRITE_W, SPRITE_H);
+    graphicsHandler.drawImage(playerImage, playerX, playerY, SPRITE_W, SPRITE_H);
+    dialogue.draw(graphicsHandler);
+}
 }
