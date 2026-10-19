@@ -3,15 +3,12 @@ package Screens;
 import Engine.*;
 import Game.GameState;
 import Game.ScreenCoordinator;
-//import Level.Map;
-//import Maps.TitleScreenMap;
 import SpriteFont.SpriteFont;
-
-import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.awt.image.BufferedImage;
-import java.awt.*;
+import javax.imageio.ImageIO;
 
 // This is the class for the main menu screen
 public class MenuScreen extends Screen {
@@ -20,7 +17,7 @@ public class MenuScreen extends Screen {
     protected int menuItemSelected = -1;
     protected BufferedImage titleScreen;
     protected SpriteFont playGame;
-    protected SpriteFont leaderboard;
+    //protected SpriteFont leaderboard;
     protected SpriteFont credits;
     //protected Map background;
     protected int keyPressTimer;
@@ -34,7 +31,7 @@ public class MenuScreen extends Screen {
 
     @Override
     public void initialize() {
-        String imagePath = "TitleScreen.png";
+        String imagePath = "creditScreen.png";
         try {
             titleScreen = ImageIO.read(new File(Config.RESOURCES_PATH + imagePath));
             ImageLoader.load(imagePath);
@@ -43,13 +40,13 @@ public class MenuScreen extends Screen {
         {
             throw new RuntimeException("Unable to find file " + imagePath, e);
         }
-        playGame = new SpriteFont("PLAY GAME", 200, 183, "Arial", 30, new Color(49, 207, 240));
+        playGame = new SpriteFont("PLAY GAME", 200, 183, "Times New Roman", 30, new Color(49, 207, 240));
         playGame.setOutlineColor(Color.black);
         playGame.setOutlineThickness(3);
-        leaderboard = new SpriteFont("LEADERBOARD", 200, 223, "Arial", 30, new Color(49, 207, 240));
+       /*  leaderboard = new SpriteFont("LEADERBOARD", 200, 223, "Arial", 30, new Color(49, 207, 240));
         leaderboard.setOutlineColor(Color.black);
-        leaderboard.setOutlineThickness(3);
-        credits = new SpriteFont("CREDITS", 200, 263, "Arial", 30, new Color(49, 207, 240));
+        leaderboard.setOutlineThickness(3); */
+        credits = new SpriteFont("CREDITS", 200, 223, "Times New Roman", 30, new Color(49, 207, 240));
         credits.setOutlineColor(Color.black);
         credits.setOutlineThickness(3);
         //background = new TitleScreenMap();
@@ -77,7 +74,7 @@ public class MenuScreen extends Screen {
         }
 
         // if down is pressed on last menu item or up is pressed on first menu item, "loop" the selection back around to the beginning/end
-        if (currentMenuItemHovered > 2) {
+        if (currentMenuItemHovered > 1) {
             currentMenuItemHovered = 0;
         } else if (currentMenuItemHovered < 0) {
             currentMenuItemHovered = 2;
@@ -87,11 +84,11 @@ public class MenuScreen extends Screen {
         pointerLocationX = 170;
         pointerLocationY = 190 + 40 * currentMenuItemHovered;
 
-        Color unselectedColor = new Color(49, 207, 240);
-        Color selectedColor = new Color(255, 215, 0);
+        Color unselectedColor = new Color(210, 43, 43);
+        Color selectedColor = new Color(255, 236, 158);
 
         playGame.setColor(unselectedColor);
-        leaderboard.setColor(unselectedColor);
+       // leaderboard.setColor(unselectedColor);
         credits.setColor(unselectedColor);
 
         switch(currentMenuItemHovered)
@@ -99,10 +96,10 @@ public class MenuScreen extends Screen {
             case 0:
                 playGame.setColor(selectedColor);
                 break;
-            case 1:
+            /*case 1:
                 leaderboard.setColor(selectedColor);
-                break;
-            case 2:
+                break; */
+            case 1:
                 credits.setColor(selectedColor);
                 break;
         }
@@ -133,9 +130,9 @@ public class MenuScreen extends Screen {
             menuItemSelected = currentMenuItemHovered;
             if (menuItemSelected == 0) {
                 screenCoordinator.setGameState(GameState.LEVEL);
-            } else if (menuItemSelected == 1) {
-                screenCoordinator.setGameState(GameState.LEADERBOARD);
-            } else if (menuItemSelected == 2) {
+            } /*else if (menuItemSelected == 1) {
+                screenCoordinator.setGameState(GameState.LEADERBOARD); */
+            else if (menuItemSelected == 1) {
                 screenCoordinator.setGameState(GameState.CREDITS);
             }
         }
@@ -145,7 +142,7 @@ public class MenuScreen extends Screen {
         graphicsHandler.drawImage(titleScreen, 0, 0, Config.GAME_WINDOW_WIDTH, Config.GAME_WINDOW_HEIGHT);
         //background.draw(graphicsHandler);
         playGame.draw(graphicsHandler);
-        leaderboard.draw(graphicsHandler);
+        /*leaderboard.draw(graphicsHandler); */
         credits.draw(graphicsHandler);
         graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 20, 20, new Color(49, 207, 240), Color.black, 2);
     }

@@ -86,7 +86,7 @@ public class FallenTileset extends Tileset {
 
         mapTiles.add(floorOneRockTile);
 
-        // Open exit door
+        // Open dore
         Frame openDoorFrame = new FrameBuilder(getSubImage(7,0))
                 .withScale(tileScale)
                 .build();
@@ -95,10 +95,25 @@ public class FallenTileset extends Tileset {
                 .withTileType(TileType.PASSABLE);
         mapTiles.add(openDoorTile);
 
-        // Replace this frame with the closed-door art when it is added to the tileset.
-        MapTileBuilder closedDoorTile = new MapTileBuilder(openDoorFrame)
+        // Closed dore
+        Frame closedDoorFrame = new FrameBuilder(getSubImage(8,0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder closedDoorTile = new MapTileBuilder(closedDoorFrame)
                 .withTileType(TileType.NOT_PASSABLE);
         mapTiles.add(closedDoorTile);
+
+        // Black tile
+        Frame blackFrame = new FrameBuilder(getSubImage(9,0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder blackTile = new MapTileBuilder(blackFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+        mapTiles.add(blackTile);
+
+
         return mapTiles;
     }
 }
