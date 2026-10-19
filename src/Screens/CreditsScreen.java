@@ -19,6 +19,7 @@ public class CreditsScreen extends Screen {
     protected SpriteFont creditsLabel;
     protected SpriteFont createdByLabel;
     protected SpriteFont legacybyLabel;
+    protected SpriteFont logobyLabel;
     protected SpriteFont returnInstructionsLabel;
     protected BufferedImage creditScreen;
 
@@ -45,6 +46,8 @@ public class CreditsScreen extends Screen {
         creditsLabel = new SpriteFont("Credits", 15, 7, "Times New Roman", 30, Color.white);
         legacybyLabel = new SpriteFont("Legacy Code by Alex Thimineur", 130, 121, "Times New Roman", 20, Color.white);
         createdByLabel = new SpriteFont("Made by Parker, Alyssa, Reyhan, Tammy, and Jon", 130, 151, "Times New Roman", 20, Color.white);
+        logobyLabel = new SpriteFont("Logo Art by Ali", 130, 181, "Times New Roman", 20, Color.white);
+
 
         returnInstructionsLabel = new SpriteFont("Press Space to return to the menu", 20, 532, "Times New Roman", 30, Color.white);
         keyLocker.lockKey(Key.SPACE);
@@ -68,6 +71,7 @@ public class CreditsScreen extends Screen {
         creditsLabel.draw(graphicsHandler);
         createdByLabel.draw(graphicsHandler);
         legacybyLabel.draw(graphicsHandler);
+        logobyLabel.draw(graphicsHandler);
         returnInstructionsLabel.draw(graphicsHandler);
     }
 }
