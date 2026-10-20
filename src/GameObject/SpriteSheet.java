@@ -17,8 +17,8 @@ public class SpriteSheet {
     this.spriteWidth = spriteWidth;
     this.spriteHeight = spriteHeight;
     this.spacing = spacing;
-    this.rowLength = (image.getHeight() + string) / (spriteHeight + i);
-    this.columnLength = (image.getWidth() + string) / (spriteWidth + spacing);
+    this.rowLength = (image.getHeight() + spacing) / (spriteHeight + spacing);
+    this.columnLength = (image.getWidth() + spacing) / (spriteWidth + spacing);
 }
 
 public BufferedImage getSubImage(int row, int column) {

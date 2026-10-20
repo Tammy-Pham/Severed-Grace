@@ -2,6 +2,7 @@ package Maps;
 
 import Level.*;
 import NPCs.Demon3;
+import Scripts.TestMap.Level3CutSceneScript;
 
 import java.util.ArrayList;
 
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 public class LevelThreeSceneMap extends LevelMap {
 
     public LevelThreeSceneMap() {
-        super("level_three_scene_map.txt");
+        super("level_three_scene_map.txt", false);
         this.playerStartPosition = getMapTile(10, 10).getLocation();
     }
 
@@ -59,6 +60,8 @@ public class LevelThreeSceneMap extends LevelMap {
     @Override
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
+        triggers.add(new Trigger(getMapTile(10, 10).getLocation().x, getMapTile(10, 10).getLocation().y,
+                48, 48, new Level3CutSceneScript()));
         return triggers;
     }
 

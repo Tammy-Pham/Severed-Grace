@@ -26,6 +26,7 @@ public class Level4CutSceneScript extends Script {
                 addText("NPC:  do you truely think you will gain anything from going back there, you will only be used as a tool");
                 addText("Player: but it is something I wish to fight for and not staying here");
                 addText("NPC: Fine, but I have warned you");
+        }});
         //unlocks player after the scene is over
         scriptActions.add(new UnlockPlayerScriptAction());
         scriptActions.add(new ChangeFlagScriptAction("cutscene1done",true));

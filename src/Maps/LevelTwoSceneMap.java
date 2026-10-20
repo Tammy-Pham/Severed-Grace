@@ -2,6 +2,7 @@ package Maps;
 
 import Level.*;
 import NPCs.Demon2;
+import Scripts.TestMap.Level2CutSceneScript;
 
 import java.util.ArrayList;
 
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 public class LevelTwoSceneMap extends LevelMap {
 
     public LevelTwoSceneMap() {
-        super("level_two_scene_map.txt");
+        super("level_two_scene_map.txt", false);
         this.playerStartPosition = getMapTile(10, 10).getLocation();
     }
 
@@ -60,6 +61,8 @@ public class LevelTwoSceneMap extends LevelMap {
     @Override
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
+        triggers.add(new Trigger(getMapTile(10, 10).getLocation().x, getMapTile(10, 10).getLocation().y,
+                48, 48, new Level2CutSceneScript()));
         return triggers;
     }
 

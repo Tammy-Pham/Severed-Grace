@@ -13,18 +13,24 @@ import java.util.ArrayList;
 public abstract class LevelMap extends Map {
     private Boss boss;
     private final ArrayList<Point> exitDoorLocations = new ArrayList<>();
+    private final boolean combatLevel;
     private boolean bossDefeated = false;
     private boolean levelComplete = false;
 
     public LevelMap(String mapFile) {
+        this(mapFile, true);
+    }
+
+    protected LevelMap(String mapFile, boolean combatLevel) {
         super(mapFile, new FallenTileset());
+        this.combatLevel = combatLevel;
         findExitDoors();
     }
 
     @Override
     public void update(Player player) {
         super.update(player);
-        if (levelComplete) return;
+        if (!combatLevel || levelComplete) return;
 
         if (!bossDefeated) {
             if (boss == null && allEnemiesDefeated()) {

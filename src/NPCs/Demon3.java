@@ -13,7 +13,7 @@ public class Demon3 extends NPC {
     //npc for the enemy and such
     public Demon3(int id, Point location){
             super(id, location.x, location.y,
-            new SpriteSheet(ImageLoader.load("Enemy-PlaceHold-Severed-Grace.png"), 64, 64,0),
+            new SpriteSheet(ImageLoader.load("Demon3temp.png"), 64, 64,0),
             "DEFAULT");
     }
 

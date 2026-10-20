@@ -36,7 +36,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
         flagManager.addFlag("hasFoundBall", false);
 
         player = null;
-        loadLevel(createLevelMap(currentLevel), false);
+        loadCutsceneMap(currentLevel);
         healthBar = new HealthBar(10, 0, 2);
         winScreen = new WinScreen(this);
     }
@@ -52,6 +52,28 @@ public class PlayLevelScreen extends Screen implements GameListener {
             case 6: return new LevelSevenMap();
             default: throw new IllegalArgumentException("Invalid level: " + level);
         }
+    }
+
+    private Map createSceneMap(int level) {
+        switch (level) {
+            case 0: return new LevelOneSceneMap();
+            case 1: return new LevelTwoSceneMap();
+            case 2: return new LevelThreeSceneMap();
+            case 3: return new LevelFourSceneMap();
+            case 4: return new LevelFiveSceneMap();
+            case 5: return new LevelSixSceneMap();
+            case 6: return new LevelSevenSceneMap();
+            default: throw new IllegalArgumentException("Invalid level: " + level);
+        }
+    }
+
+    private void loadCutsceneMap(int level) {
+        loadLevel(createSceneMap(level), false);
+        if (map.getTriggers().isEmpty() || map.getTriggers().get(0).getTriggerScript() == null) {
+            throw new IllegalStateException("Cutscene map for level " + (level + 1) + " has no cutscene trigger");
+        }
+        map.setActiveScript(map.getTriggers().get(0).getTriggerScript());
+        playLevelScreenState = PlayLevelScreenState.CUTSCENE;
     }
 
     private void loadLevel(Map newMap, boolean showTransition) {
@@ -89,6 +111,14 @@ public class PlayLevelScreen extends Screen implements GameListener {
                 map.update(player);
                 player.updateFacingAndAnimation();
                 break;
+            case CUTSCENE:
+                player.update();
+                map.update(player);
+                player.updateFacingAndAnimation();
+                if (map.getActiveScript() == null) {
+                    loadLevel(createLevelMap(currentLevel), true);
+                }
+                break;
             case TRANSITION:
                 transitionScreen.update();
                 if (transitionScreen.isComplete()) {
@@ -108,7 +138,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
     public void onWin() {
         if (currentLevel < TOTAL_LEVELS - 1) {
             currentLevel++;
-            loadLevel(createLevelMap(currentLevel), true);
+            loadCutsceneMap(currentLevel);
         } else {
             endingScreen = new EndingScreen(player, this);
             endingScreen.initialize();
@@ -121,6 +151,9 @@ public class PlayLevelScreen extends Screen implements GameListener {
             case RUNNING:
                 map.draw(player, graphicsHandler);
                 healthBar.draw(graphicsHandler, player.getHealth());
+                break;
+            case CUTSCENE:
+                map.draw(player, graphicsHandler);
                 break;
             case TRANSITION:
                 transitionScreen.draw(graphicsHandler);
@@ -147,6 +180,6 @@ public class PlayLevelScreen extends Screen implements GameListener {
     }
 
     private enum PlayLevelScreenState {
-        RUNNING, TRANSITION, LEVEL_COMPLETED, ENDING 
+        RUNNING, CUTSCENE, TRANSITION, LEVEL_COMPLETED, ENDING
     }
 }

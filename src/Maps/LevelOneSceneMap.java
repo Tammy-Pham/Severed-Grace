@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class LevelOneSceneMap extends LevelMap {
 
     public LevelOneSceneMap() {
-        super("level_one_scene_map.txt");
+        super("level_one_scene_map.txt", false);
         this.playerStartPosition = getMapTile(10, 10).getLocation();
     }
 
@@ -37,7 +37,8 @@ public class LevelOneSceneMap extends LevelMap {
     @Override
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
-        triggers.add(new Trigger(getMapTile(10,10).getLocation().x,getMapTile(10,10).getLocation().y,48, 48, new Level1CutSceneScript(), "cutscene1done"));
+        triggers.add(new Trigger(getMapTile(10, 10).getLocation().x, getMapTile(10, 10).getLocation().y,
+                48, 48, new Level1CutSceneScript()));
         return triggers;
     }
 

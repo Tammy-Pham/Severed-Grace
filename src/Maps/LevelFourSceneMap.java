@@ -2,6 +2,7 @@ package Maps;
 
 import Level.*;
 import NPCs.Demon4;
+import Scripts.TestMap.Level4CutSceneScript;
 
 import java.util.ArrayList;
 
@@ -10,36 +11,19 @@ import java.util.ArrayList;
 public class LevelFourSceneMap extends LevelMap {
 
     public LevelFourSceneMap() {
-        super("level_four_scene_map.txt");
+        super("level_four_scene_map.txt", false);
         this.playerStartPosition = getMapTile(10, 10).getLocation();
     }
 
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
-        ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
-        Demon4 demon4 = new Demon4(4, getMapTile(9, 9).getLocation().subtractX(20));
-        npcs.add(demon4);
-
-        /*GoodWeaponPickup goodWeaponPickup = new GoodWeaponPickup(getMapTile(2, 7).getLocation());
-        enhancedMapTiles.add(goodWeaponPickup);
-        BadWeaponPickup badWeaponPickup = new BadWeaponPickup(getMapTile(3,6).getLocation());
-        enhancedMapTiles.add(badWeaponPickup);
-
-        DamageTile damageTile = new DamageTile(getMapTile(6,7).getLocation());
-        enhancedMapTiles.add(damageTile);
-
-        RNGWeaponDrop rngWeaponTile = new RNGWeaponDrop(getMapTile(5, 5).getLocation());
-        enhancedMapTiles.add(rngWeaponTile);
-
-        bossSpawntile bossSpawnTile = new bossSpawntile(getMapTile(1, 1).getLocation());
-        enhancedMapTiles.add(bossSpawnTile);*/
-
-        return enhancedMapTiles;
+        return new ArrayList<>();
     }
 
     @Override
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
+        npcs.add(new Demon4(4, getMapTile(9, 9).getLocation().subtractX(20)));
 
         /*Enemy enemy = new Enemy(4, getMapTile(9, 9).getLocation().subtractX(20));
         enemy.setInteractScript(new BugScript());
@@ -59,6 +43,8 @@ public class LevelFourSceneMap extends LevelMap {
     @Override
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
+        triggers.add(new Trigger(getMapTile(10, 10).getLocation().x, getMapTile(10, 10).getLocation().y,
+                48, 48, new Level4CutSceneScript()));
         return triggers;
     }
 
