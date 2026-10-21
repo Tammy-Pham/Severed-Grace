@@ -26,7 +26,7 @@ public class Boss extends NPC {
     public Boss(int id, Point location) {
         super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("jeard.png"), 124, 80,0), "STAND_LEFT");
         
-        health = 1000;
+        health = 1;
     }
 
     @Override

@@ -20,11 +20,13 @@ public class Level4CutSceneScript extends Script {
         scriptActions.add(new TextboxScriptAction() {{
             //goes through the lines that are given
                 addText("NPC: you want to go back to heaven no");
-                addText("Player: are you also going to try to stop me?");
-                addText("NPC:  .......i will only give you a warning, going back there will give you nothing, it will only cause more confusion and chaos in ones mind");
-                addText("Player: I see, so that's how it works.But I rather try then linger here forever");
-                addText("NPC:  do you truely think you will gain anything from going back there, you will only be used as a tool");
-                addText("Player: but it is something I wish to fight for and not staying here");
+                addText("Player:are you also going to try to stop me?");
+                addText("NPC:.......i will only give you a warning,\ngoing back there will give you nothing");
+                addText("NPC:it will only cause more confusion\nand chaos in ones mind");
+                addText("Player: I see, so that's how it works.\nBut I rather try then linger here forever");
+                addText("NPC:do you truly think you will gain\nanything from going back there");
+                addText("NPC:you will only be used as a tool");
+                addText("Player:But at least its for a good cause");
                 addText("NPC: Fine, but I have warned you");
         }});
         //unlocks player after the scene is over
