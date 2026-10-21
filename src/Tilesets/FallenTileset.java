@@ -9,6 +9,8 @@ import Level.Tileset;
 import java.util.ArrayList;
 
 public class FallenTileset extends Tileset {
+    public static final int OPEN_EXIT_DOOR_TILE_INDEX = 7;
+    public static final int CLOSED_EXIT_DOOR_TILE_INDEX = 8;
 
     public FallenTileset() {
         super(ImageLoader.load("Fallen_Tileset.png"), 64, 64, 0);
@@ -83,6 +85,35 @@ public class FallenTileset extends Tileset {
         MapTileBuilder floorOneRockTile = new MapTileBuilder(floorOneRockFrame).withTileType(TileType.PASSABLE);
 
         mapTiles.add(floorOneRockTile);
+
+        // Open dore
+        Frame openDoorFrame = new FrameBuilder(getSubImage(7,0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder openDoorTile = new MapTileBuilder(openDoorFrame)
+                .withTileType(TileType.PASSABLE);
+        mapTiles.add(openDoorTile);
+
+        // Closed dore
+        Frame closedDoorFrame = new FrameBuilder(getSubImage(8,0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder closedDoorTile = new MapTileBuilder(closedDoorFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+        mapTiles.add(closedDoorTile);
+
+        // Black tile
+        Frame blackFrame = new FrameBuilder(getSubImage(9,0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder blackTile = new MapTileBuilder(blackFrame)
+                .withTileType(TileType.NOT_PASSABLE);
+        mapTiles.add(blackTile);
+
+
         return mapTiles;
     }
 }

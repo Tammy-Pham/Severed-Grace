@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import NPCs.Enemy;
+import NPCs.RangedEnemy;
+
 /*
     This class is for defining a map that is used for a specific level
     The map class handles/manages a lot of different things, including:
@@ -518,6 +521,18 @@ public abstract class Map {
         if (textbox.isActive()) {
             textbox.update();
         }
+
+        // Count how many melee and ranged enemies are remaining in the map
+        int enemyCount = 0;
+        for (int i = 0; i < npcs.size(); i++)
+        {
+            if (npcs.get(i) instanceof Enemy || npcs.get(i) instanceof RangedEnemy)
+            {
+                enemyCount++;
+            }
+        }
+        // Occasionally log the number of enemies remaining
+        //if (Math.random() < 0.02) System.out.println("Enemies remaining: " + enemyCount);
     }
 
     // based on the player's current X position (which in a level can potentially be updated each frame),

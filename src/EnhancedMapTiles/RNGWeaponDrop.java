@@ -32,7 +32,7 @@ public class RNGWeaponDrop extends EnhancedMapTile{
             hasDropped = true;
             String chosen = WeaponNames[random.nextInt(WeaponNames.length)];
 
-            Point spawnPoint = new Point(getLocation().x + 96, getLocation().y);
+            Point spawnPoint = new Point(getLocation().x + (getWidth() - 10)/2, getLocation().y + (getHeight() - 11)/2);
                 
             if (chosen.equals("sword")) {
                 map.addEnhancedMapTile(new GoodWeaponPickup(spawnPoint));

@@ -1,15 +1,14 @@
 package Maps;
 
 import Level.*;
-import Tilesets.FallenTileset;
 import java.util.ArrayList;
-
+import Scripts.EnemySpawner;
 
 // Represents a test map to be used in a level
-public class LevelOneMap extends Map {
+public class LevelOneMap extends LevelMap {
 
     public LevelOneMap() {
-        super("level_one_map.txt", new FallenTileset());
+        super("level_one_map.txt");
         this.playerStartPosition = getMapTile(10, 10).getLocation();
     }
 
@@ -50,6 +49,7 @@ public class LevelOneMap extends Map {
         turret.setInteractScript(new RangedEnemyScript());
         npcs.add(turret);
 */
+        npcs.addAll(EnemySpawner.spawnEnemies(3, 2));
         return npcs;
     } 
 
@@ -64,4 +64,3 @@ public class LevelOneMap extends Map {
 
     }
 }
-
