@@ -8,11 +8,10 @@ import GameObject.Frame;
 import GameObject.SpriteSheet;
 import Level.NPC;
 import Level.Player;
-//import Utils.Direction;
-import Utils.Point;
-import java.util.HashMap;
-import java.util.ArrayList;
 import Projectiles.Fireball;
+import Utils.Point;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 // This class is for the walrus NPC
 public class RangedEnemy extends NPC {
@@ -26,7 +25,7 @@ public class RangedEnemy extends NPC {
 
 
     public RangedEnemy(int id, Point location) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("Ranged_Enemy.png"), 64, 64,0), "DEFAULT");
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("Ranged-Enemy-Severed-Grace.png"), 64, 64,0), "DEFAULT");
         //System.out.println("Ranged Enemy Position: " + x + ", " + y);
     }
 
@@ -35,7 +34,7 @@ public class RangedEnemy extends NPC {
         return new HashMap<String, Frame[]>() {{
             put("DEFAULT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
-                            .withScale(1)
+                            .withScale(1.5f)
                             .build()
             });
         }};

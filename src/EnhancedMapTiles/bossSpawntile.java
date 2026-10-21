@@ -42,7 +42,7 @@ public class bossSpawntile extends EnhancedMapTile {
                         enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
                     }
 
-                    Boss boss = new Boss(5, this.getLocation());
+                    Boss boss = new Boss(5, map.getMapTile(5, 5).getLocation());
                     map.addNPC(boss);
         }
     }

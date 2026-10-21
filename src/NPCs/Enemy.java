@@ -23,7 +23,7 @@ public class Enemy extends NPC {
 
     public Enemy(int id, Point location) {
         super(id, location.x, location.y,
-                new SpriteSheet(ImageLoader.load("Enemy-PlaceHold-Severed-Grace.png"), 64, 64,0),
+                new SpriteSheet(ImageLoader.load("Enemy-Final-Severed-Grace.png"), 64, 64,0),
                 "DEFAULT");
     }
 

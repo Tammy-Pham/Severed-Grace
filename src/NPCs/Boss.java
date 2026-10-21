@@ -24,7 +24,7 @@ public class Boss extends NPC {
     private static final int CHEST_HEIGHT = 128;
 
     public Boss(int id, Point location) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("jeard.png"), 124, 80,0), "STAND_LEFT");
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("Sin-Of-Sloth-Severed-Grace.png"), 64, 64,0), "STAND_LEFT");
         
         health = 1000;
     }
@@ -76,14 +76,14 @@ public class Boss extends NPC {
         return new HashMap<String, Frame[]>() {{
             put("STAND_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
-                            .withScale(1)
+                            .withScale(5)
                             //.withBounds(7, 13, 11, 7)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .build()
             });
             put("STAND_RIGHT", new Frame[] {
                    new FrameBuilder(spriteSheet.getSprite(0, 0))
-                           .withScale(1)
+                           .withScale(5)
                            //.withBounds(7, 13, 11, 7)
                            .build()
            });
