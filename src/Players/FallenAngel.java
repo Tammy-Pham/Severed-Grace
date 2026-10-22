@@ -44,10 +44,11 @@ public class FallenAngel extends Player {
         changeAnimations(loadAnimations(swordSheet), "STAND_RIGHT");
 
         hasGoodSword = true;
-        }       
+        }     
+
         public void equipAxe() {
                 if (hasBadAxe) return;
-
+                attackDamage = 35; // Set the attack damage to 35 when the axe is equipped
                 SpriteSheet axeSheet = new SpriteSheet(
                 ImageLoader.load("Main-Character-Full-Ax-SpriteSheet-Severed-Grace.png"),
                 64, 64, 0

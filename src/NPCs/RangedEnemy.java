@@ -136,7 +136,7 @@ for (String name : animationNames) {
 
     @Override
 public void performAction(Player player) {
-
+    this.map = player.getMap(); // Prevent NullPointerExceptions
     long currentTime = System.currentTimeMillis();
 
     // Always face the player during the current animation
