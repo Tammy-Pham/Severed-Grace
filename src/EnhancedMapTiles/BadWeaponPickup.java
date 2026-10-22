@@ -21,10 +21,14 @@ public class BadWeaponPickup extends EnhancedMapTile {
         super.update(player);
        if(player.intersects (this)){
         player.subtractKarma(5);
+        if(player instanceof Players.FallenAngel){
+            ((Players.FallenAngel) player).equipAxe();
+        }
        this.setMapEntityStatus(MapEntityStatus.REMOVED);
        }
 
     }
+    
 
     @Override
     protected GameObject loadBottomLayer(SpriteSheet spriteSheet) {

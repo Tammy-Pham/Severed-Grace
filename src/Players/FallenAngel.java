@@ -11,20 +11,55 @@ import java.util.HashMap;
 
 public class FallenAngel extends Player {
         public boolean hasGoodSword = false;
+        public boolean hasBadAxe = false;
 
-        public void equipSword(){
+        /*public void equipSword(){
                 if(hasGoodSword) return;
                 hasGoodSword = true;
 
-                SpriteSheet swordSheet = new SpriteSheet(ImageLoader.load("FallenAngel_GoodSword.png"), 64, 64, 0);
+                SpriteSheet swordSheet = new SpriteSheet(ImageLoader.load("Main-Character-Full-SpriteSheet-Severed-Grace.png"), 64, 64, 0);
                 this.animations = loadAnimations(swordSheet);
 
                 this.currentAnimationName = "STAND_RIGHT";
                 this.currentFrameIndex = 0;
         }
+        public void equipAxe(){
+                if(hasBadAxe) return;
+                hasBadAxe = true;
+
+                SpriteSheet axeSheet = new SpriteSheet(ImageLoader.load("Main-Character-Full-Ax-SpriteSheet-Severed-Grace.png"), 64, 64, 0);
+                this.animations = loadAnimations(axeSheet);
+
+                this.currentAnimationName = "STAND_RIGHT";
+                this.currentFrameIndex = 0;
+        }*/
+       public void equipSword() {
+        if (hasGoodSword) return;
+
+                SpriteSheet swordSheet = new SpriteSheet(
+                ImageLoader.load("Main-Character-Full-SpriteSheet-Severed-Grace.png"),
+                64, 64, 0
+        );
+
+        changeAnimations(loadAnimations(swordSheet), "STAND_RIGHT");
+
+        hasGoodSword = true;
+        }       
+        public void equipAxe() {
+                if (hasBadAxe) return;
+
+                SpriteSheet axeSheet = new SpriteSheet(
+                ImageLoader.load("Main-Character-Full-Ax-SpriteSheet-Severed-Grace.png"),
+                64, 64, 0
+        );
+
+        changeAnimations(loadAnimations(axeSheet), "STAND_RIGHT");
+
+        hasBadAxe = true;
+        }
 
     public FallenAngel(float x, float y) {
-        super(new SpriteSheet(ImageLoader.load("FallenAngel_Default.png"), 64, 64,0), x, y, "STATIC");
+        super(new SpriteSheet(ImageLoader.load("Main-Character-Full-SpriteSheet-Severed-Grace.png"), 64, 64,0), x, y, "STATIC");
         walkSpeed = 2.3f;
     }
     @Override 
@@ -62,25 +97,49 @@ public class FallenAngel extends Player {
             });
 
             put("MOVE_LEFT", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSubImage(1, 0), 14)
+                    new FrameBuilder(spriteSheet.getSubImage(0, 1), 14)
                             .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(14, 0, 24, 32)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSubImage(0, 2), 14)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(14, 0, 24, 32)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSubImage(0, 3), 14)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(14, 0, 24, 32)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSubImage(0, 4), 14)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(14, 0, 24, 32)
+                            .build(),
+                new FrameBuilder(spriteSheet.getSubImage(1, 0), 14)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(14, 0, 24, 32)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(1, 1), 14)
                             .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(14, 0, 24, 32)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(1, 2), 14)
                             .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(14, 0, 24, 32)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(1, 3), 14)
                             .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(14, 0, 24, 32)
-                            .build()
+                            .build(),
             });
 
-            put("MOVE_DOWN", new Frame[] {
+            /*put("MOVE_DOWN", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(2, 0), 14)
                             .withScale(2)
                             .withBounds(14, 0, 24, 32)
@@ -97,28 +156,86 @@ public class FallenAngel extends Player {
                             .withScale(2)
                             .withBounds(14, 0, 24, 32)
                             .build()
-            });
+            }); */
 
             put("MOVE_RIGHT", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSubImage(3, 0), 14)
+                    new FrameBuilder(spriteSheet.getSubImage(0, 1), 14)
                             .withScale(2)
                             .withBounds(14, 0, 24, 32)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSubImage(3, 1), 14)
+                    new FrameBuilder(spriteSheet.getSubImage(0, 2), 14)
                             .withScale(2)
                             .withBounds(14, 0, 24, 32)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSubImage(3, 2), 14)
+                    new FrameBuilder(spriteSheet.getSubImage(0, 3), 14)
                             .withScale(2)
                             .withBounds(14, 0, 24, 32)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSubImage(3, 3), 14)
+                    new FrameBuilder(spriteSheet.getSubImage(0, 4), 14)
                             .withScale(2)
                             .withBounds(14, 0, 24, 32)
-                            .build()
+                            .build(),
+                new FrameBuilder(spriteSheet.getSubImage(1, 0), 14)
+                            .withScale(2)
+                            .withBounds(14, 0, 24, 32)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSubImage(1, 1), 14)
+                            .withScale(2)
+                            .withBounds(14, 0, 24, 32)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSubImage(1, 2), 14)
+                            .withScale(2)
+                            .withBounds(14, 0, 24, 32)
+                            .build(),
+                    new FrameBuilder(spriteSheet.getSubImage(1, 3), 14)
+                            .withScale(2)
+                            .withBounds(14, 0, 24, 32)
+                            .build(),
             });
 
-            put("MOVE_UP", new Frame[] {
+            put("ATTACK_RIGHT", new Frame[] {
+        new FrameBuilder(spriteSheet.getSubImage(1, 4), 6)
+                .withScale(2)
+                .withBounds(14, 0, 24, 32)
+                .build(),
+        new FrameBuilder(spriteSheet.getSubImage(2, 0), 6)
+                .withScale(2)
+                .withBounds(14, 0, 24, 32)
+                .build(),
+        new FrameBuilder(spriteSheet.getSubImage(2, 1), 6)
+                .withScale(2)
+                .withBounds(14, 0, 24, 32)
+                .build(),
+        new FrameBuilder(spriteSheet.getSubImage(2, 2), 6)
+                .withScale(2)
+                .withBounds(14, 0, 24, 32)
+                .build(),
+});
+
+put("ATTACK_LEFT", new Frame[] {
+        new FrameBuilder(spriteSheet.getSubImage(1, 4), 6)
+                .withScale(2)
+                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                .withBounds(14, 0, 24, 32)
+                .build(),
+        new FrameBuilder(spriteSheet.getSubImage(2, 0), 6)
+                .withScale(2)
+                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                .withBounds(14, 0, 24, 32)
+                .build(),
+        new FrameBuilder(spriteSheet.getSubImage(2, 1), 6)
+                .withScale(2)
+                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                .withBounds(14, 0, 24, 32)
+                .build(),
+        new FrameBuilder(spriteSheet.getSubImage(2, 2), 6)
+                .withScale(2)
+                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                .withBounds(14, 0, 24, 32)
+                .build(),
+});
+
+            /*put("MOVE_UP", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(4, 0), 14)
                             .withScale(2)
                             .withBounds(14, 0, 24, 32)
@@ -135,7 +252,7 @@ public class FallenAngel extends Player {
                             .withScale(2)
                             .withBounds(14, 0, 24, 32)
                             .build()
-            });
+            });*/
 
         }};
     }
