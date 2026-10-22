@@ -71,6 +71,7 @@ public class RangedEnemy extends NPC {
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
         if (map == null) return;
+        System.out.println("Test.");
         Player player = map.getPlayer();
 
         super.draw(graphicsHandler);
