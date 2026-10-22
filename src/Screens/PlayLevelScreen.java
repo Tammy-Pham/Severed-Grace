@@ -19,7 +19,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
     protected TransitionScreen transitionScreen;
     protected FlagManager flagManager;
     protected HealthBar healthBar;
-    protected int currentLevel = 0;
+    protected static int currentLevel = 0;
     protected EndingScreen endingScreen;
 
     private static final int TOTAL_LEVELS = 7;
@@ -181,5 +181,9 @@ public class PlayLevelScreen extends Screen implements GameListener {
 
     private enum PlayLevelScreenState {
         RUNNING, CUTSCENE, TRANSITION, LEVEL_COMPLETED, ENDING
+    }
+
+    public static int getLevel(){
+        return currentLevel + 1;
     }
 }

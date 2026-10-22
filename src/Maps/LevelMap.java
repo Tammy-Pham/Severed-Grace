@@ -5,6 +5,7 @@ import Level.*;
 import NPCs.Boss;
 import NPCs.Enemy;
 import NPCs.RangedEnemy;
+import Screens.PlayLevelScreen;
 import Scripts.EnemySpawner;
 import Tilesets.FallenTileset;
 import Utils.Point;
@@ -34,10 +35,40 @@ public abstract class LevelMap extends Map {
         super.update(player);
         if (!combatLevel || levelComplete) return;
         
+        //System.out.println("Level: " + PlayLevelScreen.getLevel());
         
         if (waveNumber == 1 && allEnemiesDefeated()) {
             waveNumber++;
-            getNPCs().addAll(EnemySpawner.spawnEnemies(1, 1));
+            int meleeCount = 0;
+            switch (PlayLevelScreen.getLevel()) {
+                case 1:
+                    getNPCs().addAll(EnemySpawner.spawnEnemies(1, 1));
+                    break;
+                case 2:
+                    meleeCount = (int)(Math.random() * 2 + 2);
+                    getNPCs().addAll(EnemySpawner.spawnEnemies(meleeCount, 5 - meleeCount));
+                    break;
+                case 3:
+                    getNPCs().addAll(EnemySpawner.spawnEnemies(3, 3));
+                    break;
+                case 4:
+                    meleeCount = (int)(Math.random() * 3 + 3);
+                    getNPCs().addAll(EnemySpawner.spawnEnemies(meleeCount, 7 - meleeCount));
+                    break;
+                case 5:
+                    meleeCount = (int)(Math.random() * 7 + 1);
+                    getNPCs().addAll(EnemySpawner.spawnEnemies(meleeCount, 8 - meleeCount));
+                    break;
+                case 6:
+                    getNPCs().addAll(EnemySpawner.spawnEnemies(0, 9));
+                    break;
+                case 7:
+                    getNPCs().addAll(EnemySpawner.spawnEnemies(10, 5));
+                    break;
+                default:
+                    getNPCs().addAll(EnemySpawner.spawnEnemies(1, 1));
+                    break;
+            }
         }
         
 

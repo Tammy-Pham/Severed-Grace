@@ -51,7 +51,7 @@ public class LevelTwoMap extends LevelMap {
         turret.setInteractScript(new RangedEnemyScript());
         npcs.add(turret);
 */
-        npcs.addAll(EnemySpawner.spawnEnemies(3, 2));
+        npcs.addAll(EnemySpawner.spawnEnemies(2, 2));
         return npcs;
     } 
 

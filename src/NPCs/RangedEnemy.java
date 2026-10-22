@@ -42,6 +42,8 @@ public class RangedEnemy extends NPC {
     }
 
     public void performAction(Player player) {
+        this.map = player.getMap(); // Prevent NullPointerExceptions
+
         // Check if enough time has passed since the last attack
         long currentTime = System.currentTimeMillis();
         if (currentTime - lastAttackTime >= attackDelay) {
@@ -71,7 +73,7 @@ public class RangedEnemy extends NPC {
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
         if (map == null) return;
-        System.out.println("Test.");
+        //System.out.println("Test.");
         Player player = map.getPlayer();
 
         super.draw(graphicsHandler);
