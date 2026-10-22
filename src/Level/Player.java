@@ -3,11 +3,11 @@ package Level;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
+import Engine.Mouse;
 import GameObject.GameObject;
 import GameObject.Rectangle;
 import GameObject.SpriteSheet;
 import Utils.Direction;
-import Engine.Mouse;
 import java.awt.event.MouseEvent;
 
 public abstract class Player extends GameObject {
@@ -48,6 +48,8 @@ public abstract class Player extends GameObject {
     protected static final int HIT_RANGE = 130;
 
     protected int karma = 0;
+    protected boolean isAttacking = false;
+protected boolean damageDealtThisAttack = false;
 
     public void addKarma(int amount){
         karma += amount;
@@ -90,16 +92,28 @@ public abstract class Player extends GameObject {
 
     }
     public void updateFacingAndAnimation() {
-        faceMouse();
- 
-        handleMouseAttack();
- 
-        handlePlayerAnimation();
- 
-        updateLockedKeys();
-        // update player's animation
-        super.update();
+    faceMouse();
+
+    handleMouseAttack();
+
+    handlePlayerAnimation();
+
+    updateLockedKeys();
+
+    super.update();
+
+    if (isAttacking) {
+        if (!damageDealtThisAttack && getCurrentFrameIndex() == 2) {
+            performAttack();
+            damageDealtThisAttack = true;
+        }
+
+        if (hasAnimationLooped) {
+            isAttacking = false;
+            damageDealtThisAttack = false;
+        }
     }
+}
 
     // based on player's current state, call appropriate player state handling method
     protected void handlePlayerState() {
@@ -198,7 +212,7 @@ public abstract class Player extends GameObject {
         }
         */
     }
-    protected void faceMouse() {
+    /*protected void faceMouse() {
         int offsetX = getMouseOffsetX();
         int offsetY = getMouseOffsetY();
 
@@ -218,7 +232,18 @@ public abstract class Player extends GameObject {
                 facingDirection = Direction.UP;
             }
          }
-     }
+     }*/
+    protected void faceMouse() {
+
+    int offsetX = getMouseOffsetX();
+
+    if (offsetX > 0) {
+        facingDirection = Direction.RIGHT;
+    }
+    else if (offsetX < 0) {
+        facingDirection = Direction.LEFT;
+    }
+}
     
 
     protected int getMouseOffsetX(){
@@ -238,7 +263,7 @@ public abstract class Player extends GameObject {
         double angleInDegrees = Math.toDegrees(angleInRadians);
         return angleInDegrees;
     }
-    protected void handleMouseAttack(){
+    /*protected void handleMouseAttack(){
         boolean leftButtonDown = Mouse.isButtonDown(MouseEvent.BUTTON1);
 
         if (leftButtonDown== true && leftClickLocked == false && attackCooldownCounter <= 0) {
@@ -252,7 +277,33 @@ public abstract class Player extends GameObject {
         if (attackCooldownCounter > 0) {
             attackCooldownCounter--;
         }
+    }*/
+   protected void handleMouseAttack() {
+    boolean leftButtonDown = Mouse.isButtonDown(MouseEvent.BUTTON1);
+
+    if (leftButtonDown && !leftClickLocked && attackCooldownCounter <= 0 && !isAttacking) {
+        leftClickLocked = true;
+        isAttacking = true;
+        damageDealtThisAttack = false;
+        attackCooldownCounter = cooldownTime;
+
+        if (facingDirection == Direction.LEFT) {
+            this.currentAnimationName = "ATTACK_LEFT";
+        } else {
+            this.currentAnimationName = "ATTACK_RIGHT";
+        }
+
+        setCurrentAnimationFrameIndex(0);
     }
+
+    if (!leftButtonDown) {
+        leftClickLocked = false;
+    }
+
+    if (attackCooldownCounter > 0) {
+        attackCooldownCounter--;
+    }
+}
 
     protected void performAttack() {
         int mouseX = Mouse.getMouseX();
@@ -298,7 +349,7 @@ public abstract class Player extends GameObject {
 
     // anything extra the player should do based on interactions can be handled here
  
-    protected void handlePlayerAnimation() {
+    /*protected void handlePlayerAnimation() {
         if (playerState == PlayerState.STATIC) {
             if (facingDirection == Direction.RIGHT) {
                 this.currentAnimationName = "STAND_RIGHT";
@@ -327,7 +378,32 @@ public abstract class Player extends GameObject {
                 this.currentAnimationName = "STATIC";
             }
         }
+    }*/
+   protected void handlePlayerAnimation() {
+    if (isAttacking) {
+        return;
     }
+    if (playerState == PlayerState.STATIC) {
+
+        if (facingDirection == Direction.LEFT) {
+            this.currentAnimationName = "STAND_LEFT";
+        }
+        else {
+            this.currentAnimationName = "STAND_RIGHT";
+        }
+
+    }
+    else if (playerState == PlayerState.MOVE) {
+
+        if (facingDirection == Direction.LEFT) {
+            this.currentAnimationName = "MOVE_LEFT";
+        }
+        else {
+            this.currentAnimationName = "MOVE_RIGHT";
+        }
+
+    }
+}
 
 
     @Override
@@ -409,18 +485,21 @@ public abstract class Player extends GameObject {
     public void walk(Direction direction, float speed) {
         playerState = PlayerState.MOVE;
         facingDirection = direction;
-        if (direction == Direction.RIGHT) {
-            this.currentAnimationName = "MOVE_RIGHT";
-        }
-        else if (direction == Direction.LEFT) {
-            this.currentAnimationName = "MOVE_LEFT";
-        }
-        else if (direction == Direction.UP) {
-            this.currentAnimationName = "MOVE_UP";
-        }
-        else if (direction == Direction.DOWN) {
-            this.currentAnimationName = "MOVE_DOWN";
-        }
+       playerState = PlayerState.MOVE;
+
+if (direction == Direction.RIGHT) {
+    facingDirection = Direction.RIGHT;
+}
+else if (direction == Direction.LEFT) {
+    facingDirection = Direction.LEFT;
+}
+
+if (facingDirection == Direction.LEFT) {
+    this.currentAnimationName = "MOVE_LEFT";
+}
+else {
+    this.currentAnimationName = "MOVE_RIGHT";
+}
 
         if (direction == Direction.UP) {
             moveY(-speed);

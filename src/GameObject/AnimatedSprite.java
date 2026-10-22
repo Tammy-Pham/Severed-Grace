@@ -127,8 +127,23 @@ public class AnimatedSprite implements IntersectableRectangle {
 	// gets the frame from current animation that the animated sprite class is currently using
 	protected Frame getCurrentFrame() {
 		//System.out.println("Current Animation Name: " + currentAnimationName);
-		return animations.get(currentAnimationName)[currentFrameIndex];
-	}
+		//return animations.get(currentAnimationName)[currentFrameIndex];
+
+    Frame[] frames = animations.get(currentAnimationName);
+
+    if (frames == null) {
+        System.out.println("ERROR: Animation not found!");
+        System.out.println("Requested animation: " + currentAnimationName);
+        System.out.println("Available animations: " + animations.keySet());
+
+        throw new IllegalStateException(
+            "Missing animation: " + currentAnimationName
+        );
+    }
+
+    return frames[currentFrameIndex];
+}
+	
 
 	// gets the animation that the animated sprite class is currently using
 	public Frame[] getCurrentAnimation() { return animations.get(currentAnimationName); }
@@ -253,4 +268,17 @@ public class AnimatedSprite implements IntersectableRectangle {
 	public String toString() {
 		return String.format("Current Sprite: x=%s y=%s width=%s height=%s bounds=(%s, %s, %s, %s)", x, y, getWidth(), getHeight(), getBounds().getX(), getBounds().getY(), getBounds().getWidth(), getBounds().getHeight());
 	}
+
+	public void changeAnimations(
+        HashMap<String, Frame[]> newAnimations,
+        String startingAnimation) {
+
+    this.animations = newAnimations;
+
+    // Force the animation system to recognize a new animation
+    this.previousAnimationName = "";
+
+    // Switch to the requested starting animation
+    setCurrentAnimationName(startingAnimation);
+}
 }

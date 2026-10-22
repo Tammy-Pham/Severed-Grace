@@ -2,12 +2,11 @@ package Projectiles;
 
 //import Engine.Config;
 import Engine.GraphicsHandler;
-//import Engine.GraphicsHandler;
 import Engine.ImageLoader;
-
 import GameObject.Frame;
 import GameObject.GameObject;
 import GameObject.SpriteSheet;
+import Builders.FrameBuilder;
 
 //import javax.imageio.ImageIO;
 //import java.awt.image.BufferedImage;
@@ -18,7 +17,11 @@ public class Fireball extends GameObject {
     float angle, speed;
 
     public Fireball(float x, float y, float angle, float speed) {
-        super(x, y, new Frame(new SpriteSheet(ImageLoader.load("Fireball.png"), 24, 24, 0).getSprite(0, 0)));
+        super(x, y, new FrameBuilder(
+                new SpriteSheet(ImageLoader.load("Projectile-Severed-Grace.png"), 64, 64, 0)
+                        .getSprite(0, 0))
+                .withScale(1.5f)
+                .build());
         this.angle = angle;
         this.speed = speed;
         /* 
