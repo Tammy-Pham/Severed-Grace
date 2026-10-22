@@ -10,6 +10,9 @@ import Level.Player;
 import java.util.HashMap;
 
 public class FallenAngel extends Player {
+        private final int xOffset = 20;
+        private final int yOffset = 30;
+
         public boolean hasGoodSword = false;
         public boolean hasBadAxe = false;
 
@@ -78,7 +81,7 @@ public class FallenAngel extends Player {
             put("STATIC", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0))
                             .withScale(2)
-                            .withBounds(14, 0, 24, 32)
+                            .withBounds(xOffset, yOffset, 24, 32)
                             .build()
             });
 
@@ -86,14 +89,14 @@ public class FallenAngel extends Player {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0))
                             .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(14, 0, 24, 32)
+                            .withBounds(xOffset, yOffset, 24, 32)
                             .build()
             });
 
             put("STAND_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 0))
                             .withScale(2)
-                            .withBounds(14, 0, 24, 32)
+                            .withBounds(xOffset, yOffset, 24, 32)
                             .build()
             });
 
@@ -101,42 +104,42 @@ public class FallenAngel extends Player {
                     new FrameBuilder(spriteSheet.getSubImage(0, 1), 14)
                             .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(14, 0, 24, 32)
+                            .withBounds(xOffset, yOffset, 24, 32)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(0, 2), 14)
                             .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(14, 0, 24, 32)
+                            .withBounds(xOffset, yOffset, 24, 32)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(0, 3), 14)
                             .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(14, 0, 24, 32)
+                            .withBounds(xOffset, yOffset, 24, 32)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(0, 4), 14)
                             .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(14, 0, 24, 32)
+                            .withBounds(xOffset, yOffset, 24, 32)
                             .build(),
                 new FrameBuilder(spriteSheet.getSubImage(1, 0), 14)
                             .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(14, 0, 24, 32)
+                            .withBounds(xOffset, yOffset, 24, 32)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(1, 1), 14)
                             .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(14, 0, 24, 32)
+                            .withBounds(xOffset, yOffset, 24, 32)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(1, 2), 14)
                             .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(14, 0, 24, 32)
+                            .withBounds(xOffset, yOffset, 24, 32)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(1, 3), 14)
                             .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(14, 0, 24, 32)
+                            .withBounds(xOffset, yOffset, 24, 32)
                             .build(),
             });
 
@@ -162,54 +165,54 @@ public class FallenAngel extends Player {
             put("MOVE_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSubImage(0, 1), 14)
                             .withScale(2)
-                            .withBounds(14, 0, 24, 32)
+                            .withBounds(xOffset, yOffset, 24, 32)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(0, 2), 14)
                             .withScale(2)
-                            .withBounds(14, 0, 24, 32)
+                            .withBounds(xOffset, yOffset, 24, 32)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(0, 3), 14)
                             .withScale(2)
-                            .withBounds(14, 0, 24, 32)
+                            .withBounds(xOffset, yOffset, 24, 32)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(0, 4), 14)
                             .withScale(2)
-                            .withBounds(14, 0, 24, 32)
+                            .withBounds(xOffset, yOffset, 24, 32)
                             .build(),
                 new FrameBuilder(spriteSheet.getSubImage(1, 0), 14)
                             .withScale(2)
-                            .withBounds(14, 0, 24, 32)
+                            .withBounds(xOffset, yOffset, 24, 32)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(1, 1), 14)
                             .withScale(2)
-                            .withBounds(14, 0, 24, 32)
+                            .withBounds(xOffset, yOffset, 24, 32)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(1, 2), 14)
                             .withScale(2)
-                            .withBounds(14, 0, 24, 32)
+                            .withBounds(xOffset, yOffset, 24, 32)
                             .build(),
                     new FrameBuilder(spriteSheet.getSubImage(1, 3), 14)
                             .withScale(2)
-                            .withBounds(14, 0, 24, 32)
+                            .withBounds(xOffset, yOffset, 24, 32)
                             .build(),
             });
 
             put("ATTACK_RIGHT", new Frame[] {
         new FrameBuilder(spriteSheet.getSubImage(1, 4), 6)
                 .withScale(2)
-                .withBounds(14, 0, 24, 32)
+                .withBounds(xOffset, yOffset, 24, 32)
                 .build(),
         new FrameBuilder(spriteSheet.getSubImage(2, 0), 6)
                 .withScale(2)
-                .withBounds(14, 0, 24, 32)
+                .withBounds(xOffset, yOffset, 24, 32)
                 .build(),
         new FrameBuilder(spriteSheet.getSubImage(2, 1), 6)
                 .withScale(2)
-                .withBounds(14, 0, 24, 32)
+                .withBounds(xOffset, yOffset, 24, 32)
                 .build(),
         new FrameBuilder(spriteSheet.getSubImage(2, 2), 6)
                 .withScale(2)
-                .withBounds(14, 0, 24, 32)
+                .withBounds(xOffset, yOffset, 24, 32)
                 .build(),
 });
 
@@ -217,22 +220,22 @@ put("ATTACK_LEFT", new Frame[] {
         new FrameBuilder(spriteSheet.getSubImage(1, 4), 6)
                 .withScale(2)
                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                .withBounds(14, 0, 24, 32)
+                .withBounds(xOffset, yOffset, 24, 32)
                 .build(),
         new FrameBuilder(spriteSheet.getSubImage(2, 0), 6)
                 .withScale(2)
                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                .withBounds(14, 0, 24, 32)
+                .withBounds(xOffset, yOffset, 24, 32)
                 .build(),
         new FrameBuilder(spriteSheet.getSubImage(2, 1), 6)
                 .withScale(2)
                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                .withBounds(14, 0, 24, 32)
+                .withBounds(xOffset, yOffset, 24, 32)
                 .build(),
         new FrameBuilder(spriteSheet.getSubImage(2, 2), 6)
                 .withScale(2)
                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                .withBounds(14, 0, 24, 32)
+                .withBounds(xOffset, yOffset, 24, 32)
                 .build(),
 });
 
