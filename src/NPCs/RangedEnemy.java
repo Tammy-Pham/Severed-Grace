@@ -59,6 +59,7 @@ public class RangedEnemy extends NPC {
     }
 
     public void spawnFireball(Player player) {
+        if (map == null) return;
         float deltaX = player.getX() - this.x;
         float deltaY = player.getY() - this.y;
         float angle = (float) Math.atan2(deltaY, deltaX);
@@ -69,6 +70,7 @@ public class RangedEnemy extends NPC {
       
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
+        if (map == null) return;
         Player player = map.getPlayer();
 
         super.draw(graphicsHandler);

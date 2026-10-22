@@ -5,6 +5,7 @@ import Level.*;
 import NPCs.Boss;
 import NPCs.Enemy;
 import NPCs.RangedEnemy;
+import Scripts.EnemySpawner;
 import Tilesets.FallenTileset;
 import Utils.Point;
 
@@ -16,6 +17,7 @@ public abstract class LevelMap extends Map {
     private final boolean combatLevel;
     private boolean bossDefeated = false;
     private boolean levelComplete = false;
+    private int waveNumber = 1;
 
     public LevelMap(String mapFile) {
         this(mapFile, true);
@@ -31,9 +33,16 @@ public abstract class LevelMap extends Map {
     public void update(Player player) {
         super.update(player);
         if (!combatLevel || levelComplete) return;
+        
+        
+        if (waveNumber == 1 && allEnemiesDefeated()) {
+            waveNumber++;
+            getNPCs().addAll(EnemySpawner.spawnEnemies(1, 1));
+        }
+        
 
         if (!bossDefeated) {
-            if (boss == null && allEnemiesDefeated()) {
+            if (boss == null && allEnemiesDefeated() && waveNumber == 2) {
                 boss = new Boss(5, getMapTile(0, 0).getLocation());
                 int cx = Math.round(getCamera().getX()) + ScreenManager.getScreenWidth() / 2;
                 int cy = Math.round(getCamera().getY()) + ScreenManager.getScreenHeight() / 2;
