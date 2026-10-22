@@ -21,7 +21,7 @@ public class MenuScreen extends Screen {
     protected SpriteFont credits;
     //protected Map background;
     protected int keyPressTimer;
-    protected int pointerLocationX, pointerLocationY;
+    //protected int pointerLocationX, pointerLocationY;
     protected KeyLocker keyLocker = new KeyLocker();
     //protected Sprite titleScreen;
 
@@ -31,7 +31,7 @@ public class MenuScreen extends Screen {
 
     @Override
     public void initialize() {
-        String imagePath = "creditScreen.png";
+        String imagePath = "TitleScreen.png";
         try {
             titleScreen = ImageIO.read(new File(Config.RESOURCES_PATH + imagePath));
             ImageLoader.load(imagePath);
@@ -40,13 +40,14 @@ public class MenuScreen extends Screen {
         {
             throw new RuntimeException("Unable to find file " + imagePath, e);
         }
-        playGame = new SpriteFont("PLAY GAME", 200, 183, "Times New Roman", 30, new Color(49, 207, 240));
+        playGame = new SpriteFont("PLAY GAME", 270, 250, "Times New Roman", 30, new Color(49, 207, 240));
         playGame.setOutlineColor(Color.black);
         playGame.setOutlineThickness(3);
-       /*  leaderboard = new SpriteFont("LEADERBOARD", 200, 223, "Arial", 30, new Color(49, 207, 240));
+
+        /*  leaderboard = new SpriteFont("LEADERBOARD", 200, 250, "Arial", 30, new Color(49, 207, 240));
         leaderboard.setOutlineColor(Color.black);
         leaderboard.setOutlineThickness(3); */
-        credits = new SpriteFont("CREDITS", 200, 223, "Times New Roman", 30, new Color(49, 207, 240));
+        credits = new SpriteFont("CREDITS", 293, 310, "Times New Roman", 30, new Color(49, 207, 240));
         credits.setOutlineColor(Color.black);
         credits.setOutlineThickness(3);
         //background = new TitleScreenMap();
@@ -81,10 +82,10 @@ public class MenuScreen extends Screen {
         }
 
         // sets location for blue square in front of text (pointerLocation) and also sets color of spritefont text based on which menu item is being hovered
-        pointerLocationX = 170;
-        pointerLocationY = 190 + 40 * currentMenuItemHovered;
+        //pointerLocationX = 170;
+        //pointerLocationY = 400 + 40 * currentMenuItemHovered;
 
-        Color unselectedColor = new Color(210, 43, 43);
+        Color unselectedColor = new Color(0, 0, 0);
         Color selectedColor = new Color(255, 236, 158);
 
         playGame.setColor(unselectedColor);
@@ -141,9 +142,13 @@ public class MenuScreen extends Screen {
     public void draw(GraphicsHandler graphicsHandler) {
         graphicsHandler.drawImage(titleScreen, 0, 0, Config.GAME_WINDOW_WIDTH, Config.GAME_WINDOW_HEIGHT);
         //background.draw(graphicsHandler);
+
+        // Parker owes me pushups
+        //playGame.setX(ScreenManager.getScreenWidth() / 2 - graphicsHandler.getGraphics().getFontMetrics().stringWidth(playGame.getText()));
+
         playGame.draw(graphicsHandler);
         /*leaderboard.draw(graphicsHandler); */
         credits.draw(graphicsHandler);
-        graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 20, 20, new Color(49, 207, 240), Color.black, 2);
+       // graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 20, 20, new Color(49, 207, 240), Color.black, 2);
     }
 }

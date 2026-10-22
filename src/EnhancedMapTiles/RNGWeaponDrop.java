@@ -46,7 +46,7 @@ public class RNGWeaponDrop extends EnhancedMapTile{
   protected GameObject loadBottomLayer(SpriteSheet spriteSheet) {
         Frame frame = new FrameBuilder(spriteSheet.getSubImage(0, 0))
             .withScale(2)
-            .withBounds(9,-10,10,11)
+            .withBounds(9,-10, 50,50)
             .build();
     return new GameObject(x, y, frame);
     }

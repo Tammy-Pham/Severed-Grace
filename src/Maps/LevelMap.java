@@ -5,6 +5,8 @@ import Level.*;
 import NPCs.Boss;
 import NPCs.Enemy;
 import NPCs.RangedEnemy;
+import Screens.PlayLevelScreen;
+import Scripts.EnemySpawner;
 import Tilesets.FallenTileset;
 import Utils.Point;
 
@@ -16,6 +18,7 @@ public abstract class LevelMap extends Map {
     private final boolean combatLevel;
     private boolean bossDefeated = false;
     private boolean levelComplete = false;
+    private int waveNumber = 1;
 
     public LevelMap(String mapFile) {
         this(mapFile, true);
@@ -31,9 +34,46 @@ public abstract class LevelMap extends Map {
     public void update(Player player) {
         super.update(player);
         if (!combatLevel || levelComplete) return;
+        
+        //System.out.println("Level: " + PlayLevelScreen.getLevel());
+        
+        if (waveNumber == 1 && allEnemiesDefeated()) {
+            waveNumber++;
+            int meleeCount = 0;
+            switch (PlayLevelScreen.getLevel()) {
+                case 1:
+                    getNPCs().addAll(EnemySpawner.spawnEnemies(1, 1));
+                    break;
+                case 2:
+                    meleeCount = (int)(Math.random() * 2 + 2);
+                    getNPCs().addAll(EnemySpawner.spawnEnemies(meleeCount, 5 - meleeCount));
+                    break;
+                case 3:
+                    getNPCs().addAll(EnemySpawner.spawnEnemies(3, 3));
+                    break;
+                case 4:
+                    meleeCount = (int)(Math.random() * 3 + 3);
+                    getNPCs().addAll(EnemySpawner.spawnEnemies(meleeCount, 7 - meleeCount));
+                    break;
+                case 5:
+                    meleeCount = (int)(Math.random() * 7 + 1);
+                    getNPCs().addAll(EnemySpawner.spawnEnemies(meleeCount, 8 - meleeCount));
+                    break;
+                case 6:
+                    getNPCs().addAll(EnemySpawner.spawnEnemies(0, 9));
+                    break;
+                case 7:
+                    getNPCs().addAll(EnemySpawner.spawnEnemies(10, 5));
+                    break;
+                default:
+                    getNPCs().addAll(EnemySpawner.spawnEnemies(1, 1));
+                    break;
+            }
+        }
+        
 
         if (!bossDefeated) {
-            if (boss == null && allEnemiesDefeated()) {
+            if (boss == null && allEnemiesDefeated() && waveNumber == 2) {
                 boss = new Boss(5, getMapTile(0, 0).getLocation());
                 int cx = Math.round(getCamera().getX()) + ScreenManager.getScreenWidth() / 2;
                 int cy = Math.round(getCamera().getY()) + ScreenManager.getScreenHeight() / 2;

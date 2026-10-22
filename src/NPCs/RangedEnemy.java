@@ -186,6 +186,7 @@ public void performAction(Player player) {
 }
 
     public void spawnFireball(Player player) {
+        if (map == null) return;
         float deltaX = player.getX() - this.x;
         float deltaY = player.getY() - this.y;
         float angle = (float) Math.atan2(deltaY, deltaX);
@@ -196,6 +197,8 @@ public void performAction(Player player) {
       
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
+        if (map == null) return;
+        //System.out.println("Test.");
         Player player = map.getPlayer();
 
         super.draw(graphicsHandler);

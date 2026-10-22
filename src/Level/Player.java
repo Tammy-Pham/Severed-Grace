@@ -515,6 +515,11 @@ else {
         }
     }
 
+    public Map getMap()
+    {
+        return map;
+    }
+
     // Uncomment this to have game draw player's bounds to make it easier to visualize
     /*
     public void draw(GraphicsHandler graphicsHandler) {

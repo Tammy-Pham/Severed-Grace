@@ -1,6 +1,8 @@
 package Maps;
 
 import Level.*;
+import Scripts.EnemySpawner;
+
 import java.util.ArrayList;
 
 
@@ -49,6 +51,9 @@ public class LevelFourMap extends LevelMap {
         turret.setInteractScript(new RangedEnemyScript());
         npcs.add(turret);
 */
+        // Spawn 7 enemies (randomized)
+        int meleeCount = (int)(Math.random() * 3 + 2);
+        npcs.addAll(EnemySpawner.spawnEnemies(meleeCount, 7 - meleeCount));
         return npcs;
     } 
 

@@ -14,7 +14,7 @@ public class EnemySpawner {
             spawnedNPCs.add(new Enemy(4, new Point(100 + i * 50, 100)));
         }
         for (int i = 0; i < rangedCount; i++) {
-            spawnedNPCs.add(new RangedEnemy(4, new Point(420 - i * 69, 621)));
+            spawnedNPCs.add(new RangedEnemy(5, new Point(420 - i * 69, 621)));
         }
         return spawnedNPCs;
     }

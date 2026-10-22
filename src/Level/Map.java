@@ -523,16 +523,23 @@ public abstract class Map {
         }
 
         // Count how many melee and ranged enemies are remaining in the map
-        int enemyCount = 0;
+        int meleeCount = 0;
+        int rangedCount = 0;
+
         for (int i = 0; i < npcs.size(); i++)
         {
-            if (npcs.get(i) instanceof Enemy || npcs.get(i) instanceof RangedEnemy)
+            if (npcs.get(i) instanceof Enemy)
             {
-                enemyCount++;
+                meleeCount++;
+            }
+            else if (npcs.get(i) instanceof RangedEnemy)
+            {
+                rangedCount++;
             }
         }
         // Occasionally log the number of enemies remaining
-        //if (Math.random() < 0.02) System.out.println("Enemies remaining: " + enemyCount);
+        if (Math.random() < 0.02) System.out.println("Enemies remaining: " + (meleeCount + rangedCount) 
+        + " (" + meleeCount + " melee, " + rangedCount + " ranged)");
     }
 
     // based on the player's current X position (which in a level can potentially be updated each frame),

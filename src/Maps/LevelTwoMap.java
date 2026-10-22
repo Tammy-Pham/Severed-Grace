@@ -1,6 +1,8 @@
 package Maps;
 
 import Level.*;
+import Scripts.EnemySpawner;
+
 import java.util.ArrayList;
 
 
@@ -49,6 +51,7 @@ public class LevelTwoMap extends LevelMap {
         turret.setInteractScript(new RangedEnemyScript());
         npcs.add(turret);
 */
+        npcs.addAll(EnemySpawner.spawnEnemies(2, 2));
         return npcs;
     } 
 
