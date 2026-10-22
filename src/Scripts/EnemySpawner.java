@@ -11,10 +11,10 @@ public class EnemySpawner {
         ArrayList<NPC> spawnedNPCs = new ArrayList<>();
 
         for (int i = 0; i < meleeCount; i++) {
-            spawnedNPCs.add(new Enemy(4, new Point(100 + i * 50, 100)));
+            spawnedNPCs.add(new Enemy(4, new Point(100 + (int)(Math.random() * 50), 100)));
         }
         for (int i = 0; i < rangedCount; i++) {
-            spawnedNPCs.add(new RangedEnemy(5, new Point(420 - i * 69, 621)));
+            spawnedNPCs.add(new RangedEnemy(5, new Point(420 - (int)(Math.random() * 69), 621)));
         }
         return spawnedNPCs;
     }
