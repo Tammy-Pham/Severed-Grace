@@ -2,7 +2,7 @@ package Maps;
 
 import Level.*;
 import java.util.ArrayList;
-
+import Scripts.EnemySpawner;
 
 // Represents a test map to be used in a level
 public class LevelOneMap extends LevelMap {
@@ -49,6 +49,7 @@ public class LevelOneMap extends LevelMap {
         turret.setInteractScript(new RangedEnemyScript());
         npcs.add(turret);
 */
+        npcs.addAll(EnemySpawner.spawnEnemies(3, 2));
         return npcs;
     } 
 

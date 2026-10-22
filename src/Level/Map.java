@@ -532,7 +532,7 @@ public abstract class Map {
             }
         }
         // Occasionally log the number of enemies remaining
-        if (Math.random() < 0.02) System.out.println("Enemies remaining: " + enemyCount);
+        //if (Math.random() < 0.02) System.out.println("Enemies remaining: " + enemyCount);
     }
 
     // based on the player's current X position (which in a level can potentially be updated each frame),

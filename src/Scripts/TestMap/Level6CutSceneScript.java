@@ -19,11 +19,13 @@ public class Level6CutSceneScript extends Script {
         scriptActions.add(new LockPlayerScriptAction());
         scriptActions.add(new TextboxScriptAction() {{
             //goes through the lines that are given
-                addText("NPC: so you have made it this far, many have tried to go back to heaven but failed, but you seem to be determined to go back");
-                addText("Player: this is the last floor until I can go back to heaven?");
-                addText("NPC: yes, but after you walk through the last doors going to heaven is never a guarantee,it will always be a gamble");
-                addText("Player: I will be able to go back to heaven without fail.");
-                addText("NPC: if that is what you think, but heaven is always watching");
+                addText("NPC:...I have already heard");
+                addText("NPC:you wish to return the very place\nthey reject you");
+                addText("Player: I only want to go home and to my people");
+                addText("NPC: I once tried as well, but\nthey never took me back");
+                addText("NPC:But I will not stop you");
+                addText("NPC: i can only wish you the best of luck");
+                addText("Player:...");
         }});
         //unlocks player after the scene is over
         scriptActions.add(new UnlockPlayerScriptAction());
