@@ -19,13 +19,13 @@ public class Level2CutSceneScript extends Script {
         scriptActions.add(new LockPlayerScriptAction());
         scriptActions.add(new TextboxScriptAction() {{
             //goes through the lines that are given
-                addText("NPC: so another one has fallen from heaven");
-                addText("Player: how did you know that? I just got here");
-                addText("NPC:well word here travels fast,and why go\nto a place where they cast you away from heaven");
-                addText("Player: It's my home");
-                addText("NPC:but would a home really try to cast you away?\nand cast you down here with demons and others");
-                addText("Player: no, I shall not stay here\nand will continue my journey");
-                addText("NPC: well if thats what you wish,but\ndo not be surprise if they reject you again");
+                addText("???: So another one has fallen from heaven.\nHuh.");
+                addText("Player: How did you know that? I just got here...");
+                addText("???: Well, word here travels fast, and why go\nto a place where they cast you away from heaven?");
+                addText("Player: ...it's... my home.");
+                addText("???: But would a home really try to cast you away?\nAnd cast you down here with demons and others?");
+                addText("Player: No! I shall not stay here\nand will continue my journey.");
+                addText("???: Well... if that's what you wish. But\ndon't be surprised if they reject you again.");
         }});
         //unlocks player after the scene is over
         scriptActions.add(new UnlockPlayerScriptAction());
