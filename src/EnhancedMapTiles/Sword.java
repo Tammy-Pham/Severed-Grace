@@ -11,24 +11,24 @@ import Level.Player;
 import Level.TileType;
 import Utils.Point;
 
-public class BadWeaponPickup extends EnhancedMapTile {
-    public BadWeaponPickup(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Battle_Axe.png"), 64, 64,0), TileType.PASSABLE);
+public class Sword extends EnhancedMapTile {
+    public Sword(Point location) {
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Sword.png"), 64, 64,0), TileType.PASSABLE);
     }
 
     @Override
     public void update(Player player) {
         super.update(player);
        if(player.intersects (this)){
-        player.subtractKarma(5);
+        player.addKarma(20);
         if(player instanceof Players.FallenAngel){
-            ((Players.FallenAngel) player).equipAxe();
+            ((Players.FallenAngel) player).equipSword();
         }
        this.setMapEntityStatus(MapEntityStatus.REMOVED);
+       
        }
 
     }
-    
 
     @Override
     protected GameObject loadBottomLayer(SpriteSheet spriteSheet) {

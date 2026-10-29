@@ -35,9 +35,9 @@ public class RNGWeaponDrop extends EnhancedMapTile{
             Point spawnPoint = new Point(getLocation().x + (getWidth() - 10)/2, getLocation().y + (getHeight() - 11)/2);
                 
             if (chosen.equals("sword")) {
-                map.addEnhancedMapTile(new GoodWeaponPickup(spawnPoint));
+                map.addEnhancedMapTile(new Sword(spawnPoint));
             }else if(chosen.equals("Battle_Axe")){
-                map.addEnhancedMapTile(new BadWeaponPickup(spawnPoint));
+                map.addEnhancedMapTile(new BattleAxe(spawnPoint));
             }
         }
     }

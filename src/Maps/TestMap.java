@@ -1,17 +1,17 @@
 package Maps;
 
-import EnhancedMapTiles.BadWeaponPickup;
 import Engine.ScreenManager;
-import EnhancedMapTiles.GoodWeaponPickup;
-import Utils.Point;
-import NPCs.Boss;
+import EnhancedMapTiles.BattleAxe;
+import EnhancedMapTiles.Sword;
 import Level.*;
+import NPCs.Boss;
 import NPCs.Enemy;
 import NPCs.RangedEnemy;
 import NPCs.jeard;
 import Scripts.EnemySpawner;
 import Scripts.TestMap.*;
 import Tilesets.FallenTileset;
+import Utils.Point;
 import java.util.ArrayList;
 
 
@@ -56,9 +56,9 @@ public class TestMap extends Map {
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
 
-        GoodWeaponPickup goodWeaponPickup = new GoodWeaponPickup(getMapTile(2, 7).getLocation());
+        Sword goodWeaponPickup = new Sword(getMapTile(2, 7).getLocation());
         enhancedMapTiles.add(goodWeaponPickup);
-        BadWeaponPickup badWeaponPickup = new BadWeaponPickup(getMapTile(3,6).getLocation());
+        BattleAxe badWeaponPickup = new BattleAxe(getMapTile(3,6).getLocation());
         enhancedMapTiles.add(badWeaponPickup);
 
         //DamageTile damageTile = new DamageTile(getMapTile(6,7).getLocation());

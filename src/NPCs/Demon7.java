@@ -23,7 +23,7 @@ public class Demon7 extends NPC {
             put("DEFAULT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0))
                     .withScale(2)
-                    .withBounds(3, 5, 32, 32)
+                    .withBounds(0, 0, 32, 32)
                     .build()
             });
         }};

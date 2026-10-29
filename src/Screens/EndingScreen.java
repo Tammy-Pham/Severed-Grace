@@ -1,12 +1,5 @@
 package Screens;
 
-import java.awt.Color;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 import Engine.Config;
 import Engine.GraphicsHandler;
 import Engine.Key;
@@ -14,14 +7,16 @@ import Engine.KeyLocker;
 import Engine.Keyboard;
 import Engine.Screen;
 import Level.Player;
-import SpriteFont.SpriteFont;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 public class EndingScreen extends Screen {
     private final Player player;
     private final PlayLevelScreen playLevelScreen;
     private final KeyLocker keyLocker = new KeyLocker();
     private BufferedImage endingImage;
-    private SpriteFont menuInstructions;
 
     public EndingScreen(Player player, PlayLevelScreen playLevelScreen) {
         this.player = player;
@@ -40,10 +35,6 @@ public class EndingScreen extends Screen {
             throw new RuntimeException("Unable to load ending image " + imagePath, e);
         }
 
-        menuInstructions = new SpriteFont("Press Space to return to the main menu",
-            20, Config.GAME_WINDOW_HEIGHT - 25, "Arial", 20, Color.white);
-        menuInstructions.setOutlineColor(Color.black);
-        menuInstructions.setOutlineThickness(3);
         keyLocker.lockKey(Key.SPACE);
     }
 
@@ -65,6 +56,5 @@ public class EndingScreen extends Screen {
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
         graphicsHandler.drawImage(endingImage, 0, 0, Config.GAME_WINDOW_WIDTH, Config.GAME_WINDOW_HEIGHT);
-        menuInstructions.draw(graphicsHandler);
     }
 }

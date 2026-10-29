@@ -43,6 +43,7 @@ public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
     animations.put("IDLE", new Frame[] {
         new FrameBuilder(spriteSheet.getSubImage(0, 0))
             .withScale(1.5f)
+            .withBounds(16, 8, 32, 56)
             .build()
     });
 
@@ -59,6 +60,7 @@ public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         windupFrames[i] = new FrameBuilder(
                 spriteSheet.getSubImage(row, column), 14)
                 .withScale(1.5f)
+                .withBounds(16, 8, 32, 56)
                 .build();
     }
 
@@ -77,6 +79,7 @@ public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         regenerationFrames[i] = new FrameBuilder(
                 spriteSheet.getSubImage(row, column), 5)
                 .withScale(1.5f)
+                .withBounds(16, 8, 32, 56)
                 .build();
     }
 
@@ -124,6 +127,7 @@ for (String name : animationNames) {
 
         flippedFrames[i] = builder
                 .withScale(1.5f)
+                .withBounds(16, 8, 32, 56)
                 .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                 .build();
     }

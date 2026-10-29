@@ -13,32 +13,18 @@ public class FallenAngel extends Player {
         private final int xOffset = 20;
         private final int yOffset = 30;
 
-        public boolean hasGoodSword = false;
-        public boolean hasBadAxe = false;
+        public boolean hasSword = false;
+        public boolean hasSpear = false;
+        public boolean hasGreatSword = false;
 
-        /*public void equipSword(){
-                if(hasGoodSword) return;
-                hasGoodSword = true;
+        public boolean hasBattleAxe = false;
+        public boolean hasPitchFork = false;
+        public boolean hasScythe = false;
 
-                SpriteSheet swordSheet = new SpriteSheet(ImageLoader.load("Main-Character-Full-SpriteSheet-Severed-Grace.png"), 64, 64, 0);
-                this.animations = loadAnimations(swordSheet);
 
-                this.currentAnimationName = "STAND_RIGHT";
-                this.currentFrameIndex = 0;
-        }
-        public void equipAxe(){
-                if(hasBadAxe) return;
-                hasBadAxe = true;
-
-                SpriteSheet axeSheet = new SpriteSheet(ImageLoader.load("Main-Character-Full-Ax-SpriteSheet-Severed-Grace.png"), 64, 64, 0);
-                this.animations = loadAnimations(axeSheet);
-
-                this.currentAnimationName = "STAND_RIGHT";
-                this.currentFrameIndex = 0;
-        }*/
        public void equipSword() {
-        if (hasGoodSword) return;
-
+        if (hasSword) return;
+                attackDamage = 35;
                 SpriteSheet swordSheet = new SpriteSheet(
                 ImageLoader.load("Main-Character-Full-SpriteSheet-Severed-Grace.png"),
                 64, 64, 0
@@ -46,12 +32,27 @@ public class FallenAngel extends Player {
 
         changeAnimations(loadAnimations(swordSheet), "STAND_RIGHT");
 
-        hasGoodSword = true;
+        hasSword = true;
         }     
 
+        public void equipSpear(){
+         if(hasSpear) return;
+                attackDamage = 150;
+                //add sprite sheets
+                
+         hasSpear = true;
+        }
+
+        public void equipGreatSword(){
+         if(hasGreatSword) return;
+                attackDamage = 200;
+                //add sprite sheets
+         hasGreatSword = true;
+        }
+
         public void equipAxe() {
-                if (hasBadAxe) return;
-                attackDamage = 35; // Set the attack damage to 35 when the axe is equipped
+                if (hasBattleAxe) return;
+                attackDamage = 75; // Set the attack damage to 35 when the axe is equipped
                 SpriteSheet axeSheet = new SpriteSheet(
                 ImageLoader.load("Main-Character-Full-Ax-SpriteSheet-Severed-Grace.png"),
                 64, 64, 0
@@ -59,8 +60,26 @@ public class FallenAngel extends Player {
 
         changeAnimations(loadAnimations(axeSheet), "STAND_RIGHT");
 
-        hasBadAxe = true;
+        hasBattleAxe = true;
         }
+
+        public void equipPitchFork(){
+         if(hasPitchFork) return;
+                attackDamage = 200;
+                //add sprite sheets
+
+         hasPitchFork = true;
+        }
+
+        public void equipScythe(){
+         if(hasScythe) return;
+                attackDamage = 350;
+                //add sprite sheets
+         hasScythe = true;
+        }
+
+
+
 
     public FallenAngel(float x, float y) {
         super(new SpriteSheet(ImageLoader.load("Main-Character-Full-SpriteSheet-Severed-Grace.png"), 64, 64,0), x, y, "STATIC");

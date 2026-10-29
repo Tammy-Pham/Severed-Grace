@@ -220,167 +220,167 @@ public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
     animations.put("IDLE", new Frame[] {
         new FrameBuilder(spriteSheet.getSubImage(0, 0))
             .withScale(2)
-            .withBounds(3, 5, 32, 32)
+            .withBounds(28, 22, 22, 40)
             .build()
     });
 
     // WALKING
     animations.put("WALK", new Frame[] {
         new FrameBuilder(spriteSheet.getSubImage(0, 0), 14)
-            .withScale(2).withBounds(3, 5, 32, 32).build(),
+            .withScale(2).withBounds(28, 22, 22, 40).build(),
         new FrameBuilder(spriteSheet.getSubImage(0, 1), 14)
-            .withScale(2).withBounds(3, 5, 32, 32).build(),
+            .withScale(2).withBounds(28, 22, 22, 40).build(),
         new FrameBuilder(spriteSheet.getSubImage(0, 2), 14)
-            .withScale(2).withBounds(3, 5, 32, 32).build(),
+            .withScale(2).withBounds(28, 22, 22, 40).build(),
         new FrameBuilder(spriteSheet.getSubImage(0, 3), 14)
-            .withScale(2).withBounds(3, 5, 32, 32).build(),
+            .withScale(2).withBounds(28, 22, 22, 40).build(),
         new FrameBuilder(spriteSheet.getSubImage(0, 4), 14)
-            .withScale(2).withBounds(3, 5, 32, 32).build(),
+            .withScale(2).withBounds(28, 22, 22, 40).build(),
         new FrameBuilder(spriteSheet.getSubImage(1, 0), 14)
-            .withScale(2).withBounds(3, 5, 32, 32).build(),
+            .withScale(2).withBounds(28, 22, 22, 40).build(),
         new FrameBuilder(spriteSheet.getSubImage(1, 1), 14)
-            .withScale(2).withBounds(3, 5, 32, 32).build(),
+            .withScale(2).withBounds(28, 22, 22, 40).build(),
         new FrameBuilder(spriteSheet.getSubImage(1, 2), 14)
-            .withScale(2).withBounds(3, 5, 32, 32).build()
+            .withScale(2).withBounds(28, 22, 22, 40).build()
     });
     animations.put("WALK_LEFT", new Frame[] {
     new FrameBuilder(spriteSheet.getSubImage(0, 0), 14)
         .withScale(2)
         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-        .withBounds(3, 5, 32, 32)
+        .withBounds(14, 22, 22, 40)
         .build(),
 
     new FrameBuilder(spriteSheet.getSubImage(0, 1), 14)
         .withScale(2)
         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-        .withBounds(3, 5, 32, 32)
+        .withBounds(14, 22, 22, 40)
         .build(),
 
     new FrameBuilder(spriteSheet.getSubImage(0, 2), 14)
         .withScale(2)
         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-        .withBounds(3, 5, 32, 32)
+        .withBounds(14, 22, 22, 40)
         .build(),
 
     new FrameBuilder(spriteSheet.getSubImage(0, 3), 14)
         .withScale(2)
         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-        .withBounds(3, 5, 32, 32)
+        .withBounds(14, 22, 22, 40)
         .build(),
 
     new FrameBuilder(spriteSheet.getSubImage(0, 4), 14)
         .withScale(2)
         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-        .withBounds(3, 5, 32, 32)
+        .withBounds(14, 22, 22, 40)
         .build(),
 
     new FrameBuilder(spriteSheet.getSubImage(1, 0), 14)
         .withScale(2)
         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-        .withBounds(3, 5, 32, 32)
+        .withBounds(14, 22, 22, 40)
         .build(),
 
     new FrameBuilder(spriteSheet.getSubImage(1, 1), 14)
         .withScale(2)
         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-        .withBounds(3, 5, 32, 32)
+        .withBounds(14, 22, 22, 40)
         .build(),
 
     new FrameBuilder(spriteSheet.getSubImage(1, 2), 14)
         .withScale(2)
         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-        .withBounds(3, 5, 32, 32)
+        .withBounds(14, 22, 22, 40)
         .build()
 });
 
     // WIND-UP
     animations.put("WINDUP", new Frame[] {
         new FrameBuilder(spriteSheet.getSubImage(1, 3), 9)
-            .withScale(2).withBounds(3, 5, 32, 32).build(),
+            .withScale(2).withBounds(28, 22, 22, 40).build(),
         new FrameBuilder(spriteSheet.getSubImage(1, 4), 9)
-            .withScale(2).withBounds(3, 5, 32, 32).build(),
+            .withScale(2).withBounds(28, 22, 22, 40).build(),
         new FrameBuilder(spriteSheet.getSubImage(2, 0), 9)
-            .withScale(2).withBounds(3, 5, 32, 32).build(),
+            .withScale(2).withBounds(28, 22, 22, 40).build(),
         new FrameBuilder(spriteSheet.getSubImage(2, 1), 9)
-            .withScale(2).withBounds(3, 5, 32, 32).build(),
+            .withScale(2).withBounds(28, 22, 22, 40).build(),
         new FrameBuilder(spriteSheet.getSubImage(2, 2), 9)
-            .withScale(2).withBounds(3, 5, 32, 32).build(),
+            .withScale(2).withBounds(28, 22, 22, 40).build(),
         new FrameBuilder(spriteSheet.getSubImage(2, 3), 9)
-            .withScale(2).withBounds(3, 5, 32, 32).build(),
+            .withScale(2).withBounds(28, 22, 22, 40).build(),
         new FrameBuilder(spriteSheet.getSubImage(2, 4), 9)
-            .withScale(2).withBounds(3, 5, 32, 32).build()
+            .withScale(2).withBounds(28, 22, 22, 40).build()
     });
     animations.put("WINDUP_LEFT", new Frame[] {
     new FrameBuilder(spriteSheet.getSubImage(1, 3), 9)
         .withScale(2)
         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-        .withBounds(3, 5, 32, 32)
+        .withBounds(14, 22, 22, 40)
         .build(),
 
     new FrameBuilder(spriteSheet.getSubImage(1, 4), 9)
         .withScale(2)
         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-        .withBounds(3, 5, 32, 32)
+        .withBounds(14, 22, 22, 40)
         .build(),
 
     new FrameBuilder(spriteSheet.getSubImage(2, 0), 9)
         .withScale(2)
         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-        .withBounds(3, 5, 32, 32)
+        .withBounds(14, 22, 22, 40)
         .build(),
 
     new FrameBuilder(spriteSheet.getSubImage(2, 1), 9)
         .withScale(2)
         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-        .withBounds(3, 5, 32, 32)
+        .withBounds(14, 22, 22, 40)
         .build(),
 
     new FrameBuilder(spriteSheet.getSubImage(2, 2), 9)
         .withScale(2)
         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-        .withBounds(3, 5, 32, 32)
+        .withBounds(14, 22, 22, 40)
         .build(),
 
     new FrameBuilder(spriteSheet.getSubImage(2, 3), 9)
         .withScale(2)
         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-        .withBounds(3, 5, 32, 32)
+        .withBounds(14, 22, 22, 40)
         .build(),
 
     new FrameBuilder(spriteSheet.getSubImage(2, 4), 9)
         .withScale(2)
         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-        .withBounds(3, 5, 32, 32)
+        .withBounds(14, 22, 22, 40)
         .build()
 });
 
     // ATTACK
     animations.put("ATTACK", new Frame[] {
         new FrameBuilder(spriteSheet.getSubImage(3, 0), 6)
-            .withScale(2).withBounds(3, 5, 32, 32).build(),
+            .withScale(2).withBounds(28, 22, 22, 40).build(),
         new FrameBuilder(spriteSheet.getSubImage(3, 1), 6)
-            .withScale(2).withBounds(3, 5, 32, 32).build(),
+            .withScale(2).withBounds(28, 22, 22, 40).build(),
         new FrameBuilder(spriteSheet.getSubImage(3, 2), 6)
-            .withScale(2).withBounds(3, 5, 32, 32).build()
+            .withScale(2).withBounds(28, 22, 22, 40).build()
     });
 
     animations.put("ATTACK_LEFT", new Frame[] {
     new FrameBuilder(spriteSheet.getSubImage(3, 0), 6)
         .withScale(2)
         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-        .withBounds(3, 5, 32, 32)
+        .withBounds(14, 22, 22, 40)
         .build(),
 
     new FrameBuilder(spriteSheet.getSubImage(3, 1), 6)
         .withScale(2)
         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-        .withBounds(3, 5, 32, 32)
+        .withBounds(14, 22, 22, 40)
         .build(),
 
     new FrameBuilder(spriteSheet.getSubImage(3, 2), 6)
         .withScale(2)
         .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-        .withBounds(3, 5, 32, 32)
+        .withBounds(14, 22, 22, 40)
         .build()
 });
 

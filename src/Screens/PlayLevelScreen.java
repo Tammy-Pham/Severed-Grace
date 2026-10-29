@@ -21,6 +21,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
     protected HealthBar healthBar;
     protected static int currentLevel = 0;
     protected EndingScreen endingScreen;
+    protected DeathScreen deathScreen;
 
     private static final int TOTAL_LEVELS = 7;
 
@@ -37,6 +38,8 @@ public class PlayLevelScreen extends Screen implements GameListener {
 
         player = null;
         loadCutsceneMap(currentLevel);
+        deathScreen = new DeathScreen(player, this);
+        deathScreen.initialize();
         healthBar = new HealthBar(10, 0, 2);
         winScreen = new WinScreen(this);
     }
@@ -110,6 +113,12 @@ public class PlayLevelScreen extends Screen implements GameListener {
                 player.update();
                 map.update(player);
                 player.updateFacingAndAnimation();
+
+                deathScreen.update();
+                if(deathScreen.isActive()){
+                    playLevelScreenState = PlayLevelScreenState.DEATH;
+                    return;
+                }
                 break;
             case CUTSCENE:
                 player.update();
@@ -131,6 +140,9 @@ public class PlayLevelScreen extends Screen implements GameListener {
             case ENDING:
                 endingScreen.update();
                 break;
+            case DEATH:
+                deathScreen.update();
+                break;
         }
     }
 
@@ -139,6 +151,8 @@ public class PlayLevelScreen extends Screen implements GameListener {
         if (currentLevel < TOTAL_LEVELS - 1) {
             currentLevel++;
             loadCutsceneMap(currentLevel);
+            deathScreen = new DeathScreen(player, this);
+            deathScreen.initialize();
         } else {
             endingScreen = new EndingScreen(player, this);
             endingScreen.initialize();
@@ -150,6 +164,12 @@ public class PlayLevelScreen extends Screen implements GameListener {
         switch (playLevelScreenState) {
             case RUNNING:
                 map.draw(player, graphicsHandler);
+                //To see player hitbox (comment out when u don't want to see)
+                player.drawBounds(graphicsHandler, new java.awt.Color(255, 0, 0, 70));
+                //To see npc/enemy/boss hitbox (comment out when u don't want to see)
+                for (NPC npc : map.getActiveNPCs()) {
+                    npc.drawBounds(graphicsHandler, java.awt.Color.RED);
+                }
                 healthBar.draw(graphicsHandler, player.getHealth());
                 break;
             case CUTSCENE:
@@ -163,6 +183,10 @@ public class PlayLevelScreen extends Screen implements GameListener {
                 break;
             case ENDING:
                 endingScreen.draw(graphicsHandler);
+                break;
+            case DEATH:
+                deathScreen.draw(graphicsHandler);
+                break;
         }
     }
 
@@ -180,7 +204,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
     }
 
     private enum PlayLevelScreenState {
-        RUNNING, CUTSCENE, TRANSITION, LEVEL_COMPLETED, ENDING
+        RUNNING, CUTSCENE, TRANSITION, LEVEL_COMPLETED, ENDING, DEATH
     }
 
     public static int getLevel(){

@@ -11,25 +11,25 @@ import Level.Player;
 import Level.TileType;
 import Utils.Point;
 
-public class GoodWeaponPickup extends EnhancedMapTile {
-    public GoodWeaponPickup(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Sword.png"), 64, 64,0), TileType.PASSABLE);
+public class PitchFork extends EnhancedMapTile {
+    public PitchFork(Point location) {
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Battle_Axe.png"), 64, 64,0), TileType.PASSABLE);
     }
 
     @Override
     public void update(Player player) {
         super.update(player);
        if(player.intersects (this)){
-        player.addKarma(5);
+        player.subtractKarma(200);
+        //change this to be the new sprites
         if(player instanceof Players.FallenAngel){
-            ((Players.FallenAngel) player).equipSword();
+            ((Players.FallenAngel) player).equipPitchFork();
         }
-        //the code line below deals with removing the weapon
        this.setMapEntityStatus(MapEntityStatus.REMOVED);
-       
        }
 
     }
+    
 
     @Override
     protected GameObject loadBottomLayer(SpriteSheet spriteSheet) {
