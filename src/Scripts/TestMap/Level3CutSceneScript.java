@@ -19,13 +19,13 @@ public class Level3CutSceneScript extends Script {
         scriptActions.add(new LockPlayerScriptAction());
         scriptActions.add(new TextboxScriptAction() {{
             //goes through the lines that are given
-                addText("NPC: fufufu, so you decide to go back to that place,\nyou really sure about this decision?");
-                addText("Player: why do so many of you try\nto convince me to stay here?");
-                addText("NPC: cause many of use of tried to go there,\n but got rejected.");
-                addText("NPC:and we are trying to save you from the\nsame pain of that rejection");
-                addText("Player: what do you mean rejection,\nit is a place where if you repent, you can go back");
-                addText("NPC:you still don't understand\nthey don't care about us");
-                addText("Player: we will see about that");
+                addText("???: Fufufu, so you decide to go back to that place,\nare you *really* sure about this decision?");
+                addText("Player: Why do so many of you actively try\nto convince me to stay here?");
+                addText("???: Because many of use of tried to go there.\nBut got rejected.");
+                addText("???: And we are trying to save you from the\nsame pain of that rejection.");
+                addText("Player: What do you mean \"rejection\"? Heaven\nis a place where if you repent, you can go back!");
+                addText("???: ...You still don't understand.\nThey don't care about us.");
+                addText("Player: *sigh*\nWe will see about that.");
         }});
         //unlocks player after the scene is over
         scriptActions.add(new UnlockPlayerScriptAction());

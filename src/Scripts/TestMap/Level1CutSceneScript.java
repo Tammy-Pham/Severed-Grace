@@ -32,10 +32,10 @@ public class Level1CutSceneScript extends Script {
                 addText("where no light can reach");
                 addText("and you see only one of your\nwhite wings in the corner of your eyes");
                 addText("End of Prologue");
-                addText("NPC: Hello, there. You seem lost.");
-                addText("Player: Where am I? What is this place?");
-                addText("NPC: You would have to climb through hell,\nbut what's the point? It was just a rumor.");
-                addText("Player: I see, so that's how it works.");
+                addText("???: Hello, there. You seem lost.");
+                addText("Player: ...where am I? What is this place?");
+                addText("???: You would have to climb through hell,\nbut what's the point? It was just a rumor.");
+                addText("Player: I see... so that's how it works.");
         }});
         //unlocks player after the scene is over
         scriptActions.add(new UnlockPlayerScriptAction());
