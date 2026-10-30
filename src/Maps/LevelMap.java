@@ -75,10 +75,10 @@ public abstract class LevelMap extends Map {
         if (!bossDefeated) {
             if (boss == null && allEnemiesDefeated() && waveNumber == 2) {
                 boss = new Boss(5, getMapTile(0, 0).getLocation());
-                int cx = Math.round(getCamera().getX()) + ScreenManager.getScreenWidth() / 2;
-                int cy = Math.round(getCamera().getY()) + ScreenManager.getScreenHeight() / 2;
-                boss.setX(cx - boss.getWidth() / 2);
-                boss.setY(cy - boss.getHeight() / 2);
+                int x = getEndBoundX()/2;
+                int y = getEndBoundY()/2; 
+                boss.setX(x - boss.getWidth() / 2);
+                boss.setY(y - boss.getHeight() / 2);
                 addNPC(boss);
             } else if (boss != null && (boss.getHealth() <= 0 || !getNPCs().contains(boss))) {
                 bossDefeated = true;

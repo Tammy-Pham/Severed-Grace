@@ -23,6 +23,8 @@ public class Enemy extends NPC {
     private long attackDelay = 1000; // full second
     private boolean isPerformingAttack = false;
     private long attackAnimationStartTime;
+    protected float lastAmountMovedX, lastAmountMovedY;
+    protected float moveAmountX, moveAmountY;
 
     private static final long ATTACK_ANIMATION_DURATION = 300;
 
@@ -30,6 +32,11 @@ public class Enemy extends NPC {
         super(id, location.x, location.y,
                 new SpriteSheet(ImageLoader.load("Enemy-SpriteSheet-Severed-Grace.png"), 64, 64,0),
                 "IDLE");
+    }
+
+    public void update(){
+            lastAmountMovedY = super.moveYHandleCollision(moveAmountY);
+            lastAmountMovedX = super.moveXHandleCollision(moveAmountX);
     }
 
     private void facePlayer(Player player, String animation) {
