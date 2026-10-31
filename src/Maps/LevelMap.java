@@ -1,6 +1,5 @@
 package Maps;
 
-import Engine.ScreenManager;
 import Level.*;
 import NPCs.Boss;
 import NPCs.Enemy;
@@ -42,31 +41,31 @@ public abstract class LevelMap extends Map {
             int meleeCount = 0;
             switch (PlayLevelScreen.getLevel()) {
                 case 1:
-                    getNPCs().addAll(EnemySpawner.spawnEnemies(1, 1));
+                    addEnemyWave(1, 1);
                     break;
                 case 2:
                     meleeCount = (int)(Math.random() * 2 + 2);
-                    getNPCs().addAll(EnemySpawner.spawnEnemies(meleeCount, 5 - meleeCount));
+                    addEnemyWave(meleeCount, 5 - meleeCount);
                     break;
                 case 3:
-                    getNPCs().addAll(EnemySpawner.spawnEnemies(3, 3));
+                    addEnemyWave(3, 3);
                     break;
                 case 4:
                     meleeCount = (int)(Math.random() * 3 + 3);
-                    getNPCs().addAll(EnemySpawner.spawnEnemies(meleeCount, 7 - meleeCount));
+                    addEnemyWave(meleeCount, 7 - meleeCount);
                     break;
                 case 5:
                     meleeCount = (int)(Math.random() * 7 + 1);
-                    getNPCs().addAll(EnemySpawner.spawnEnemies(meleeCount, 8 - meleeCount));
+                    addEnemyWave(meleeCount, 8 - meleeCount);
                     break;
                 case 6:
-                    getNPCs().addAll(EnemySpawner.spawnEnemies(0, 9));
+                    addEnemyWave(0, 9);
                     break;
                 case 7:
-                    getNPCs().addAll(EnemySpawner.spawnEnemies(10, 5));
+                    addEnemyWave(10, 5);
                     break;
                 default:
-                    getNPCs().addAll(EnemySpawner.spawnEnemies(1, 1));
+                    addEnemyWave(1, 1);
                     break;
             }
         }
@@ -80,6 +79,8 @@ public abstract class LevelMap extends Map {
                 boss.setX(x - boss.getWidth() / 2);
                 boss.setY(y - boss.getHeight() / 2);
                 addNPC(boss);
+                player.setX(boss.getX() + (boss.getWidth() - player.getWidth()) / 2);
+                player.setY(boss.getY() + boss.getHeight() + 16);
             } else if (boss != null && (boss.getHealth() <= 0 || !getNPCs().contains(boss))) {
                 bossDefeated = true;
                 openExitDoors();
@@ -102,6 +103,12 @@ public abstract class LevelMap extends Map {
                     exitDoorLocations.add(new Point(x, y));
                 }
             }
+        }
+    }
+
+    private void addEnemyWave(int meleeCount, int rangedCount) {
+        for (NPC enemy : EnemySpawner.spawnEnemies(meleeCount, rangedCount)) {
+            addNPC(enemy);
         }
     }
 

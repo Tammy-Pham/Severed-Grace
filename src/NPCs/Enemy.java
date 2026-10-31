@@ -5,6 +5,7 @@ import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
+import GameObject.Rectangle;
 import GameObject.SpriteSheet;
 import Level.NPC;
 import Level.Player;
@@ -125,32 +126,63 @@ facePlayer(player, "WALK");
 
     // Try to move horizontally toward the player
     if (enemyX < playerX) {
-        if (moveXHandleCollision(speed) == 0) {
+        if (moveXWithinMap(speed) == 0) {
             // Can't move right, so try moving vertically
-            moveYHandleCollision(speed);
+            moveYWithinMap(speed);
         }
     }
     else if (enemyX > playerX) {
-        if (moveXHandleCollision(-speed) == 0) {
+        if (moveXWithinMap(-speed) == 0) {
             // Can't move left, so try moving vertically
-            moveYHandleCollision(speed);
+            moveYWithinMap(speed);
         }
     }
 
     // Try to move vertically toward the player
     if (enemyY < playerY) {
-        if (moveYHandleCollision(speed) == 0) {
+        if (moveYWithinMap(speed) == 0) {
             // Can't move down, so try moving horizontally
-            moveXHandleCollision(speed);
+            moveXWithinMap(speed);
         }
     }
     else if (enemyY > playerY) {
-        if (moveYHandleCollision(-speed) == 0) {
+        if (moveYWithinMap(-speed) == 0) {
             // Can't move up, so try moving horizontally
-            moveXHandleCollision(speed);
+            moveXWithinMap(speed);
         }
     }
 }
+
+    private float moveXWithinMap(float amount) {
+        if (map == null) {
+            return moveXHandleCollision(amount);
+        }
+
+        Rectangle bounds = getBounds();
+        if (amount > 0) {
+            amount = Math.min(amount, map.getEndBoundX() - bounds.getX2() - 1);
+        } else if (amount < 0) {
+            amount = Math.max(amount, -bounds.getX1());
+        }
+
+        return moveXHandleCollision(amount);
+    }
+
+    private float moveYWithinMap(float amount) {
+        if (map == null) {
+            return moveYHandleCollision(amount);
+        }
+
+        Rectangle bounds = getBounds();
+        if (amount > 0) {
+            amount = Math.min(amount, map.getEndBoundY() - bounds.getY2() - 1);
+        } else if (amount < 0) {
+            amount = Math.max(amount, -bounds.getY1());
+        }
+
+        return moveYHandleCollision(amount);
+    }
+
 /* 
     old movement method, just keeping it here in case of emergency implementation.
     @Override
