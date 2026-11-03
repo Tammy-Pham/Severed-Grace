@@ -40,7 +40,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
         loadCutsceneMap(currentLevel);
         deathScreen = new DeathScreen(player, this);
         deathScreen.initialize();
-        healthBar = new HealthBar(10, 0, 2);
+        healthBar = new HealthBar(10,-45, 3);
         winScreen = new WinScreen(this);
     }
 

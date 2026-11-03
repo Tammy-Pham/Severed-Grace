@@ -53,7 +53,7 @@ public class LevelFiveMap extends LevelMap {
 */
         // Spawn 6 enemies (randomized)
         int meleeCount = (int)(Math.random() * 5 + 1);
-        npcs.addAll(EnemySpawner.spawnEnemies(meleeCount, 6 - meleeCount));
+        npcs.addAll(EnemySpawner.spawnEnemies(this, meleeCount, 6 - meleeCount));
         return npcs;
     } 
 

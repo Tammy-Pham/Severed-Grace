@@ -107,7 +107,7 @@ public abstract class LevelMap extends Map {
     }
 
     private void addEnemyWave(int meleeCount, int rangedCount) {
-        for (NPC enemy : EnemySpawner.spawnEnemies(meleeCount, rangedCount)) {
+        for (NPC enemy : EnemySpawner.spawnEnemies(this,meleeCount, rangedCount)) {
             addNPC(enemy);
         }
     }
