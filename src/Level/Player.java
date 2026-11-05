@@ -435,13 +435,37 @@ protected boolean damageDealtThisAttack = false;
                 getBounds().getWidth() + (interactionRange * 2),
                 getBounds().getHeight() + (interactionRange * 2));
     }
+
+
     public int getHealth() {
-        return health;
+            return health;
     }
-    public void takeDamage(int amount){
-        health = health - amount;
-        if (health < 0) {
+
+    public void takeDamage(int amount) {
+
+        if (health <= 0 || amount <= 0) {
+            return;
+        }
+
+        health -= amount;
+
+        if (health <= 0) {
             health = 0;
+
+            if (map != null) {
+                float effectSize = 128;
+
+                float effectX = getX()
+                    + (getWidth() - effectSize) / 2;
+
+                float effectY = getY()
+                    + (getHeight() - effectSize) / 2;
+
+                map.addDeathEffect(effectX, effectY);
+            }
+        }
+        else {
+            startDamageFlash();
         }
     }
 

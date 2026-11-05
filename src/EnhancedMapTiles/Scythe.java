@@ -13,7 +13,7 @@ import Utils.Point;
 
 public class Scythe extends EnhancedMapTile {
     public Scythe(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Battle_Axe.png"), 64, 64,0), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Sythe-Severed-Grace.png"), 64, 64,0), TileType.PASSABLE);
     }
 
     @Override
@@ -22,7 +22,7 @@ public class Scythe extends EnhancedMapTile {
        if(player.intersects (this)){
         player.subtractKarma(100);
         if(player instanceof Players.FallenAngel){
-            ((Players.FallenAngel) player).equipScythe();
+            ((Players.FallenAngel) player).equipAxe();
         }
        this.setMapEntityStatus(MapEntityStatus.REMOVED);
        }

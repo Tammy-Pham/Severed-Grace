@@ -163,7 +163,22 @@ public class AnimatedSprite implements IntersectableRectangle {
 	}
 
 	public void draw(GraphicsHandler graphicsHandler) {
-		currentFrame.draw(graphicsHandler);
+
+		if (this instanceof GameObject &&
+				((GameObject) this).isDamageFlashing()) {
+
+			graphicsHandler.drawRedTint(
+					currentFrame.getImage(),
+					Math.round(currentFrame.getX()),
+					Math.round(currentFrame.getY()),
+					currentFrame.getWidth(),
+					currentFrame.getHeight(),
+					currentFrame.getImageEffect()
+			);
+
+		} else {
+			currentFrame.draw(graphicsHandler);
+		}
 	}
 
     public void drawBounds(GraphicsHandler graphicsHandler, Color color) {

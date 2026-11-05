@@ -13,7 +13,7 @@ import Utils.Point;
 
 public class PitchFork extends EnhancedMapTile {
     public PitchFork(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Battle_Axe.png"), 64, 64,0), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("PitchFork-Severed-Grace.png"), 64, 64,0), TileType.PASSABLE);
     }
 
     @Override
@@ -23,7 +23,7 @@ public class PitchFork extends EnhancedMapTile {
         player.subtractKarma(200);
         //change this to be the new sprites
         if(player instanceof Players.FallenAngel){
-            ((Players.FallenAngel) player).equipPitchFork();
+            ((Players.FallenAngel) player).equipAxe();
         }
        this.setMapEntityStatus(MapEntityStatus.REMOVED);
        }

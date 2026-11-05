@@ -4,7 +4,6 @@ import Engine.GraphicsHandler;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
 import Utils.Direction;
-
 import java.util.HashMap;
 
 // This class is a base class for all npcs in the game -- all npcs should extend from it
@@ -47,13 +46,35 @@ public class NPC extends MapEntity {
         this.health = health;
     }
     
-    public void takeDamage(int amount) {
-        health = health - amount;
-        if (health < 0) {
-            health = 0;
+   public void takeDamage(int amount) {
+
+        // Prevent repeated defeat effects
+        if (health <= 0 || amount <= 0) {
+            return;
         }
-        if (health == 0) {
-        setMapEntityStatus(MapEntityStatus.REMOVED);
+
+        health -= amount;
+
+        if (health <= 0) {
+            health = 0;
+
+            // Center the effect on this enemy
+            if (map != null) {
+                float effectSize = 128;
+
+                float effectX = getX()
+                    + (getWidth() - effectSize) / 2;
+
+                float effectY = getY()
+                    + (getHeight() - effectSize) / 2;
+
+                map.addDeathEffect(effectX, effectY);
+            }
+
+            setMapEntityStatus(MapEntityStatus.REMOVED);
+        }
+        else {
+            startDamageFlash();
         }
     }
 

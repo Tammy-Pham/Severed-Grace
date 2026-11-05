@@ -17,6 +17,8 @@ import java.util.Scanner;
 import NPCs.Enemy;
 import NPCs.RangedEnemy;
 
+import GameObject.DeathEffect;
+
 /*
     This class is for defining a map that is used for a specific level
     The map class handles/manages a lot of different things, including:
@@ -81,6 +83,8 @@ public abstract class Map {
 
     // other external classes can use this to listen for events
     protected ArrayList<GameListener> listeners = new ArrayList<>();
+
+    private ArrayList<DeathEffect> deathEffects = new ArrayList<>();
 
     public Map(String mapFileName, Tileset tileset) {
         this.mapFileName = mapFileName;
@@ -540,6 +544,7 @@ public abstract class Map {
         // Occasionally log the number of enemies remaining
         if (Math.random() < 0.02) System.out.println("Enemies remaining: " + (meleeCount + rangedCount) 
         + " (" + meleeCount + " melee, " + rangedCount + " ranged)");
+        deathEffects.removeIf(effect -> effect.isFinished());
     }
 
     // based on the player's current X position (which in a level can potentially be updated each frame),
@@ -605,11 +610,14 @@ public abstract class Map {
     }
 
     public void draw(Player player, GraphicsHandler graphicsHandler) {
-        camera.draw(player, graphicsHandler);
-        if (textbox.isActive()) {
-            textbox.draw(graphicsHandler);
-        }
+    camera.draw(player, graphicsHandler);
+
+    drawDeathEffects(graphicsHandler);
+
+    if (textbox.isActive()) {
+        textbox.draw(graphicsHandler);
     }
+}
 
     public FlagManager getFlagManager() { return flagManager; }
 
@@ -637,4 +645,18 @@ public abstract class Map {
     public ArrayList<GameListener> getListeners() {
         return listeners;
     }
+
+    public void addDeathEffect(float x, float y) {
+    deathEffects.add(new DeathEffect(x, y));
+}
+
+private void drawDeathEffects(GraphicsHandler graphicsHandler) {
+    for (DeathEffect effect : deathEffects) {
+        effect.draw(
+            graphicsHandler,
+            camera.getX(),
+            camera.getY()
+        );
+    }
+}
 }
