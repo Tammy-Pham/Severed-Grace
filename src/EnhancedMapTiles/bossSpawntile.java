@@ -11,6 +11,7 @@ import Level.NPC;
 import Level.Player;
 import Level.TileType;
 import NPCs.Boss;
+import Screens.PlayLevelScreen;
 import NPCs.jeard;
 import Utils.Point;
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class bossSpawntile extends EnhancedMapTile {
                         enemy.setMapEntityStatus(MapEntityStatus.REMOVED);
                     }
 
-                    Boss boss = new Boss(5, map.getMapTile(5, 5).getLocation());
+                    Boss boss = new Boss(5, map.getMapTile(5, 5).getLocation(),PlayLevelScreen.getLevel());
                     map.addNPC(boss);
         }
     }

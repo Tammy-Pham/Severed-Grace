@@ -14,12 +14,15 @@ public class EnemySpawner {
 
     private static final int PLAYER_START_TILE_X = 10;
     private static final int PLAYER_START_TILE_Y = 10;
+    private static final int PLAYER_START_BOX_SIZE = 128;
 
     private static final int MIN_DISTANCE_FROM_PLAYER = 200;
 
+    private static final int MIN_GAP_FROM_PLAYER = 48;
     private static final int MIN_GAP_BETWEEN_ENEMIES = 16;
     private static final int MAX_ATTEMPTS = 200;
 
+    
     public static ArrayList<NPC> spawnEnemies(Map map, int meleeCount, int rangedCount) {
         ArrayList<NPC> spawnedNPCs = new ArrayList<>();
 
@@ -37,9 +40,9 @@ public class EnemySpawner {
     }
 
     private static void placeAtRandomSpot(NPC enemy, Map map, ArrayList<NPC> spawnedSoFar) {
-        Point playerPosition = getPlayerPosition(map);
-        Point closeToPlayerSpot = null;   // open and clear of enemies, but near the player
-        Point crowdedSpot = null;         // open floor, but next to another enemy (last resort)
+        Rectangle playerBounds = getPlayerBounds(map);
+        Point closeToPlayerSpot = null;   
+        Point crowdedSpot = null;         
 
         for (int attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
             int tileX = (int) (Math.random() * map.getWidth());
@@ -53,6 +56,11 @@ public class EnemySpawner {
                 continue;
             }
 
+           
+            if (isTouchingPlayer(enemy, playerBounds)) {
+                continue;
+            }
+
             if (isTooCloseToOtherEnemies(enemy, map, spawnedSoFar)) {
                 if (crowdedSpot == null) {
                     crowdedSpot = tileLocation;
@@ -60,10 +68,8 @@ public class EnemySpawner {
                 continue;
             }
 
-            float distanceX = tileLocation.x - playerPosition.x;
-            float distanceY = tileLocation.y - playerPosition.y;
-            if (Math.sqrt(distanceX * distanceX + distanceY * distanceY) >= MIN_DISTANCE_FROM_PLAYER) {
-                return; // good spot found
+            if (getDistanceToPlayer(enemy, playerBounds) >= MIN_DISTANCE_FROM_PLAYER) {
+                return; 
             }
 
             if (closeToPlayerSpot == null) {
@@ -76,6 +82,23 @@ public class EnemySpawner {
             enemy.setX(fallback.x);
             enemy.setY(fallback.y);
         }
+    }
+
+    private static boolean isTouchingPlayer(NPC enemy, Rectangle playerBounds) {
+        Rectangle bounds = enemy.getBounds();
+        return bounds.getX1() - MIN_GAP_FROM_PLAYER < playerBounds.getX2()
+                && bounds.getX2() + MIN_GAP_FROM_PLAYER > playerBounds.getX1()
+                && bounds.getY1() - MIN_GAP_FROM_PLAYER < playerBounds.getY2()
+                && bounds.getY2() + MIN_GAP_FROM_PLAYER > playerBounds.getY1();
+    }
+
+
+    private static Rectangle getPlayerBounds(Map map) {
+        if (map.getPlayer() != null) {
+            return map.getPlayer().getBounds();
+        }
+        Point start = map.getMapTile(PLAYER_START_TILE_X, PLAYER_START_TILE_Y).getLocation();
+        return new Rectangle(start.x, start.y, PLAYER_START_BOX_SIZE, PLAYER_START_BOX_SIZE);
     }
        
     private static boolean isTooCloseToOtherEnemies(NPC enemy, Map map, ArrayList<NPC> spawnedSoFar) {
@@ -122,10 +145,10 @@ public class EnemySpawner {
         return true;
     }
 
-    private static Point getPlayerPosition(Map map) {
-        if (map.getPlayer() != null) {
-            return new Point(map.getPlayer().getX(), map.getPlayer().getY());
-        }
-        return map.getMapTile(PLAYER_START_TILE_X, PLAYER_START_TILE_Y).getLocation();
+    private static double getDistanceToPlayer(NPC enemy, Rectangle playerBounds) {
+        Rectangle bounds = enemy.getBounds();
+        float distanceX = (bounds.getX1() + bounds.getX2()) / 2f - (playerBounds.getX1() + playerBounds.getX2()) / 2f;
+        float distanceY = (bounds.getY1() + bounds.getY2()) / 2f - (playerBounds.getY1() + playerBounds.getY2()) / 2f;
+        return Math.sqrt(distanceX * distanceX + distanceY * distanceY);
     }
 }
