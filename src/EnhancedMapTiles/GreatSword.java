@@ -13,7 +13,7 @@ import Utils.Point;
 
 public class GreatSword extends EnhancedMapTile {
     public GreatSword(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Sword.png"), 64, 64,0), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("GreatSword-Severed-Grace.png"), 64, 64,0), TileType.PASSABLE);
     }
 
     @Override
@@ -23,7 +23,7 @@ public class GreatSword extends EnhancedMapTile {
         player.addKarma(35);
         //change this to the new sprites
         if(player instanceof Players.FallenAngel){
-            ((Players.FallenAngel) player).equipGreatSword();
+            ((Players.FallenAngel) player).equipSword();
         }
        this.setMapEntityStatus(MapEntityStatus.REMOVED);
        

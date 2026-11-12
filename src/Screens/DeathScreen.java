@@ -18,6 +18,8 @@ public class DeathScreen extends Screen {
     private final KeyLocker keyLocker = new KeyLocker();
     private BufferedImage deathImage;
     private boolean active;
+    private long deathStartTime = -1;
+    private static final long DEATH_DELAY = 400;
 
     public DeathScreen(Player player, PlayLevelScreen playLevelScreen) {
         this.player = player;
@@ -42,10 +44,17 @@ public class DeathScreen extends Screen {
     }
 
     @Override
-    public void update() {
-        if(player.getHealth() <= 0){
-            active = true;
-        }
+public void update() {
+
+    if (player.getHealth() <= 0 && deathStartTime == -1) {
+        deathStartTime = System.currentTimeMillis();
+    }
+
+    if (deathStartTime != -1 &&
+        System.currentTimeMillis() - deathStartTime >= DEATH_DELAY) {
+
+        active = true;
+    }
         
         if(!active){
             return;

@@ -45,15 +45,42 @@ public class Boss extends NPC {
     private long attackAnimationStartTime;
     private static final long AttackAnimationDuration = 300;
 
-    public Boss(int id, Point location) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("Sin-Of-Sloth-Severed-Grace.png"), 64, 64,0), "STAND_LEFT");
-        
+    public Boss(int id, Point location, int level) {
+        super(
+            id,
+            location.x,
+            location.y,
+            new SpriteSheet(
+                ImageLoader.load(getBossSprite(level)),
+                level == 1 ? 64 : 192,
+                level == 1 ? 64 : 192,
+                0
+            ),
+            "STAND_LEFT"
+        );
+
         health = MAX_HEALTH;
     }
 
-    @Override
-    public Rectangle getAttackBounds() {
-        return new Rectangle(getCalibratedXLocation(), getCalibratedYLocation(), getWidth(), getHeight());
+    private static String getBossSprite(int level) {
+        switch (level) {
+            case 1:
+                return "Sin-Of-Sloth-Severed-Grace.png";
+            case 2:
+                return "Sin-Of-Gluttony-Severed-Grace.png";
+            case 3:
+                return "Sin-Of-Lust-Severed-Grace.png";
+            case 4:
+                return "Sin-Of-Pride-Severed-Grace.png";
+            case 5:
+                return "Sin-Of-Envy-Severed-Grace.png";
+            case 6:
+                return "Sin-Of-Greed-Severed-Grace.png";   
+            case 7:
+                return "Sin-Of-Wrath-Severed-Grace.png";
+            default:
+                return "Sin-Of-Sloth-Severed-Grace.png";
+        }
     }
 
     @Override
@@ -136,18 +163,30 @@ public class Boss extends NPC {
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
-        return new HashMap<String, Frame[]>() {{
+
+        
+        boolean isSloth = spriteSheet.getSpriteWidth() == 64;
+
+        float bossScale = isSloth ? 5.0f : 1.5f;
+
+        int boundsX = isSloth ? 4 : 12;
+        int boundsY = isSloth ? 27 : 45;
+        int boundsWidth = isSloth ? 56 : 168;
+        int boundsHeight = isSloth ? 32 : 135;  
+            return new HashMap<String, Frame[]>() {{
+
             put("STAND_LEFT", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSprite(0, 0))
-                            .withScale(5)
-                            .withBounds(4, 27, 70, 32)
-                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .build()
+                new FrameBuilder(spriteSheet.getSubImage(0, 0))
+                    .withScale(bossScale)
+                    .withBounds(boundsX, boundsY, boundsWidth, boundsHeight)
+                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                    .build()
             });
+
             put("STAND_RIGHT", new Frame[] {
                    new FrameBuilder(spriteSheet.getSprite(0, 0))
                            .withScale(5)
-                           .withBounds(4, 27, 70, 32)
+                           .withBounds(4, 27, 56, 32)
                            .build()
            });
         }};

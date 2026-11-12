@@ -13,7 +13,7 @@ import Utils.Point;
 
 public class Spear extends EnhancedMapTile {
     public Spear(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Sword.png"), 64, 64,0), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Spear-Severed-Grace.png"), 64, 64,0), TileType.PASSABLE);
     }
 
     @Override
@@ -22,7 +22,7 @@ public class Spear extends EnhancedMapTile {
        if(player.intersects (this)){
         player.addKarma(25);
         if(player instanceof Players.FallenAngel){
-            ((Players.FallenAngel) player).equipSpear();
+            ((Players.FallenAngel) player).equipSword();
         }
        this.setMapEntityStatus(MapEntityStatus.REMOVED);
        

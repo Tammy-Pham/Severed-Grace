@@ -32,7 +32,7 @@ public class TestMap extends Map {
     // once every hostile enemy has been cleared off the map, spawn the boss
     if (!bossHasSpawned && allEnemiesDefeated()) {
         bossHasSpawned = true;
-        Boss boss = new Boss(5, new Point(0, 0));
+        Boss boss = new Boss(5, new Point(0, 0),1);
 
         int screenCenterX = Math.round(getCamera().getX()) + (ScreenManager.getScreenWidth() / 2);
         int screenCenterY = Math.round(getCamera().getY()) + (ScreenManager.getScreenHeight() / 2);

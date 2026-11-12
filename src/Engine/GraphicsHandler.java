@@ -1,7 +1,6 @@
 package Engine;
 
 import GameObject.ImageEffect;
-
 import java.awt.*;
 import java.awt.font.GlyphVector;
 import java.awt.geom.AffineTransform;
@@ -102,5 +101,38 @@ public class GraphicsHandler {
         g.setColor(originalColor);
         g.setStroke(originalStroke);
         g.setRenderingHints(originalHints);
+    }
+
+public void drawRedTint(
+        BufferedImage image,
+        int x, int y,
+        int width, int height,
+        ImageEffect imageEffect) {
+
+    BufferedImage tintedImage = new BufferedImage(
+            image.getWidth(),
+            image.getHeight(),
+            BufferedImage.TYPE_INT_ARGB
+    );
+
+    Graphics2D tintGraphics = tintedImage.createGraphics();
+
+    // Draw the original sprite
+    tintGraphics.drawImage(image, 0, 0, null);
+
+    // Apply red to the visible pixels
+    tintGraphics.setComposite(AlphaComposite.SrcAtop);
+    tintGraphics.setColor(new Color(255, 0, 0, 170));
+
+    tintGraphics.fillRect(
+            0, 0,
+            image.getWidth(),
+            image.getHeight()
+    );
+
+    tintGraphics.dispose();
+
+    // Preserve scaling and horizontal flipping
+    drawImage(tintedImage, x, y, width, height, imageEffect);
     }
 }

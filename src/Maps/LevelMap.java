@@ -8,7 +8,6 @@ import Screens.PlayLevelScreen;
 import Scripts.EnemySpawner;
 import Tilesets.FallenTileset;
 import Utils.Point;
-
 import java.util.ArrayList;
 
 public abstract class LevelMap extends Map {
@@ -73,7 +72,7 @@ public abstract class LevelMap extends Map {
 
         if (!bossDefeated) {
             if (boss == null && allEnemiesDefeated() && waveNumber == 2) {
-                boss = new Boss(5, getMapTile(0, 0).getLocation());
+                boss = new Boss(5, getMapTile(0, 0).getLocation(), PlayLevelScreen.getLevel());
                 int x = getEndBoundX()/2;
                 int y = getEndBoundY()/2; 
                 boss.setX(x - boss.getWidth() / 2);
