@@ -7,13 +7,13 @@ import Engine.ScreenManager;
 import EnhancedMapTiles.RNGWeaponDrop;
 import GameObject.Frame;
 import GameObject.ImageEffect;
-import GameObject.SpriteSheet;
 import GameObject.Rectangle;
+import GameObject.SpriteSheet;
 import Level.NPC;
 import Level.Player;
 import Utils.Point;
-import java.util.HashMap;
 import java.awt.Color;
+import java.util.HashMap;
 
 // This class is for the walrus NPC
 public class Boss extends NPC {
@@ -49,6 +49,11 @@ public class Boss extends NPC {
         super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("Sin-Of-Sloth-Severed-Grace.png"), 64, 64,0), "STAND_LEFT");
         
         health = MAX_HEALTH;
+    }
+
+    @Override
+    public Rectangle getAttackBounds() {
+        return new Rectangle(getCalibratedXLocation(), getCalibratedYLocation(), getWidth(), getHeight());
     }
 
     @Override
@@ -135,14 +140,14 @@ public class Boss extends NPC {
             put("STAND_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
                             .withScale(5)
-                            .withBounds(4, 27, 56, 32)
+                            .withBounds(4, 27, 70, 32)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .build()
             });
             put("STAND_RIGHT", new Frame[] {
                    new FrameBuilder(spriteSheet.getSprite(0, 0))
                            .withScale(5)
-                           .withBounds(4, 27, 56, 32)
+                           .withBounds(4, 27, 70, 32)
                            .build()
            });
         }};
