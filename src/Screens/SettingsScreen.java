@@ -40,7 +40,6 @@ public class SettingsScreen extends Screen {
         title = new SpriteFont("Settings", 15, 7, "Times New Roman", 30, Color.white);
         movementLabel = new SpriteFont("Movement: W - Foward, S - Down, A - Left, S - Right, E - Roll", 130, 121, "Times New Roman", 20, Color.white);
         dialogueLabel = new SpriteFont("Skip Dialoge - Space Bar", 130, 151, "Times New Roman", 20, Color.white);
-        //logobyLabel = new SpriteFont("Logo Art by Ali", 130, 181, "Times New Roman", 20, Color.white);
         returnInstructions = new SpriteFont("Press Space to return to the menu", 20, 532, "Times New Roman", 30, Color.white);
         keyLocker.lockKey(Key.SPACE);
     }

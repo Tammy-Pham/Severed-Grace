@@ -37,9 +37,14 @@ public abstract class Player extends GameObject {
     protected Key MOVE_UP_KEY = Key.W;
     protected Key MOVE_DOWN_KEY = Key.S;
     protected Key INTERACT_KEY = Key.SPACE;
+    protected Key ROLL_KEY = Key.E;
 
     protected boolean isLocked = false;
     protected boolean leftClickLocked = false;
+    private static final long ROLL_INVULNERABILITY_DURATION_MS = 5000;
+    private static final long ROLL_COOLDOWN_MS = 10000;
+    private long rollInvulnerableUntil;
+    private long nextRollAvailableAt;
     
     protected int attackCooldownCounter = 0;
     protected static final int cooldownTime = 30;
@@ -75,6 +80,7 @@ protected boolean damageDealtThisAttack = false;
 
     public void update() {
         if (!isLocked) {
+            updateRoll();
             moveAmountX = 0;
             moveAmountY = 0;
 
@@ -343,6 +349,24 @@ protected boolean damageDealtThisAttack = false;
         if (Keyboard.isKeyUp(INTERACT_KEY) && !isLocked) {
             keyLocker.unlockKey(INTERACT_KEY);
         }
+        if (Keyboard.isKeyUp(ROLL_KEY)) {
+            keyLocker.unlockKey(ROLL_KEY);
+        }
+    }
+
+    private void updateRoll() {
+        if (Keyboard.isKeyDown(ROLL_KEY) && !keyLocker.isKeyLocked(ROLL_KEY)) {
+            keyLocker.lockKey(ROLL_KEY);
+            long currentTime = System.currentTimeMillis();
+            if (currentTime >= nextRollAvailableAt && !isRolling()) {
+                rollInvulnerableUntil = currentTime + ROLL_INVULNERABILITY_DURATION_MS;
+                nextRollAvailableAt = currentTime + ROLL_COOLDOWN_MS;
+            }
+        }
+    }
+
+    protected boolean isRolling() {
+        return System.currentTimeMillis() < rollInvulnerableUntil;
     }
 
     // anything extra the player should do based on interactions can be handled here
@@ -441,7 +465,7 @@ protected boolean damageDealtThisAttack = false;
 
     public void takeDamage(int amount) {
 
-        if (health <= 0 || amount <= 0) {
+        if (health <= 0 || amount <= 0 || isRolling()) {
             return;
         }
 

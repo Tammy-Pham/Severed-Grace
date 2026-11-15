@@ -78,7 +78,15 @@ public class FallenAngel extends Player {
          hasScythe = true;
         }
 
+        //playtesting no damage
+        private static final boolean INVINCIBLE_FOR_TESTING = false;
 
+        @Override
+        public void takeDamage(int amount) {
+                if (!INVINCIBLE_FOR_TESTING) {
+                super.takeDamage(amount);
+                }
+        }
 
 
     public FallenAngel(float x, float y) {

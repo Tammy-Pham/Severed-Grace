@@ -72,15 +72,6 @@ public class RNGWeaponDrop extends EnhancedMapTile {
         }
     }
 
-<<<<<<< HEAD
-    @Override 
-  protected GameObject loadBottomLayer(SpriteSheet spriteSheet) {
-        Frame frame = new FrameBuilder(spriteSheet.getSubImage(0, 0))
-            .withScale(2)
-            .withBounds(0,0, 45,35)
-            .build();
-    return new GameObject(x, y, frame);
-=======
     // Plays the chest opening animation
     private void startOpeningAnimation() {
 
@@ -118,7 +109,6 @@ public class RNGWeaponDrop extends EnhancedMapTile {
 
         // Begin playing it
         bottomLayer.setCurrentAnimationName("OPEN");
->>>>>>> 6c66b7b1f94d68ff807da481bb45e199c4ccfeb5
     }
 
     // Spawns one random weapon after opening
