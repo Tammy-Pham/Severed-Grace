@@ -52,7 +52,7 @@ public class LevelSixMap extends LevelMap {
         npcs.add(turret);
     */
         // Spawn 9 melee enemies
-        npcs.addAll(EnemySpawner.spawnEnemies(9, 0));
+        npcs.addAll(EnemySpawner.spawnEnemies(this, 9, 0));
         return npcs;
     } 
 

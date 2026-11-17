@@ -2,6 +2,7 @@ package Screens;
 
 import Engine.GraphicsHandler;
 import Engine.Screen;
+import Engine.MusicPlayer;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.*;
@@ -40,7 +41,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
         loadCutsceneMap(currentLevel);
         deathScreen = new DeathScreen(player, this);
         deathScreen.initialize();
-        healthBar = new HealthBar(10, 0, 2);
+        healthBar = new HealthBar(10,-45, 3);
         winScreen = new WinScreen(this);
     }
 
@@ -71,6 +72,8 @@ public class PlayLevelScreen extends Screen implements GameListener {
     }
 
     private void loadCutsceneMap(int level) {
+        MusicPlayer.play("Music-Level" + (level + 1) + ".wav");
+
         loadLevel(createSceneMap(level), false);
         if (map.getTriggers().isEmpty() || map.getTriggers().get(0).getTriggerScript() == null) {
             throw new IllegalStateException("Cutscene map for level " + (level + 1) + " has no cutscene trigger");
@@ -168,10 +171,10 @@ public class PlayLevelScreen extends Screen implements GameListener {
             case RUNNING:
                 map.draw(player, graphicsHandler);
                 //To see player hitbox (comment out when u don't want to see)
-                player.drawBounds(graphicsHandler, new java.awt.Color(255, 0, 0, 70));
+               //player.drawBounds(graphicsHandler, new java.awt.Color(255, 0, 0, 70));
                 //To see npc/enemy/boss hitbox (comment out when u don't want to see)
                 for (NPC npc : map.getActiveNPCs()) {
-                    npc.drawBounds(graphicsHandler, java.awt.Color.RED);
+                    npc.drawBounds(graphicsHandler, new java.awt.Color(255,0,0,70));
                 }
                 healthBar.draw(graphicsHandler, player.getHealth());
                 break;
@@ -203,6 +206,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
     }
 
     public void goBackToMenu() {
+        currentLevel = 0;
         screenCoordinator.setGameState(GameState.MENU);
     }
 

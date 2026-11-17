@@ -53,7 +53,7 @@ public class LevelThreeMap extends LevelMap {
 */
         // Spawn 4 enemies (randomized)
         int meleeCount = (int)(Math.random() * 3 + 1);
-        npcs.addAll(EnemySpawner.spawnEnemies(meleeCount, 4 - meleeCount));
+        npcs.addAll(EnemySpawner.spawnEnemies(this, meleeCount, 4 - meleeCount));
         return npcs;
     } 
 

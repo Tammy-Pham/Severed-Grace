@@ -113,6 +113,13 @@ public class FallenTileset extends Tileset {
                 .withTileType(TileType.NOT_PASSABLE);
         mapTiles.add(blackTile);
 
+        Frame stoneFrame = new FrameBuilder(getSubImage(10,0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder stoneTile = new MapTileBuilder(stoneFrame)
+                .withTileType(TileType.PASSABLE);
+        mapTiles.add(stoneTile);
 
         return mapTiles;
     }

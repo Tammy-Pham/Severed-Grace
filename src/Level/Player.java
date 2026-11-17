@@ -45,9 +45,14 @@ public abstract class Player extends GameObject {
     protected Key MOVE_UP_KEY = Key.W;
     protected Key MOVE_DOWN_KEY = Key.S;
     protected Key INTERACT_KEY = Key.SPACE;
+    protected Key ROLL_KEY = Key.E;
 
     protected boolean isLocked = false;
     protected boolean leftClickLocked = false;
+    private static final long ROLL_INVULNERABILITY_DURATION_MS = 5000;
+    private static final long ROLL_COOLDOWN_MS = 10000;
+    private long rollInvulnerableUntil;
+    private long nextRollAvailableAt;
     
     protected int attackCooldownCounter = 0;
     protected static final int cooldownTime = 30;
@@ -138,6 +143,7 @@ protected boolean damageDealtThisAttack = false;
 
     public void update() {
         if (!isLocked) {
+            updateRoll();
             moveAmountX = 0;
             moveAmountY = 0;
 
@@ -374,7 +380,7 @@ protected boolean damageDealtThisAttack = false;
         int mouseY = Mouse.getMouseY();
 
     for (NPC npc : map.getActiveNPCs()) {
-        Rectangle npcBounds = npc.getCalibratedBounds();
+        Rectangle npcBounds = npc.getAttackBounds();
 
         boolean mouseInsideNpc = mouseX >= npcBounds.getX1() && mouseX <= npcBounds.getX2()
                 && mouseY >= npcBounds.getY1() && mouseY <= npcBounds.getY2();
@@ -392,16 +398,14 @@ protected boolean damageDealtThisAttack = false;
 }
 
     protected boolean isWithinHitRange(NPC npc) {
-        int distanceX = Math.abs(Math.round(getX()) - Math.round(npc.getX()));
-        int distanceY = Math.abs(Math.round(getY()) - Math.round(npc.getY()));
-        System.out.println("distanceX=" + distanceX + " distanceY=" + distanceY + " HIT_RANGE=" + HIT_RANGE);
-        if (distanceX > HIT_RANGE) {
-            return false;
-        }
-        if (distanceY > HIT_RANGE) {
-            return false;
-        }
-            return true;
+        Rectangle attackBounds = npc.getAttackBounds();
+        float playerX = getCalibratedXLocation();
+        float playerY = getCalibratedYLocation();
+        float closestX = Math.max(attackBounds.getX1(), Math.min(playerX, attackBounds.getX2()));
+        float closestY = Math.max(attackBounds.getY1(), Math.min(playerY, attackBounds.getY2()));
+
+        return Math.abs(playerX - closestX) <= HIT_RANGE
+                && Math.abs(playerY - closestY) <= HIT_RANGE;
     }
 
 
@@ -409,6 +413,24 @@ protected boolean damageDealtThisAttack = false;
         if (Keyboard.isKeyUp(INTERACT_KEY) && !isLocked) {
             keyLocker.unlockKey(INTERACT_KEY);
         }
+        if (Keyboard.isKeyUp(ROLL_KEY)) {
+            keyLocker.unlockKey(ROLL_KEY);
+        }
+    }
+
+    private void updateRoll() {
+        if (Keyboard.isKeyDown(ROLL_KEY) && !keyLocker.isKeyLocked(ROLL_KEY)) {
+            keyLocker.lockKey(ROLL_KEY);
+            long currentTime = System.currentTimeMillis();
+            if (currentTime >= nextRollAvailableAt && !isRolling()) {
+                rollInvulnerableUntil = currentTime + ROLL_INVULNERABILITY_DURATION_MS;
+                nextRollAvailableAt = currentTime + ROLL_COOLDOWN_MS;
+            }
+        }
+    }
+
+    protected boolean isRolling() {
+        return System.currentTimeMillis() < rollInvulnerableUntil;
     }
 
     protected void handlePlayerAbility(){
@@ -726,13 +748,37 @@ protected boolean damageDealtThisAttack = false;
                 getBounds().getWidth() + (interactionRange * 2),
                 getBounds().getHeight() + (interactionRange * 2));
     }
+
+
     public int getHealth() {
-        return health;
+            return health;
     }
-    public void takeDamage(int amount){
-        health = health - amount;
-        if (health < 0) {
+
+    public void takeDamage(int amount) {
+
+        if (health <= 0 || amount <= 0 || isRolling()) {
+            return;
+        }
+
+        health -= amount;
+
+        if (health <= 0) {
             health = 0;
+
+            if (map != null) {
+                float effectSize = 128;
+
+                float effectX = getX()
+                    + (getWidth() - effectSize) / 2;
+
+                float effectY = getY()
+                    + (getHeight() - effectSize) / 2;
+
+                map.addDeathEffect(effectX, effectY);
+            }
+        }
+        else {
+            startDamageFlash();
         }
     }
 

@@ -5,7 +5,6 @@ import Level.*;
 import Utils.Direction;
 import Utils.ImageUtils;
 import Utils.MathUtils;
-
 import java.awt.*;
 import java.util.HashMap;
 
@@ -35,6 +34,11 @@ public class GameObject extends AnimatedSprite {
 	protected Map map;
 
 	protected boolean affectedByTriggers = false;
+	//stuff for flashing red when taking damage
+	protected long damageFlashStartTime = 0;
+	protected static final long DAMAGE_FLASH_DURATION = 150;
+
+	protected boolean isFlashingRed = false;
 
 	public GameObject(SpriteSheet spriteSheet, float x, float y, String startingAnimation) {
 		super(spriteSheet, x, y, startingAnimation);
@@ -295,17 +299,41 @@ public class GameObject extends AnimatedSprite {
 
 	@Override
 	public void draw(GraphicsHandler graphicsHandler) {
+
+		int drawX;
+		int drawY;
+
+		// Determine sprite position relative to camera
 		if (map != null) {
-			graphicsHandler.drawImage(
+			drawX = Math.round(getCalibratedXLocation());
+			drawY = Math.round(getCalibratedYLocation());
+		} else {
+			drawX = Math.round(currentFrame.getX());
+			drawY = Math.round(currentFrame.getY());
+		}
+
+		// Check whether the character should flash red
+		if (isDamageFlashing()) {
+
+			graphicsHandler.drawRedTint(
 				currentFrame.getImage(),
-				Math.round(getCalibratedXLocation()),
-				Math.round(getCalibratedYLocation()),
+				drawX,
+				drawY,
 				currentFrame.getWidth(),
 				currentFrame.getHeight(),
 				currentFrame.getImageEffect()
 			);
+
 		} else {
-			super.draw(graphicsHandler);
+
+			graphicsHandler.drawImage(
+				currentFrame.getImage(),
+				drawX,
+				drawY,
+				currentFrame.getWidth(),
+				currentFrame.getHeight(),
+				currentFrame.getImageEffect()
+			);
 		}
 	}
 
@@ -319,4 +347,23 @@ public class GameObject extends AnimatedSprite {
 			super.drawBounds(graphicsHandler, color);
 		}
 	}
+
+	public void startDamageFlash() {
+    damageFlashStartTime = System.currentTimeMillis();
+    isFlashingRed = true;
+}
+
+public boolean isDamageFlashing() {
+    if (!isFlashingRed) {
+        return false;
+    }
+
+    if (System.currentTimeMillis() - damageFlashStartTime
+            >= DAMAGE_FLASH_DURATION) {
+
+        isFlashingRed = false;
+    }
+
+    return isFlashingRed;
+}
 }

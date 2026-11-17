@@ -19,6 +19,7 @@ public class MenuScreen extends Screen {
     protected SpriteFont playGame;
     //protected SpriteFont leaderboard;
     protected SpriteFont credits;
+    protected SpriteFont settings;
     //protected Map background;
     protected int keyPressTimer;
     //protected int pointerLocationX, pointerLocationY;
@@ -50,11 +51,17 @@ public class MenuScreen extends Screen {
         credits = new SpriteFont("CREDITS", 293, 310, "Times New Roman", 30, new Color(49, 207, 240));
         credits.setOutlineColor(Color.black);
         credits.setOutlineThickness(3);
+
+        settings = new SpriteFont("SETTINGS", 283, 370, "Times New Roman", 30, new Color(49,207,240));
+        settings.setOutlineColor(Color.black);
+        settings.setOutlineThickness(3);
         //background = new TitleScreenMap();
         //background.setAdjustCamera(false);
         keyPressTimer = 0;
         menuItemSelected = -1;
         keyLocker.lockKey(Key.SPACE);
+
+        MusicPlayer.play("Music-Menu.wav");
     }
 
     public void update() {
@@ -75,7 +82,7 @@ public class MenuScreen extends Screen {
         }
 
         // if down is pressed on last menu item or up is pressed on first menu item, "loop" the selection back around to the beginning/end
-        if (currentMenuItemHovered > 1) {
+        if (currentMenuItemHovered > 2) {
             currentMenuItemHovered = 0;
         } else if (currentMenuItemHovered < 0) {
             currentMenuItemHovered = 2;
@@ -91,17 +98,18 @@ public class MenuScreen extends Screen {
         playGame.setColor(unselectedColor);
        // leaderboard.setColor(unselectedColor);
         credits.setColor(unselectedColor);
+        settings.setColor(unselectedColor);
 
         switch(currentMenuItemHovered)
         {
             case 0:
                 playGame.setColor(selectedColor);
                 break;
-            /*case 1:
-                leaderboard.setColor(selectedColor);
-                break; */
             case 1:
                 credits.setColor(selectedColor);
+                break; 
+            case 2:
+                settings.setColor(selectedColor);
                 break;
         }
 
@@ -131,10 +139,10 @@ public class MenuScreen extends Screen {
             menuItemSelected = currentMenuItemHovered;
             if (menuItemSelected == 0) {
                 screenCoordinator.setGameState(GameState.LEVEL);
-            } /*else if (menuItemSelected == 1) {
-                screenCoordinator.setGameState(GameState.LEADERBOARD); */
-            else if (menuItemSelected == 1) {
-                screenCoordinator.setGameState(GameState.CREDITS);
+            }else if (menuItemSelected == 1) {
+                screenCoordinator.setGameState(GameState.CREDITS); 
+            }else if (menuItemSelected == 2) {
+                screenCoordinator.setGameState(GameState.SETTINGS);
             }
         }
     }
@@ -149,6 +157,7 @@ public class MenuScreen extends Screen {
         playGame.draw(graphicsHandler);
         /*leaderboard.draw(graphicsHandler); */
         credits.draw(graphicsHandler);
+        settings.draw(graphicsHandler);
        // graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 20, 20, new Color(49, 207, 240), Color.black, 2);
     }
 }

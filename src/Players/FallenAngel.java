@@ -52,7 +52,7 @@ public class FallenAngel extends Player {
 
         public void equipAxe() {
                 if (hasBattleAxe) return;
-                attackDamage = 75; // Set the attack damage to 35 when the axe is equipped
+                attackDamage = 75; 
                 SpriteSheet axeSheet = new SpriteSheet(
                 ImageLoader.load("Main-Character-Full-Ax-SpriteSheet-Severed-Grace.png"),
                 64, 64, 0
@@ -78,7 +78,15 @@ public class FallenAngel extends Player {
          hasScythe = true;
         }
 
+        //playtesting no damage
+        private static final boolean INVINCIBLE_FOR_TESTING = false;
 
+        @Override
+        public void takeDamage(int amount) {
+                if (!INVINCIBLE_FOR_TESTING) {
+                super.takeDamage(amount);
+                }
+        }
 
 
     public FallenAngel(float x, float y) {

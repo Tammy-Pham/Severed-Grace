@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-// This class is for the credits screen
+
 public class CreditsScreen extends Screen {
     protected ScreenCoordinator screenCoordinator;
     protected Map background;
@@ -45,7 +45,7 @@ public class CreditsScreen extends Screen {
 
         creditsLabel = new SpriteFont("Credits", 15, 7, "Times New Roman", 30, Color.white);
         legacybyLabel = new SpriteFont("Legacy Code by Alex Thimineur", 130, 121, "Times New Roman", 20, Color.white);
-        createdByLabel = new SpriteFont("Made by Parker, Alyssa, Reyhan, Tammy, and Jon", 130, 151, "Times New Roman", 20, Color.white);
+        createdByLabel = new SpriteFont("Made by Parker, Alyssa, Reyhan, and Tammy", 130, 151, "Times New Roman", 20, Color.white);
         logobyLabel = new SpriteFont("Logo Art by Ali", 130, 181, "Times New Roman", 20, Color.white);
 
 
