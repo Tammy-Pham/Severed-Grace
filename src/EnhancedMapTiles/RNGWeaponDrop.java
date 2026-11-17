@@ -4,6 +4,7 @@ package EnhancedMapTiles;
 import Builders.FrameBuilder;
 import Engine.ImageLoader;
 import Engine.Mouse;
+import Engine.SoundPlayer;   
 import GameObject.Frame;
 import GameObject.GameObject;
 import GameObject.SpriteSheet;
@@ -56,6 +57,7 @@ public class RNGWeaponDrop extends EnhancedMapTile {
             player.touching(this)) {
 
             isOpening = true;
+            SoundPlayer.play("Chest-Open.wav");
             startOpeningAnimation();
             return;
         }

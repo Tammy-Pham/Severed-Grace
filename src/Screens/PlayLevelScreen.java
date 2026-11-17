@@ -2,6 +2,7 @@ package Screens;
 
 import Engine.GraphicsHandler;
 import Engine.Screen;
+import Engine.MusicPlayer;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.*;
@@ -71,6 +72,8 @@ public class PlayLevelScreen extends Screen implements GameListener {
     }
 
     private void loadCutsceneMap(int level) {
+        MusicPlayer.play("Music-Level" + (level + 1) + ".wav");
+
         loadLevel(createSceneMap(level), false);
         if (map.getTriggers().isEmpty() || map.getTriggers().get(0).getTriggerScript() == null) {
             throw new IllegalStateException("Cutscene map for level " + (level + 1) + " has no cutscene trigger");
@@ -200,6 +203,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
     }
 
     public void goBackToMenu() {
+        currentLevel = 0;
         screenCoordinator.setGameState(GameState.MENU);
     }
 

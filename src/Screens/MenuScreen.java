@@ -60,6 +60,8 @@ public class MenuScreen extends Screen {
         keyPressTimer = 0;
         menuItemSelected = -1;
         keyLocker.lockKey(Key.SPACE);
+
+        MusicPlayer.play("Music-Menu.wav");
     }
 
     public void update() {
