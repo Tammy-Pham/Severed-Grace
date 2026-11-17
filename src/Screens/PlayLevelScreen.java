@@ -91,6 +91,9 @@ public class PlayLevelScreen extends Screen implements GameListener {
         }
         player.setMap(map);
         map.setPlayer(player);
+        if (showTransition) {
+            player.enterFloor(currentLevel + 1);
+        }
 
         map.getTextbox().setInteractKey(player.getInteractKey());
         map.addListener(this);
