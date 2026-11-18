@@ -184,12 +184,11 @@ public class Boss extends NPC {
             });
 
             put("STAND_RIGHT", new Frame[] {
-                new FrameBuilder(spriteSheet.getSubImage(0, 0))
-                    .withScale(bossScale)
-                    .withBounds(boundsX, boundsY, boundsWidth, boundsHeight)
-                    .build()
-            });
-
+                   new FrameBuilder(spriteSheet.getSprite(0, 0))
+                           .withScale(5)
+                           .withBounds(4, 27, 56, 32)
+                           .build()
+           });
         }};
     }
 

@@ -165,11 +165,11 @@ public class PlayLevelScreen extends Screen implements GameListener {
             case RUNNING:
                 map.draw(player, graphicsHandler);
                 //To see player hitbox (comment out when u don't want to see)
-                //player.drawBounds(graphicsHandler, new java.awt.Color(255, 0, 0, 70));
+               // player.drawBounds(graphicsHandler, new java.awt.Color(255, 0, 0, 70));
                 //To see npc/enemy/boss hitbox (comment out when u don't want to see)
                 //for (NPC npc : map.getActiveNPCs()) {
                  //   npc.drawBounds(graphicsHandler, java.awt.Color.RED);
-               // }
+                //}
                 healthBar.draw(graphicsHandler, player.getHealth());
                 break;
             case CUTSCENE:

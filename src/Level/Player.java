@@ -310,7 +310,7 @@ protected boolean damageDealtThisAttack = false;
         int mouseY = Mouse.getMouseY();
 
     for (NPC npc : map.getActiveNPCs()) {
-        Rectangle npcBounds = npc.getCalibratedBounds();
+        Rectangle npcBounds = npc.getAttackBounds();
 
         boolean mouseInsideNpc = mouseX >= npcBounds.getX1() && mouseX <= npcBounds.getX2()
                 && mouseY >= npcBounds.getY1() && mouseY <= npcBounds.getY2();
@@ -328,16 +328,14 @@ protected boolean damageDealtThisAttack = false;
 }
 
     protected boolean isWithinHitRange(NPC npc) {
-        int distanceX = Math.abs(Math.round(getX()) - Math.round(npc.getX()));
-        int distanceY = Math.abs(Math.round(getY()) - Math.round(npc.getY()));
-        System.out.println("distanceX=" + distanceX + " distanceY=" + distanceY + " HIT_RANGE=" + HIT_RANGE);
-        if (distanceX > HIT_RANGE) {
-            return false;
-        }
-        if (distanceY > HIT_RANGE) {
-            return false;
-        }
-            return true;
+        Rectangle attackBounds = npc.getAttackBounds();
+        float playerX = getCalibratedXLocation();
+        float playerY = getCalibratedYLocation();
+        float closestX = Math.max(attackBounds.getX1(), Math.min(playerX, attackBounds.getX2()));
+        float closestY = Math.max(attackBounds.getY1(), Math.min(playerY, attackBounds.getY2()));
+
+        return Math.abs(playerX - closestX) <= HIT_RANGE
+                && Math.abs(playerY - closestY) <= HIT_RANGE;
     }
 
 

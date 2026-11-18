@@ -3,6 +3,7 @@ package Level;
 import Engine.GraphicsHandler;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
+import GameObject.Rectangle;
 import Utils.Direction;
 import java.util.HashMap;
 
@@ -42,6 +43,11 @@ public class NPC extends MapEntity {
     public int getHealth() {
         return health; 
     }
+
+    public Rectangle getAttackBounds() {
+        return getCalibratedBounds();
+    }
+
     public void setHealth(int health) {
         this.health = health;
     }
