@@ -46,21 +46,19 @@ public class Boss extends NPC {
     private static final long AttackAnimationDuration = 300;
 
     public Boss(int id, Point location, int level) {
-        super(
-            id,
-            location.x,
-            location.y,
-            new SpriteSheet(
-                ImageLoader.load(getBossSprite(level)),
-                level == 1 ? 64 : 192,
-                level == 1 ? 64 : 192,
-                0
-            ),
-            "STAND_LEFT"
-        );
+    super(
+        id,
+        location.x,
+        location.y,
+        new SpriteSheet(
+            ImageLoader.load(getBossSprite(level)),
+            192, 192, 0
+        ),
+        "STAND_LEFT"
+    );
 
-        health = MAX_HEALTH;
-    }
+    health = MAX_HEALTH;
+}
 
     private static String getBossSprite(int level) {
         switch (level) {
@@ -161,36 +159,36 @@ public class Boss extends NPC {
     }
 
 
-    @Override
-    public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
+   @Override
+public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
 
-        
-        boolean isSloth = spriteSheet.getSpriteWidth() == 64;
+    float bossScale = 1.5f;
 
-        float bossScale = isSloth ? 5.0f : 1.5f;
+    // Hitbox dimensions
+    int boundsX = 12;
+    int boundsY = 45;
+    int boundsWidth = 168;
+    int boundsHeight = 135;
 
-        int boundsX = isSloth ? 4 : 12;
-        int boundsY = isSloth ? 27 : 45;
-        int boundsWidth = isSloth ? 56 : 168;
-        int boundsHeight = isSloth ? 32 : 135;  
-            return new HashMap<String, Frame[]>() {{
+    return new HashMap<String, Frame[]>() {{
 
-            put("STAND_LEFT", new Frame[] {
-                new FrameBuilder(spriteSheet.getSubImage(0, 0))
-                    .withScale(bossScale)
-                    .withBounds(boundsX, boundsY, boundsWidth, boundsHeight)
-                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                    .build()
-            });
+        put("STAND_LEFT", new Frame[] {
+            new FrameBuilder(spriteSheet.getSubImage(0, 0))
+                .withScale(bossScale)
+                .withBounds(boundsX, boundsY, boundsWidth, boundsHeight)
+                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                .build()
+        });
 
-            put("STAND_RIGHT", new Frame[] {
-                   new FrameBuilder(spriteSheet.getSprite(0, 0))
-                           .withScale(5)
-                           .withBounds(4, 27, 56, 32)
-                           .build()
-           });
-        }};
-    }
+        put("STAND_RIGHT", new Frame[] {
+            new FrameBuilder(spriteSheet.getSubImage(0, 0))
+                .withScale(bossScale)
+                .withBounds(boundsX, boundsY, boundsWidth, boundsHeight)
+                .build()
+        });
+
+    }};
+}
 
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
