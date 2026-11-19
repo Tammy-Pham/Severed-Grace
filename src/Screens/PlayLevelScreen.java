@@ -2,6 +2,7 @@ package Screens;
 
 import Engine.GraphicsHandler;
 import Engine.Screen;
+import Engine.MusicPlayer;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.*;
@@ -71,6 +72,8 @@ public class PlayLevelScreen extends Screen implements GameListener {
     }
 
     private void loadCutsceneMap(int level) {
+        MusicPlayer.play("Music-Level" + (level + 1) + ".wav");
+
         loadLevel(createSceneMap(level), false);
         if (map.getTriggers().isEmpty() || map.getTriggers().get(0).getTriggerScript() == null) {
             throw new IllegalStateException("Cutscene map for level " + (level + 1) + " has no cutscene trigger");
@@ -91,6 +94,9 @@ public class PlayLevelScreen extends Screen implements GameListener {
         }
         player.setMap(map);
         map.setPlayer(player);
+        if (showTransition) {
+            player.enterFloor(currentLevel + 1);
+        }
 
         map.getTextbox().setInteractKey(player.getInteractKey());
         map.addListener(this);
@@ -165,11 +171,11 @@ public class PlayLevelScreen extends Screen implements GameListener {
             case RUNNING:
                 map.draw(player, graphicsHandler);
                 //To see player hitbox (comment out when u don't want to see)
-               // player.drawBounds(graphicsHandler, new java.awt.Color(255, 0, 0, 70));
+               //player.drawBounds(graphicsHandler, new java.awt.Color(255, 0, 0, 70));
                 //To see npc/enemy/boss hitbox (comment out when u don't want to see)
-                //for (NPC npc : map.getActiveNPCs()) {
-                 //   npc.drawBounds(graphicsHandler, java.awt.Color.RED);
-                //}
+                for (NPC npc : map.getActiveNPCs()) {
+                    npc.drawBounds(graphicsHandler, new java.awt.Color(255,0,0,70));
+                }
                 healthBar.draw(graphicsHandler, player.getHealth());
                 break;
             case CUTSCENE:
@@ -200,6 +206,7 @@ public class PlayLevelScreen extends Screen implements GameListener {
     }
 
     public void goBackToMenu() {
+        currentLevel = 0;
         screenCoordinator.setGameState(GameState.MENU);
     }
 

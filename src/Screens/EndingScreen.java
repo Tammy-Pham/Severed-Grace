@@ -5,6 +5,7 @@ import Engine.GraphicsHandler;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
+import Engine.MusicPlayer;
 import Engine.Screen;
 import Level.Player;
 import java.awt.image.BufferedImage;
@@ -28,7 +29,9 @@ public class EndingScreen extends Screen {
         String imagePath = player.getKarma() < 0 ? "HellEnd.png"
             : player.getKarma() > 0 ? "HeavenEnd.png"
             : "JoeEnd.png";
-
+        MusicPlayer.play(player.getKarma() < 0 ? "Music-Ending-Hell.wav"
+            : player.getKarma() > 0 ? "Music-Ending-Heaven.wav"
+            : "Music-Menu.wav");
         try {
             endingImage = ImageIO.read(new File(Config.RESOURCES_PATH + imagePath));
         } catch (IOException e) {
