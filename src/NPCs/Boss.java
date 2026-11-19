@@ -13,6 +13,7 @@ import Level.NPC;
 import Level.Player;
 import Utils.Point;
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 
 // This class is for the walrus NPC
@@ -30,7 +31,10 @@ public class Boss extends NPC {
     private static final int HEALTH_STEP = 10;         
     private static final int HEALTH_BAR_WIDTH = 200;
     private static final int HEALTH_BAR_HEIGHT = 14;
+    private static final int MIN_HEALTH_BAR_WIDTH = 100;
     private static final int HEALTH_BAR_GAP = 10; 
+
+    private final HashMap<BufferedImage, java.awt.Rectangle> visibleAreaCache = new HashMap<>();
 
     private static final Color HEALTH_BAR_FILL = new Color(200, 30, 30);
     private static final Color HEALTH_BAR_EMPTY = new Color(50, 50, 50);
@@ -46,21 +50,19 @@ public class Boss extends NPC {
     private static final long AttackAnimationDuration = 300;
 
     public Boss(int id, Point location, int level) {
-        super(
-            id,
-            location.x,
-            location.y,
-            new SpriteSheet(
-                ImageLoader.load(getBossSprite(level)),
-                level == 1 ? 64 : 192,
-                level == 1 ? 64 : 192,
-                0
-            ),
-            "STAND_LEFT"
-        );
+    super(
+        id,
+        location.x,
+        location.y,
+        new SpriteSheet(
+            ImageLoader.load(getBossSprite(level)),
+            192, 192, 0
+        ),
+        "STAND_LEFT"
+    );
 
-        health = MAX_HEALTH;
-    }
+    health = MAX_HEALTH;
+}
 
     private static String getBossSprite(int level) {
         switch (level) {
@@ -161,36 +163,36 @@ public class Boss extends NPC {
     }
 
 
-    @Override
-    public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
+   @Override
+public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
 
-        
-        boolean isSloth = spriteSheet.getSpriteWidth() == 64;
+    float bossScale = 1.5f;
 
-        float bossScale = isSloth ? 5.0f : 1.5f;
+    // Hitbox dimensions
+    int boundsX = 12;
+    int boundsY = 45;
+    int boundsWidth = 168;
+    int boundsHeight = 135;
 
-        int boundsX = isSloth ? 4 : 12;
-        int boundsY = isSloth ? 27 : 45;
-        int boundsWidth = isSloth ? 56 : 168;
-        int boundsHeight = isSloth ? 32 : 135;  
-            return new HashMap<String, Frame[]>() {{
+    return new HashMap<String, Frame[]>() {{
 
-            put("STAND_LEFT", new Frame[] {
-                new FrameBuilder(spriteSheet.getSubImage(0, 0))
-                    .withScale(bossScale)
-                    .withBounds(boundsX, boundsY, boundsWidth, boundsHeight)
-                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                    .build()
-            });
+        put("STAND_LEFT", new Frame[] {
+            new FrameBuilder(spriteSheet.getSubImage(0, 0))
+                .withScale(bossScale)
+                .withBounds(boundsX, boundsY, boundsWidth, boundsHeight)
+                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                .build()
+        });
 
-            put("STAND_RIGHT", new Frame[] {
-                   new FrameBuilder(spriteSheet.getSprite(0, 0))
-                           .withScale(5)
-                           .withBounds(4, 27, 56, 32)
-                           .build()
-           });
-        }};
-    }
+        put("STAND_RIGHT", new Frame[] {
+            new FrameBuilder(spriteSheet.getSubImage(0, 0))
+                .withScale(bossScale)
+                .withBounds(boundsX, boundsY, boundsWidth, boundsHeight)
+                .build()
+        });
+
+    }};
+}
 
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
@@ -201,20 +203,58 @@ public class Boss extends NPC {
         return ((getHealth() + HEALTH_STEP - 1) / HEALTH_STEP) * HEALTH_STEP;
     }
 
-    private void drawHealthBar(GraphicsHandler graphicsHandler) {
+        private void drawHealthBar(GraphicsHandler graphicsHandler) {
         if(getHealth() < 0) {
             return;
      }
 
-        Rectangle bounds = getCalibratedBounds();
-        int barX = Math.round(bounds.getX1() + (bounds.getWidth() - HEALTH_BAR_WIDTH) / 2f);
-        int barY = Math.round(bounds.getY1()) - HEALTH_BAR_HEIGHT - HEALTH_BAR_GAP;
+        java.awt.Rectangle visible = getVisibleArea(currentFrame.getImage());
+        float scale = currentFrame.getScale();
 
-        int filledWidth = HEALTH_BAR_WIDTH * getDisplayedHealth() / MAX_HEALTH;
+        int visibleLeft = visible.x;
+        if (currentFrame.getImageEffect() == ImageEffect.FLIP_HORIZONTAL) {
+            visibleLeft = currentFrame.getImage().getWidth() - (visible.x + visible.width);
+        }
 
-        graphicsHandler.drawFilledRectangle(barX, barY, HEALTH_BAR_WIDTH, HEALTH_BAR_HEIGHT, HEALTH_BAR_EMPTY);
+        float spriteLeft = getCalibratedXLocation() + visibleLeft * scale;
+        float spriteTop = getCalibratedYLocation() + visible.y * scale;
+        float spriteWidth = visible.width * scale;
+
+        int barWidth = Math.max(MIN_HEALTH_BAR_WIDTH, Math.min(HEALTH_BAR_WIDTH, Math.round(spriteWidth)));
+        int barX = Math.round(spriteLeft + (spriteWidth - barWidth) / 2f);
+        int barY = Math.round(spriteTop) - HEALTH_BAR_HEIGHT - HEALTH_BAR_GAP;
+
+        int filledWidth = barWidth * getDisplayedHealth() / MAX_HEALTH;
+
+        graphicsHandler.drawFilledRectangle(barX, barY, barWidth, HEALTH_BAR_HEIGHT, HEALTH_BAR_EMPTY);
         graphicsHandler.drawFilledRectangle(barX, barY, filledWidth, HEALTH_BAR_HEIGHT, HEALTH_BAR_FILL);
-        graphicsHandler.drawRectangle(barX, barY, HEALTH_BAR_WIDTH, HEALTH_BAR_HEIGHT, HEALTH_BAR_BORDER, 2);
+        graphicsHandler.drawRectangle(barX, barY, barWidth, HEALTH_BAR_HEIGHT, HEALTH_BAR_BORDER, 2);
     
+    }
+
+    private java.awt.Rectangle getVisibleArea(BufferedImage image) {
+        java.awt.Rectangle cached = visibleAreaCache.get(image);
+        if (cached != null) {
+            return cached;
+        }
+
+        int minX = image.getWidth(), minY = image.getHeight(), maxX = -1, maxY = -1;
+        for (int y = 0; y < image.getHeight(); y++) {
+            for (int x = 0; x < image.getWidth(); x++) {
+                int alpha = (image.getRGB(x, y) >>> 24);
+                if (alpha > 0) {
+                    if (x < minX) minX = x;
+                    if (x > maxX) maxX = x;
+                    if (y < minY) minY = y;
+                    if (y > maxY) maxY = y;
+                }
+            }
+        }
+
+        java.awt.Rectangle area = (maxX < 0)
+                ? new java.awt.Rectangle(0, 0, image.getWidth(), image.getHeight()) // fully transparent: fall back to whole frame
+                : new java.awt.Rectangle(minX, minY, maxX - minX + 1, maxY - minY + 1);
+        visibleAreaCache.put(image, area);
+        return area;
     }
 }
