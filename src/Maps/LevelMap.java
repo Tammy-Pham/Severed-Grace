@@ -17,6 +17,7 @@ public abstract class LevelMap extends Map {
     private boolean bossDefeated = false;
     private boolean levelComplete = false;
     private int waveNumber = 1;
+    private int nextWaveNotificationFrames;
 
     public LevelMap(String mapFile) {
         this(mapFile, true);
@@ -31,12 +32,16 @@ public abstract class LevelMap extends Map {
     @Override
     public void update(Player player) {
         super.update(player);
+        if (nextWaveNotificationFrames > 0) {
+            nextWaveNotificationFrames--;
+        }
         if (!combatLevel || levelComplete) return;
         
         //System.out.println("Level: " + PlayLevelScreen.getLevel());
         
         if (waveNumber == 1 && allEnemiesDefeated()) {
             waveNumber++;
+            nextWaveNotificationFrames = 120;
             int meleeCount = 0;
             switch (PlayLevelScreen.getLevel()) {
                 case 1:
@@ -68,7 +73,6 @@ public abstract class LevelMap extends Map {
                     break;
             }
         }
-        
 
         if (!bossDefeated) {
             if (boss == null && allEnemiesDefeated() && waveNumber == 2) {
@@ -92,6 +96,10 @@ public abstract class LevelMap extends Map {
                 listener.onWin();
             }
         }
+    }
+
+    public boolean isNextWaveNotificationActive() {
+        return nextWaveNotificationFrames > 0;
     }
 
     private void findExitDoors() {

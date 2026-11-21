@@ -3,12 +3,15 @@ package Screens;
 import Engine.GraphicsHandler;
 import Engine.Screen;
 import Engine.MusicPlayer;
+import Engine.ScreenManager;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.*;
 import Maps.*;
 import Players.FallenAngel;
 import Utils.Direction;
+import java.awt.Color;
+import java.awt.Font;
 
 // This class is for when the RPG game is actually being played
 public class PlayLevelScreen extends Screen implements GameListener {
@@ -177,6 +180,14 @@ public class PlayLevelScreen extends Screen implements GameListener {
                     npc.drawBounds(graphicsHandler, new java.awt.Color(255,0,0,70));
                 }
                 healthBar.draw(graphicsHandler, player.getHealth());
+                if (map instanceof LevelMap && ((LevelMap) map).isNextWaveNotificationActive()) {
+                    Font font = new Font("Arial", Font.BOLD, 36);
+                    String message = "Next Wave!";
+                    int x = (ScreenManager.getScreenWidth()
+                            - graphicsHandler.getGraphics().getFontMetrics(font).stringWidth(message)) / 2;
+                    graphicsHandler.drawStringWithOutline(message, x, 40, font,
+                            Color.white, Color.black, 3f);
+                }
                 break;
             case CUTSCENE:
                 map.draw(player, graphicsHandler);
