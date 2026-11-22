@@ -6,6 +6,7 @@ import NPCs.Enemy;
 import NPCs.RangedEnemy;
 import Screens.PlayLevelScreen;
 import Scripts.EnemySpawner;
+import Scripts.BossDialogueScript;
 import Tilesets.FallenTileset;
 import Utils.Point;
 import java.util.ArrayList;
@@ -84,6 +85,8 @@ public abstract class LevelMap extends Map {
                 addNPC(boss);
                 player.setX(boss.getX() + (boss.getWidth() - player.getWidth()) / 2);
                 player.setY(boss.getY() + boss.getHeight() + 16);
+                boss.setInteractScript(new BossDialogueScript(PlayLevelScreen.getLevel()));
+                setActiveScript(boss.getInteractScript());
             } else if (boss != null && (boss.getHealth() <= 0 || !getNPCs().contains(boss))) {
                 bossDefeated = true;
                 player.heal(player.getMaxHealth() / 3);
