@@ -754,6 +754,16 @@ protected boolean damageDealtThisAttack = false;
             return health;
     }
 
+    public int getMaxHealth() {
+        return MAX_HEALTH;
+    }
+
+    public void heal(int amount) {
+        if (amount > 0) {
+            health = Math.min(MAX_HEALTH, health + amount);
+        }
+    }
+
     public void takeDamage(int amount) {
 
         if (health <= 0 || amount <= 0 || isRolling()) {

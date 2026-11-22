@@ -86,6 +86,7 @@ public abstract class LevelMap extends Map {
                 player.setY(boss.getY() + boss.getHeight() + 16);
             } else if (boss != null && (boss.getHealth() <= 0 || !getNPCs().contains(boss))) {
                 bossDefeated = true;
+                player.heal(player.getMaxHealth() / 3);
                 openExitDoors();
             }
         }
