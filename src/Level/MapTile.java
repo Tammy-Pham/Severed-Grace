@@ -53,7 +53,9 @@ public class MapTile extends MapEntity {
     public TileType getTileType() {
         return tileType;
     }
-
+    public void setTileType(TileType tileType) {
+        this.tileType = tileType;
+    }
     public int getTileIndex() {
         return tileIndex;
     }

@@ -24,10 +24,26 @@ public abstract class LevelMap extends Map {
         this(mapFile, true);
     }
 
-    protected LevelMap(String mapFile, boolean combatLevel) {
+       protected LevelMap(String mapFile, boolean combatLevel) {
         super(mapFile, new FallenTileset());
         this.combatLevel = combatLevel;
+        makeOuterEdgeSolid();
         findExitDoors();
+    }
+
+    private void makeOuterEdgeSolid() {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                boolean onEdge = x == 0 || y == 0 || x == width - 1 || y == height - 1;
+                if (!onEdge) continue;
+                MapTile tile = getMapTile(x, y);
+                if (tile == null) continue;
+                int index = tile.getTileIndex();
+                if (index == FallenTileset.CLOSED_EXIT_DOOR_TILE_INDEX
+                        || index == FallenTileset.OPEN_EXIT_DOOR_TILE_INDEX) continue;
+                tile.setTileType(TileType.NOT_PASSABLE);
+            }
+        }
     }
 
     @Override
