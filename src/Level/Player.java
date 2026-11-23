@@ -161,10 +161,11 @@ protected boolean damageDealtThisAttack = false;
 
     }
     public void updateFacingAndAnimation() {
-    faceMouse();
-
-    handleMouseAttack();
-    handlePlayerAbility();
+    if (!isLocked) {
+        faceMouse();
+        handleMouseAttack();
+        handlePlayerAbility();
+    }
 
     handlePlayerAnimation();
 
@@ -801,6 +802,11 @@ protected boolean damageDealtThisAttack = false;
     
     public void lock() {
         isLocked = true;
+        isAttacking = false;
+        damageDealtThisAttack = false;
+        leftClickLocked = Mouse.isButtonDown(MouseEvent.BUTTON1);
+        isAimingLightning = false;
+        isAimingWallOfFire = false;
         playerState = PlayerState.STATIC;
         //this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
         this.currentAnimationName = "STATIC";

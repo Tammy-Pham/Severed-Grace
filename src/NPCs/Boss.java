@@ -125,6 +125,13 @@ public class Boss extends NPC {
         }
     }
 
+    @Override
+    public void lock() {
+        super.lock();
+        isAttacking = false;
+        isPerformingAttack = false;
+    }
+
     @Override 
     public void takeDamage(int amount) {
         super.takeDamage(amount);

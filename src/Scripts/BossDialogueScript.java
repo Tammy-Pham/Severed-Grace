@@ -3,6 +3,8 @@ package Scripts;
 import Level.Script;
 import ScriptActions.LockPlayerScriptAction;
 import ScriptActions.NPCFacePlayerScriptAction;
+import ScriptActions.NPCLockScriptAction;
+import ScriptActions.NPCUnlockScriptAction;
 import ScriptActions.ScriptAction;
 import ScriptActions.TextboxScriptAction;
 import ScriptActions.UnlockPlayerScriptAction;
@@ -67,8 +69,10 @@ public class BossDialogueScript extends Script {
 
         ArrayList<ScriptAction> actions = new ArrayList<>();
         actions.add(new LockPlayerScriptAction());
+        actions.add(new NPCLockScriptAction());
         actions.add(new NPCFacePlayerScriptAction());
         actions.add(new TextboxScriptAction(dialogue));
+        actions.add(new NPCUnlockScriptAction());
         actions.add(new UnlockPlayerScriptAction());
         return actions;
     }
