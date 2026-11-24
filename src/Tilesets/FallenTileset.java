@@ -35,7 +35,7 @@ public class FallenTileset extends Tileset {
         mapTiles.add(tile(0, wall));    // 0  brick wall
         mapTiles.add(tile(1, wall));    // 1  brick wall with moss
         mapTiles.add(tile(2, floor));   // 2  dirt floor
-        mapTiles.add(tile(3, wall));    // 3  dirt floor, impassable
+        mapTiles.add(tile(3, floor));    // 3  dirt floor, impassable
         mapTiles.add(tile(4, floor));   // 4  dirt floor, 3 rocks
         mapTiles.add(tile(5, floor));   // 5  dirt floor, 2 rocks
         mapTiles.add(tile(6, floor));   // 6  dirt floor, 1 rock
